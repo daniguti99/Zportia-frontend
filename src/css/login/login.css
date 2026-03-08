@@ -1,0 +1,152 @@
+/* Página completa */
+.login-page {
+  width: 100%;
+  height: 100vh;
+  background: #ffffff; /* fondo blanco */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #000000; /* texto negro */
+}
+
+/* Contenedor 50/50 */
+.login-container {
+  width: 80%;
+  max-width: 1100px;
+  height: 70vh;
+  display: flex;
+}
+
+/* Lado izquierdo: tarjeta gris */
+.login-left {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 100%;
+  height: 100%;
+  background: #f3f3f3; /* gris claro de la tarjeta */
+  border-radius: 20px 0 0 20px;
+  padding: 40px 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo */
+.login-logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+
+/* Título */
+.login-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+/* Formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #c4c4c4;
+  font-size: 15px;
+  color: #000;
+  background: #ffffff;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 13px;
+}
+
+/* Remember + Forgot */
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.forgot {
+  color: #d32f2f;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Botones */
+.btn-login {
+  background: #d32f2f;
+  color: #ffffff;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.btn-login:hover {
+  background: #b71c1c;
+}
+
+.btn-google {
+  background: #ffffff;
+  border: 1px solid #c4c4c4;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* Texto de registro */
+.signup-text {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.signup-text a {
+  color: #d32f2f;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Lado derecho: imagen deportista */
+.login-right {
+  width: 50%;
+  border-radius: 0 20px 20px 0;
+  overflow: hidden;
+}
+
+.login-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
