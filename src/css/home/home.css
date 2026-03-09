@@ -1,0 +1,207 @@
+/* CONTENEDOR */
+
+.landing-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding-top: 80px;
+  overflow: hidden;
+
+  background: white;
+}
+
+
+/* FONDO VISUAL */
+
+.landing-background {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+
+  background:
+    radial-gradient(circle at 25% 30%, rgba(132,8,34,0.15), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(168,168,168,0.25), transparent 45%);
+
+  z-index: 0;
+}
+
+
+/* CARD PRINCIPAL */
+
+.landing-card {
+  position: relative;
+  z-index: 2;
+
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(14px);
+
+  border-radius: 28px;
+
+  padding: 70px 80px;
+
+  text-align: center;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+
+  border: 1px solid rgba(0,0,0,0.05);
+
+  max-width: 900px;
+
+  animation: fadeIn 0.7s ease-out;
+}
+
+
+/* ANIMACIÓN */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* LOGO */
+
+.landing-logo {
+  width: 230px;
+  margin-bottom: 35px;
+  transition: transform 0.3s;
+}
+
+.landing-logo:hover {
+  transform: scale(1.05);
+}
+
+
+/* TITULO */
+
+.landing-title {
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1.2;
+
+  color: black;
+
+  margin-bottom: 25px;
+
+  font-style: italic;
+}
+
+
+/* PALABRA DESTACADA */
+
+.title-highlight {
+
+  font-size: 64px;
+  font-weight: 900;
+
+  background: linear-gradient(90deg,#840822,#a81a35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  letter-spacing: -1px;
+
+
+
+}
+
+
+/* SUBTITULO */
+
+.landing-subtitle {
+
+  font-size: 20px;
+  color: #4a4a4a;
+
+  max-width: 650px;
+
+  margin: 0 auto 45px auto;
+
+  line-height: 1.5;
+}
+
+
+/* BOTONES */
+
+.landing-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+
+/* BOTON PRINCIPAL */
+
+.btn-primary {
+
+  background: #840822;
+
+  color: white;
+
+  padding: 18px 38px;
+
+  border: none;
+  border-radius: 14px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+
+  box-shadow: 0 10px 25px rgba(132,8,34,0.35);
+}
+
+.btn-primary:hover {
+
+  background: #a81a35;
+
+  transform: translateY(-4px);
+
+  box-shadow: 0 15px 35px rgba(132,8,34,0.45);
+}
+
+
+/* BOTON SECUNDARIO */
+
+.btn-secondary {
+
+  background: white;
+
+  color: #840822;
+
+  padding: 18px 38px;
+
+  border: 2px solid #840822;
+
+  border-radius: 14px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+
+}
+
+.btn-secondary:hover {
+
+  background: #840822;
+  color: white;
+
+  transform: translateY(-4px);
+
+}

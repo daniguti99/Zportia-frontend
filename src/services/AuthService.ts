@@ -6,7 +6,7 @@ export async function loginRequest(email: string, password: string) {
         body: JSON.stringify({ email, password })
     });
 
-    if(response.ok) {
+    if(!response.ok) {
         throw new Error("Credenciales erróneas");
     }
 

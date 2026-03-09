@@ -73,7 +73,7 @@
 }
 
 .error {
-  color: #d32f2f;
+  color: #840822;
   font-size: 13px;
 }
 
@@ -100,7 +100,7 @@
 
 /* Botones */
 .btn-login {
-  background: #d32f2f;
+  background: #830d27;
   color: #ffffff;
   padding: 12px;
   border: none;

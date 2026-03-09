@@ -1,0 +1,189 @@
+/* NAVBAR GENERAL */
+
+.navbar {
+  width: 100%;
+  height: 80px;
+
+  background: rgba(168,168,168,0.85);
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 40px;
+  box-sizing: border-box;
+
+  font-family: system-ui, sans-serif;
+
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+
+/* LEFT MENU */
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+
+/* ITEMS */
+
+.nav-item {
+  font-size: 18px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  color: #840822;
+  text-decoration: none;
+
+  position: relative;
+
+  transition: 0.25s;
+}
+
+
+/* underline animado */
+
+.nav-item::after {
+
+  content: "";
+  position: absolute;
+
+  left: 0;
+  bottom: -6px;
+
+  width: 0%;
+  height: 3px;
+
+  background: #840822;
+
+  transition: width 0.3s ease;
+
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+.nav-item:hover {
+  color: black;
+}
+
+
+/* FLECHA */
+
+.arrow {
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+
+/* LOGO */
+
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-logo {
+  height: 70px;
+  object-fit: contain;
+
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+}
+
+
+/* PROFILE AREA */
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+
+/* PROFILE */
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  cursor: pointer;
+}
+
+
+/* HOVER CON NOMBRE */
+
+.profile-hover {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 70px;
+  height: 70px;
+
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+
+  border-radius: 40%;
+  object-fit: cover;
+
+  transition: opacity 0.3s ease;
+}
+
+.profile-avatar.placeholder {
+  background: #ccc;
+}
+
+
+/* NOMBRE OCULTO */
+
+.profile-name {
+
+  position: absolute;
+
+  opacity: 0;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #840822;
+
+  white-space: nowrap;
+
+  transition: opacity 0.3s ease;
+}
+
+
+/* EFECTO HOVER */
+
+.profile-hover:hover .profile-avatar {
+  opacity: 0;
+}
+
+.profile-hover:hover .profile-name {
+  opacity: 1;
+}

@@ -8,9 +8,12 @@ import { loginSchema, type LoginForm } from "../schemas/loginSchema";
 import { loginRequest } from "../services/AuthService";
 import { useContext } from "react";
 import { ZportiaContext } from "../context/ZportiaContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const zportia = useContext(ZportiaContext);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -64,13 +67,14 @@ export default function Login() {
 
               <button type="submit" className="btn-login">Sign in</button>
 
-              <button type="button" className="btn-google">
-                Sign in with Google
+              <label className="text-register">
+                  ¿Todavía no tienes cuenta?
+                </label>
+
+              <button className="btn-secondary" onClick={() => navigate("/register")}>
+                Registrarse
               </button>
 
-              <p className="signup-text">
-                Don't have an account? <a>Sign up for free!</a>
-              </p>
             </form>
           </div>
         </div>

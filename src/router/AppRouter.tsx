@@ -12,6 +12,7 @@ export default function AppRouter() {
             <Route index element={<Home />}></Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/home" element={<Home />} />
             <Route path='*' element={<h1>Error 404</h1>}></Route>
         </Route>
       </Routes>
