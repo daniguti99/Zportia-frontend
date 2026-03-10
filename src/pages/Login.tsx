@@ -28,6 +28,7 @@ export default function Login() {
       const res = await loginRequest(data.email, data.password);
       zportia?.login(res.token);
       alert("Login correcto");
+      navigate("/home");
     } catch {
       alert("Credenciales incorrectas");
     }
