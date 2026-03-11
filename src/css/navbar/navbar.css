@@ -187,3 +187,81 @@
 .profile-hover:hover .profile-name {
   opacity: 1;
 }
+
+/* BADGE DE NIVEL (COLORES DE ZPORTIA) */
+.user-level-badge {
+  background: linear-gradient(135deg, #840822, #b30b2e);
+  color: white;
+
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+
+  margin-left: 10px;
+
+  box-shadow: 0 4px 12px rgba(132, 8, 34, 0.35);
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  animation: levelPulse 2.2s infinite ease-in-out;
+}
+
+/* ANIMACIÓN SUAVE */
+@keyframes levelPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.07); }
+  100% { transform: scale(1); }
+}
+
+
+/* DROPDOWN */
+.profile-dropdown {
+  position: absolute;
+  top: 85px;
+  right: 0;
+
+  background: white;
+  border-radius: 10px;
+  padding: 10px 0;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+
+  display: none; /* OCULTO POR DEFECTO */
+  flex-direction: column;
+  gap: 5px;
+
+  min-width: 150px;
+  z-index: 2000;
+}
+
+/* MOSTRAR AL HACER HOVER */
+.profile:hover .profile-dropdown {
+  display: flex;
+}
+
+
+.dropdown-item {
+  padding: 10px 15px;
+  text-align: left;
+  font-size: 15px;
+  color: #333;
+  cursor: pointer;
+  transition: 0.2s;
+  border: none;
+  background: none;
+}
+
+.dropdown-item:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.dropdown-item.logout {
+  color: #b30000;
+  font-weight: 600;
+}
+
+.dropdown-item.logout:hover {
+  background: rgba(255,0,0,0.1);
+}

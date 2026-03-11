@@ -1,7 +1,9 @@
 import type { RegisterForm } from "../schemas/registerSchema";
 
+const URL_BASE = "http://localhost:8080/auth";
+
 export async function loginRequest(email: string, password: string) {
-    const URL_BASE = "http://localhost:8080/auth";
+
     const response = await fetch(`${URL_BASE}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -17,7 +19,7 @@ export async function loginRequest(email: string, password: string) {
 
 export async function registerRequest(data: RegisterForm) {
   try {
-    const response = await fetch("http://localhost:8080/auth/register", {
+    const response = await fetch(`${URL_BASE}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -36,6 +38,22 @@ export async function registerRequest(data: RegisterForm) {
   }
 }
 
+
+export async function getCurrentUser() {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error("No se pudo obtener el usuario");
+  }
+
+  return await response.json();
+}
 
 
 

@@ -1,13 +1,11 @@
 import { Link, Outlet } from "react-router-dom";
-import { useContext } from "react";
-import { ZportiaContext } from "../context/ZportiaContext";
+import { useAuth } from "../hooks/useAuth";
 
 import "../css/navbar/navbar.css";
 import logo from "../assets/logoZportia.png";
 
 export default function Navbar() {
-  const zportia = useContext(ZportiaContext);
-  const user = zportia?.user;
+  const { user, logout } = useAuth();
 
   return (
     <>
@@ -38,19 +36,45 @@ export default function Navbar() {
 
             <div className="profile-hover">
 
-              {user?.avatarUrl ? (
-                <img src={user.avatarUrl} className="profile-avatar" />
+              {/* FOTO DEL USUARIO */}
+              {user?.photo ? (
+                <img src={user.photo} className="profile-avatar" />
               ) : (
                 <div className="profile-avatar placeholder"></div>
               )}
 
+              {/* NOMBRE DEL USUARIO */}
               <span className="profile-name">
-                {user?.name || "Anónimo"}
+                {user ? (
+                  <>
+                    {user.firstName}
+                    <br />
+                    {user.lastName}
+                  </>
+                ) : (
+                  "Invitado"
+                )}
               </span>
+
 
             </div>
 
-            <span className="arrow">▼</span>
+            {/* NIVEL DESTACADO */}
+            {user && (
+              <div className="user-level-badge">
+                {user.level}
+              </div>
+            )}
+
+            {/* DROPDOWN MENU */}
+            {user && (
+              <div className="profile-dropdown">
+                <Link to="/perfil" className="dropdown-item">Mi perfil</Link>
+                <button className="dropdown-item logout" onClick={logout}>
+                  Cerrar sesión
+                </button>
+              </div>
+            )}
 
           </div>
 
