@@ -29,8 +29,15 @@ export default function Navbar() {
           <img src={logo} alt="Zportia Logo" className="nav-logo" />
         </div>
 
+          
         {/* RIGHT PROFILE */}
         <div className="nav-right">
+        {/* NIVEL DESTACADO */}
+          {user && (
+            <div className="user-level-badge">
+              {user.level}
+            </div>
+          )}
 
           <div className="profile">
 
@@ -59,12 +66,6 @@ export default function Navbar() {
 
             </div>
 
-            {/* NIVEL DESTACADO */}
-            {user && (
-              <div className="user-level-badge">
-                {user.level}
-              </div>
-            )}
 
             {/* DROPDOWN MENU */}
             {user && (

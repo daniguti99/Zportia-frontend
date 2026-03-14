@@ -1,152 +1,302 @@
-/* Página completa */
+/* PAGE */
+
 .login-page {
   width: 100%;
   height: 100vh;
-  background: #ffffff; /* fondo blanco */
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #000000; /* texto negro */
+
+  background:
+    radial-gradient(circle at 20% 30%, rgba(132,8,34,0.15), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(168,168,168,0.25), transparent 45%),
+    white;
+
+  overflow: hidden;
 }
 
-/* Contenedor 50/50 */
+
+/* MAIN CONTAINER */
+
 .login-container {
-  width: 80%;
-  max-width: 1100px;
-  height: 70vh;
+
+  width: 85%;
+  max-width: 1200px;
+  height: 720px;
+
   display: flex;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  box-shadow: 0 30px 80px rgba(0,0,0,0.18);
+
+  background: white;
 }
 
-/* Lado izquierdo: tarjeta gris */
+
+/* LEFT SIDE */
+
 .login-left {
+
   width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  background: linear-gradient(
+    160deg,
+    rgba(168,168,168,0.15),
+    rgba(132,8,34,0.05)
+  );
 }
+
+
+/* CARD */
 
 .login-card {
-  width: 100%;
-  height: 100%;
-  background: #f3f3f3; /* gris claro de la tarjeta */
-  border-radius: 20px 0 0 20px;
-  padding: 40px 50px;
+
+  width: 80%;
+  max-width: 380px;
+
+  background: rgba(255,255,255,0.9);
+
+  backdrop-filter: blur(10px);
+
+  border-radius: 20px;
+
+  padding: 40px;
+
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+
   display: flex;
   flex-direction: column;
+
 }
 
-/* Logo */
+
+/* LOGO */
+
 .login-logo {
-  width: 150px;
-  margin-bottom: 30px;
-}
 
-/* Título */
-.login-title {
-  font-size: 26px;
-  font-weight: 700;
+  width: 160px;
   margin-bottom: 25px;
+
+  transition: transform 0.3s;
 }
 
-/* Formulario */
+.login-logo:hover {
+  transform: scale(1.05);
+}
+
+
+/* TITLE */
+
+.login-title {
+
+  font-size: 26px;
+  font-weight: 800;
+
+  margin-bottom: 25px;
+
+  color: black;
+}
+
+
+/* FORM */
+
 .login-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
+
+/* INPUT GROUP */
+
 .form-group label {
+
   font-weight: 600;
   margin-bottom: 6px;
   display: block;
+
+  font-size: 14px;
 }
+
 
 .form-group input {
+
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #c4c4c4;
+  padding: 12px 14px;
+
+  border-radius: 12px;
+  border: 1px solid #d0d0d0;
+
   font-size: 15px;
-  color: #000;
-  background: #ffffff;
+
+  background: white;
+
+  transition: all 0.2s ease;
 }
 
+
+/* INPUT FOCUS */
+
+.form-group input:focus {
+
+  outline: none;
+
+  border-color: #840822;
+
+  box-shadow: 0 0 0 3px rgba(132,8,34,0.15);
+}
+
+
+/* ERROR */
+
 .error {
+
   color: #840822;
   font-size: 13px;
 }
 
-/* Remember + Forgot */
+
+/* OPTIONS */
+
 .login-options {
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 4px;
+
+  font-size: 14px;
 }
 
+
 .remember {
+
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
 }
+
 
 .forgot {
-  color: #d32f2f;
-  cursor: pointer;
-  font-size: 14px;
-}
 
-/* Botones */
-.btn-login {
-  background: #830d27;
-  color: #ffffff;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
+  color: #840822;
   cursor: pointer;
-  margin-top: 10px;
   font-weight: 600;
 }
+
+
+/* LOGIN BUTTON */
+
+.btn-login {
+
+  background: linear-gradient(
+    135deg,
+    #840822,
+    #a81a35
+  );
+
+  color: white;
+
+  padding: 14px;
+
+  border: none;
+  border-radius: 12px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  margin-top: 10px;
+
+  transition: all 0.25s ease;
+
+  box-shadow: 0 10px 25px rgba(132,8,34,0.35);
+}
+
 
 .btn-login:hover {
-  background: #b71c1c;
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 15px 35px rgba(132,8,34,0.45);
 }
 
-.btn-google {
-  background: #ffffff;
-  border: 1px solid #c4c4c4;
-  padding: 12px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 600;
-  margin-top: 8px;
-}
 
-/* Texto de registro */
-.signup-text {
+/* REGISTER TEXT */
+
+.text-register {
+
   margin-top: 12px;
+
   font-size: 14px;
+
+  text-align: center;
+
+  color: #444;
 }
 
-.signup-text a {
-  color: #d32f2f;
+
+/* SECONDARY BUTTON */
+
+.btn-secondary {
+
+  background: white;
+
+  color: #840822;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  border: 2px solid #840822;
+
+  font-weight: 700;
+
   cursor: pointer;
-  font-weight: 600;
+
+  transition: all 0.25s ease;
 }
 
-/* Lado derecho: imagen deportista */
-.login-right {
-  width: 50%;
-  border-radius: 0 20px 20px 0;
-  overflow: hidden;
+
+.btn-secondary:hover {
+
+  background: #840822;
+  color: white;
+
+  transform: translateY(-2px);
 }
+
+
+/* RIGHT SIDE IMAGE */
+
+.login-right {
+
+  width: 50%;
+  position: relative;
+
+  background: black;
+}
+
+
+/* IMAGE */
 
 .login-image {
+
   width: 100%;
   height: 100%;
-  object-fit: cover;
+
+  object-fit: cover; /* evita deformación */
+
+  object-position: center;
+
+  filter: contrast(1.05) brightness(0.95);
 }
