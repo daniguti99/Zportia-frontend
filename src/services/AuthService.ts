@@ -41,6 +41,7 @@ export async function registerRequest(data: RegisterForm) {
 
 export async function getCurrentUser() {
   const token = localStorage.getItem("token");
+  console.log("TOKEN:", token);
 
   const response = await fetch(`${URL_BASE}/me`, {
     headers: {

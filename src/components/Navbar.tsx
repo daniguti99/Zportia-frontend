@@ -15,10 +15,9 @@ export default function Navbar() {
         <div className="nav-left">
           <Link to="/home" className="nav-item">Home</Link>
 
-          <div className="nav-item dropdown">
+          <Link to="/explore" className="nav-item">
             Explora
-            <span className="arrow">▼</span>
-          </div>
+          </Link>
 
           <a className="nav-item">Forum</a>
           <a className="nav-item">Perfil</a>
