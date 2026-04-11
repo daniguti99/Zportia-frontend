@@ -1,0 +1,109 @@
+/* ============================
+   VARIABLES GLOBALES
+   ============================ */
+:root {
+  --primary: #840822;
+  --primary-gradient: linear-gradient(135deg, #840822, #840822);
+  --bg: #f6f8fc;
+  --text-main: #1a1a1a;
+  --text-soft: #777;
+}
+
+/* ============================
+   FONDO DEPORTIVO PREMIUM
+   ============================ */
+
+
+body {
+  position: relative;
+  background-image: url("/src/assets/background-zportia-white.png");
+  background-size: 500px;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+/* Capa que controla la opacidad del fondo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.7); /* AJUSTA AQUÍ LA OPACIDAD */
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+
+/* ============================
+   CONTENEDOR GENERAL EXPLORE
+   ============================ */
+.explore-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  min-height: 100vh;
+  animation: fadeIn 0.5s ease;
+}
+
+
+/* ============================
+   TÍTULO PRO
+   ============================ */
+.explore-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 60px;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+/* ============================
+   LOADING / ERROR
+   ============================ */
+.explore-loading,
+.explore-error {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 50px;
+}
+
+.explore-loading {
+  color: var(--primary);
+  animation: pulse 1.5s infinite;
+}
+
+.explore-error {
+  color: #840822;
+}
+
+/* ============================
+   FEED
+   ============================ */
+.explore-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* ============================
+   ANIMACIONES
+   ============================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}

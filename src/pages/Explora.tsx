@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 import type { PostResponse } from "../interfaces/interfaces";
 import { getExplorePosts } from "../services/PostServices";
+import "../css/explore/explore.css";
+
 
 export default function Explore() {
   const [posts, setPosts] = useState<PostResponse[]>([]);

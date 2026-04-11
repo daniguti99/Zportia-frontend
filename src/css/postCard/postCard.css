@@ -1,0 +1,273 @@
+/* ============================
+   POST CARD (GLASS + DEPTH)
+   ============================ */
+.post-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 20px;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glow elegante */
+.post-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #840822, #840822);
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.post-card:hover::before {
+  opacity: 0.05;
+}
+
+.post-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+}
+
+/* ============================
+   HEADER
+   ============================ */
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.post-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  padding: 2px;
+  background: linear-gradient(135deg, #fa96ac, #fa96ac);
+}
+
+.post-username {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #1a1a1a;
+}
+
+.post-date {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* ============================
+   CONTENIDO
+   ============================ */
+.post-content {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 14px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================
+   MEDIA (ZOOM SUAVE)
+   ============================ */
+.post-media {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  transition: transform 0.4s ease;
+}
+
+.post-media:hover {
+  transform: scale(1.04);
+}
+
+/* ============================
+   UBICACIÓN
+   ============================ */
+.post-location {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 12px;
+}
+
+/* ============================
+   FOOTER PRO INTERACTIVO
+   ============================ */
+.post-footer {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  font-size: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.post-footer span {
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+/* Hover tipo app moderna */
+.post-footer span:hover {
+  background: rgba(0,119,255,0.1);
+  transform: scale(1.1);
+}
+
+/* LIKE ANIMADO */
+.liked {
+  color: #840822;
+  animation: likePop 0.3s ease;
+}
+
+@keyframes likePop {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+/* ============================
+   POPUP OVERLAY
+   ============================ */
+.comments-popup,
+.likes-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ============================
+   CAJA DEL POPUP
+   ============================ */
+.comments-box,
+.likes-box {
+  background: #ffffff;
+  width: 92%;
+  max-width: 450px;
+  max-height: 75vh;
+  overflow-y: auto;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+  position: relative;
+  animation: slideUp 0.35s ease;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Scroll */
+.comments-box::-webkit-scrollbar,
+.likes-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.comments-box::-webkit-scrollbar-thumb,
+.likes-box::-webkit-scrollbar-thumb {
+  background: #0077ff;
+  border-radius: 10px;
+}
+
+/* ============================
+   BOTÓN DE CERRAR
+   ============================ */
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #333;
+  transition: 0.25s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.25) rotate(10deg);
+  color: #0077ff;
+}
+
+/* ============================
+   TÍTULO
+   ============================ */
+.comments-box h3,
+.likes-box h3 {
+  margin-bottom: 18px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  background: linear-gradient(90deg, #0077ff, #00c6ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* ============================
+   ITEMS
+   ============================ */
+.comment-item,
+.like-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-avatar,
+.like-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #0077ff;
+  box-shadow: 0 0 10px rgba(0,119,255,0.4);
+}
+
+.comment-username,
+.like-username {
+  font-weight: 700;
+  color: #111;
+}
+
+.comment-content {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* ============================
+   ANIMACIONES
+   ============================ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(25px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}

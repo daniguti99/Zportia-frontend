@@ -25,3 +25,20 @@ export interface PostResponse {
   likedByCurrentUser: boolean;
 }
 
+export interface CommentResponse {
+  id: number;
+  text: string;
+  date: string;
+  userId: number;
+  username: string;
+  userPhoto: string;
+}
+
+export interface LikeUser {
+  userId: number;
+  username: string;
+  userPhoto: string;
+}
+
+
+
