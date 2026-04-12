@@ -1,0 +1,91 @@
+/* ============================
+   CONTENEDOR BASE DEL FEED
+   ============================ */
+.feed-base-container {
+  max-width: 900px;
+  margin: 80px auto 0 auto;
+  padding: 24px;
+
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+
+  animation: fadeIn 0.5s ease;
+}
+
+/* ============================
+   TÍTULO
+   ============================ */
+.friends-feed-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 35px;
+
+  background: linear-gradient(90deg,#840822,#a81a35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  letter-spacing: -0.5px;
+  font-style: italic;
+}
+
+/* ============================
+   LISTA DE POSTS
+   ============================ */
+.friends-feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.friends-feed-list > * {
+  animation: postAppear 0.5s ease;
+}
+
+@keyframes postAppear {
+  from { opacity: 0; transform: translateY(25px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ============================
+   ESTADOS
+   ============================ */
+.friends-feed-loading,
+.friends-feed-error,
+.friends-feed-empty {
+  text-align: center;
+  font-size: 1.3rem;
+  margin-top: 40px;
+  font-weight: 600;
+}
+
+.friends-feed-loading {
+  color: var(--primary);
+  animation: pulse 1.5s infinite;
+}
+
+.friends-feed-error {
+  color: #840822;
+}
+
+.friends-feed-empty {
+  color: #555;
+  opacity: 0.8;
+}
+
+/* ============================
+   ANIMACIONES
+   ============================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}

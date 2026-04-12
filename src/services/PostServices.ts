@@ -52,3 +52,20 @@ export async function getLikesByPost(postId: number) {
 
 
 
+export async function getFriendsPosts() {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/posts/friends`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText);
+  }
+
+  return await response.json();
+}
+

@@ -57,6 +57,7 @@ export function ZportiaProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("token");
     setToken(null);
     setUser(null);
+    alert("Has cerrado sesión correctamente");
   };
 
   return (

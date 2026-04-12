@@ -3,12 +3,13 @@ import logo from "../assets/logoZportia.png";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ZportiaContext } from "../context/ZportiaContext";
+import FriendsFeed from "../components/FriendsFeed";
 
 export default function LandingPage() {
   const navigate = useNavigate();
   const context = useContext(ZportiaContext);
 
-  if (!context) return null; // seguridad
+  if (!context) return null;
 
   const { user, loading } = context;
 
@@ -16,6 +17,16 @@ export default function LandingPage() {
     return <div className="landing-container">Cargando...</div>;
   }
 
+  // Si el usuario está autenticado → mostrar feed con el mismo estilo que Explore
+  if (user) {
+    return (
+      <div className="feed-base-container">
+        <FriendsFeed />
+      </div>
+    );
+  }
+
+  // Si NO está autenticado → mostrar la landing pública
   return (
     <div className="landing-container">
       <div className="landing-background"></div>
@@ -23,48 +34,26 @@ export default function LandingPage() {
       <div className="landing-card">
         <img src={logo} alt="Zportia Logo" className="landing-logo" />
 
-        {!user ? (
-          <>
-            <h1 className="landing-title">
-              <span className="title-highlight">Conecta</span>
-              <br />
-              con quienes viven el deporte como tú
-            </h1>
-            <br />
+        <h1 className="landing-title">
+          <span className="title-highlight">Conecta</span>
+          <br />
+          con quienes viven el deporte como tú
+        </h1>
 
-            <p className="landing-subtitle">
-              Únete a miles de deportistas que ya están mejorando su rendimiento,
-              compartiendo experiencias y alcanzando sus metas con Zportia.
-            </p>
+        <p className="landing-subtitle">
+          Únete a miles de deportistas que ya están mejorando su rendimiento,
+          compartiendo experiencias y alcanzando sus metas con Zportia.
+        </p>
 
-            <div className="landing-buttons">
-              <button className="btn-primary" onClick={() => navigate("/login")}>
-                Iniciar Sesión
-              </button>
+        <div className="landing-buttons">
+          <button className="btn-primary" onClick={() => navigate("/login")}>
+            Iniciar Sesión
+          </button>
 
-              <button className="btn-secondary" onClick={() => navigate("/register")}>
-                Registrarse
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <h1 className="landing-title">
-              ¡Bienvenido de nuevo, {user.firstName}! 💪
-            </h1>
-
-            <p className="landing-subtitle">
-              Gracias por confiar en Zportia. Cada entrenamiento cuenta,
-              cada paso suma. Sigue superándote y conectando con la comunidad 🚀
-            </p>
-
-            <div className="landing-buttons">
-              <button className="btn-primary" onClick={() => navigate("/dashboard")}>
-                Ir a mi panel
-              </button>
-            </div>
-          </>
-        )}
+          <button className="btn-secondary" onClick={() => navigate("/register")}>
+            Registrarse
+          </button>
+        </div>
       </div>
     </div>
   );
