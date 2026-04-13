@@ -10,6 +10,16 @@ export async function getExplorePosts() {
   });
 
   if (!response.ok) {
+    // Intentar obtener mensaje del backend
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) {
+      throw new Error(errorJson.message);
+    }
+    if (errorJson?.error) {
+      throw new Error(errorJson.error);
+    }
+
     throw new Error("No se pudieron cargar los posts");
   }
 
@@ -26,12 +36,21 @@ export async function getCommentsByPost(postId: number) {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText);
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) {
+      throw new Error(errorJson.message);
+    }
+    if (errorJson?.error) {
+      throw new Error(errorJson.error);
+    }
+
+    throw new Error("No se pudieron cargar los comentarios");
   }
 
   return await response.json();
 }
+
 
 export async function getLikesByPost(postId: number) {
   const token = localStorage.getItem("token");
@@ -43,13 +62,20 @@ export async function getLikesByPost(postId: number) {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText);
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) {
+      throw new Error(errorJson.message);
+    }
+    if (errorJson?.error) {
+      throw new Error(errorJson.error);
+    }
+
+    throw new Error("No se pudieron cargar los likes");
   }
 
   return await response.json();
 }
-
 
 
 export async function getFriendsPosts() {
@@ -62,10 +88,44 @@ export async function getFriendsPosts() {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText);
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) {
+      throw new Error(errorJson.message);
+    }
+    if (errorJson?.error) {
+      throw new Error(errorJson.error);
+    }
+
+    throw new Error("No se pudieron cargar las publicaciones de amigos");
   }
 
   return await response.json();
 }
 
+
+export async function toggleLike(postId: number) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/posts/${postId}/like`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) {
+      throw new Error(errorJson.message);
+    }
+    if (errorJson?.error) {
+      throw new Error(errorJson.error);
+    }
+
+    throw new Error("No se pudo procesar la acción");
+  }
+
+  return await response.json();
+}

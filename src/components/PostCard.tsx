@@ -1,19 +1,47 @@
 import { useState } from "react";
 import type { CommentResponse, PostResponse, LikeUser } from "../interfaces/interfaces";
 import "../css/postCard/postCard.css";
-import { getCommentsByPost, getLikesByPost } from "../services/PostServices";
+import { getCommentsByPost, getLikesByPost, toggleLike } from "../services/PostServices";
 
 export default function PostCard({ post }: { post: PostResponse }) {
+
+  // ESTADOS PARA LIKE
+  const [liked, setLiked] = useState(post.likedByCurrentUser);
+  const [likesCount, setLikesCount] = useState(post.reactionsCount);
+  const [errorLike, setErrorLike] = useState<string | null>(null);
+
+  // ESTADOS PARA COMENTARIOS
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState<CommentResponse[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
   const [errorComments, setErrorComments] = useState<string | null>(null);
 
+  // ESTADOS PARA LISTA DE LIKES
   const [showLikes, setShowLikes] = useState(false);
   const [likes, setLikes] = useState<LikeUser[]>([]);
   const [loadingLikes, setLoadingLikes] = useState(false);
   const [errorLikes, setErrorLikes] = useState<string | null>(null);
 
+
+  // TOGGLE LIKE
+  async function handleToggleLike() {
+    setErrorLike(null);
+
+    try {
+      const updatedPost = await toggleLike(post.id);
+
+      setLiked(updatedPost.likedByCurrentUser);
+      setLikesCount(updatedPost.reactionsCount);
+
+    } catch (err: any) {
+      const msg = err.message || "Error al dar like";
+      setErrorLike(msg);
+      alert(msg); // 🔥 Mostrar error al usuario
+    }
+  }
+
+
+  // ABRIR COMENTARIOS
   async function openComments() {
     setShowComments(true);
     setLoadingComments(true);
@@ -29,6 +57,7 @@ export default function PostCard({ post }: { post: PostResponse }) {
     }
   }
 
+  // ABRIR LISTA DE LIKES
   async function openLikes() {
     setShowLikes(true);
     setLoadingLikes(true);
@@ -47,7 +76,7 @@ export default function PostCard({ post }: { post: PostResponse }) {
   return (
     <>
       <div className="post-card">
-        
+
         {/* HEADER */}
         <div className="post-header">
           <img
@@ -62,28 +91,32 @@ export default function PostCard({ post }: { post: PostResponse }) {
           </div>
         </div>
 
-        {/* CONTENT */}
         <p className="post-content">{post.content}</p>
 
-        {/* MEDIA */}
         {post.media && (
           <img src={post.media} alt="post" className="post-media" />
         )}
 
-        {/* LOCATION */}
         {post.location && (
           <p className="post-location">📍 {post.location}</p>
         )}
 
-        {/* FOOTER */}
         <div className="post-footer">
+
+          {/*❤️*/}
           <span
-            className={post.likedByCurrentUser ? "liked" : ""}
-            onClick={openLikes}
+            className={liked ? "liked" : ""}
+            onClick={handleToggleLike}
           >
-            ❤️ {post.reactionsCount}
+            ❤️ {likesCount}
           </span>
 
+          {/*👀*/}
+          <span onClick={openLikes} className="likes-list-button">
+            👀
+          </span>
+
+          {/*💬*/}
           <span onClick={openComments} className="comments-button">
             💬 {post.commentsCount}
           </span>
