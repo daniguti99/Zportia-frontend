@@ -1,22 +1,40 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import type { CommentResponse, PostResponse, LikeUser } from "../interfaces/interfaces";
 import "../css/postCard/postCard.css";
-import { getCommentsByPost, getLikesByPost, toggleLike } from "../services/PostServices";
+import { 
+  getCommentsByPost, 
+  getLikesByPost, 
+  toggleLike, 
+  createComment, 
+  deleteComment 
+} from "../services/PostServices";
+import { ZportiaContext } from "../context/ZportiaContext";
 
 export default function PostCard({ post }: { post: PostResponse }) {
+  const { user } = useContext(ZportiaContext) || {};
 
-  // ESTADOS PARA LIKE
+
+  const currentUserId = user?.id;
+
+  // LIKE
   const [liked, setLiked] = useState(post.likedByCurrentUser);
   const [likesCount, setLikesCount] = useState(post.reactionsCount);
   const [errorLike, setErrorLike] = useState<string | null>(null);
 
-  // ESTADOS PARA COMENTARIOS
+  // COMENTARIOS
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState<CommentResponse[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
   const [errorComments, setErrorComments] = useState<string | null>(null);
+  const [commentsCount, setCommentsCount] = useState(post.commentsCount);
 
-  // ESTADOS PARA LISTA DE LIKES
+  // AÑADIR COMENTARIO
+  const [showAddComment, setShowAddComment] = useState(false);
+  const [newComment, setNewComment] = useState("");
+  const [sendingComment, setSendingComment] = useState(false);
+  const [errorNewComment, setErrorNewComment] = useState<string | null>(null);
+
+  // LISTA DE LIKES
   const [showLikes, setShowLikes] = useState(false);
   const [likes, setLikes] = useState<LikeUser[]>([]);
   const [loadingLikes, setLoadingLikes] = useState(false);
@@ -36,7 +54,7 @@ export default function PostCard({ post }: { post: PostResponse }) {
     } catch (err: any) {
       const msg = err.message || "Error al dar like";
       setErrorLike(msg);
-      alert(msg); // 🔥 Mostrar error al usuario
+      alert(msg);
     }
   }
 
@@ -57,6 +75,47 @@ export default function PostCard({ post }: { post: PostResponse }) {
     }
   }
 
+
+  // ENVIAR NUEVO COMENTARIO
+  async function handleAddComment() {
+    setSendingComment(true);
+    setErrorNewComment(null);
+
+    try {
+      const created = await createComment(post.id, newComment);
+
+      setComments((prev) => [...prev, created]);
+      setCommentsCount((prev) => prev + 1);
+
+      setNewComment("");
+      setShowAddComment(false);
+
+    } catch (err: any) {
+      setErrorNewComment(err.message || "Error al enviar comentario");
+    } finally {
+      setSendingComment(false);
+    }
+  }
+
+
+  // ELIMINAR COMENTARIO
+  async function handleDeleteComment(commentId: number) {
+    const confirmDelete = window.confirm("¿Seguro que quieres eliminar este comentario?");
+
+    if (!confirmDelete) return;
+
+    try {
+      await deleteComment(commentId);
+
+      setComments(prev => prev.filter(c => c.id !== commentId));
+      setCommentsCount(prev => prev - 1);
+
+    } catch (err: any) {
+      alert(err.message || "No se pudo eliminar el comentario");
+    }
+  }
+
+
   // ABRIR LISTA DE LIKES
   async function openLikes() {
     setShowLikes(true);
@@ -73,17 +132,14 @@ export default function PostCard({ post }: { post: PostResponse }) {
     }
   }
 
+
   return (
     <>
       <div className="post-card">
 
         {/* HEADER */}
         <div className="post-header">
-          <img
-            src={post.userPhoto}
-            alt={post.username}
-            className="post-avatar"
-          />
+          <img src={post.userPhoto} alt={post.username} className="post-avatar" />
 
           <div>
             <p className="post-username">{post.username}</p>
@@ -104,10 +160,7 @@ export default function PostCard({ post }: { post: PostResponse }) {
         <div className="post-footer">
 
           {/*❤️*/}
-          <span
-            className={liked ? "liked" : ""}
-            onClick={handleToggleLike}
-          >
+          <span className={liked ? "liked" : ""} onClick={handleToggleLike}>
             ❤️ {likesCount}
           </span>
 
@@ -118,10 +171,11 @@ export default function PostCard({ post }: { post: PostResponse }) {
 
           {/*💬*/}
           <span onClick={openComments} className="comments-button">
-            💬 {post.commentsCount}
+            💬 {commentsCount}
           </span>
         </div>
       </div>
+
 
       {/* POPUP DE COMENTARIOS */}
       {showComments && (
@@ -142,20 +196,62 @@ export default function PostCard({ post }: { post: PostResponse }) {
                   comments.map((c) => (
                     <div key={c.id} className="comment-item">
                       <img src={c.userPhoto} className="comment-avatar" />
-                      <div>
+
+                      <div className="comment-body">
                         <p className="comment-username">{c.username}</p>
                         <p className="comment-content">{c.text}</p>
                       </div>
+
+                      {/* SOLO SI ES TUYO */}
+                      {c.userId === currentUserId && (
+                        <span
+                          className="delete-comment-btn"
+                          onClick={() => handleDeleteComment(c.id)}
+                        >
+                          🗑️
+                        </span>
+                      )}
                     </div>
                   ))
                 ) : (
                   <p>No hay comentarios aún</p>
+                )}
+
+                {/* BOTÓN AÑADIR COMENTARIO */}
+                {!showAddComment && (
+                  <button
+                    className="add-comment-btn"
+                    onClick={() => setShowAddComment(true)}
+                  >
+                    ➕ Añadir comentario
+                  </button>
+                )}
+
+                {/* FORMULARIO DE NUEVO COMENTARIO */}
+                {showAddComment && (
+                  <div className="add-comment-form">
+                    <textarea
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      placeholder="Escribe un comentario..."
+                    />
+
+                    {errorNewComment && <p className="error">{errorNewComment}</p>}
+
+                    <button
+                      disabled={sendingComment || newComment.trim().length === 0}
+                      onClick={handleAddComment}
+                    >
+                      {sendingComment ? "Enviando..." : "Enviar"}
+                    </button>
+                  </div>
                 )}
               </>
             )}
           </div>
         </div>
       )}
+
 
       {/* POPUP DE LIKES */}
       {showLikes && (

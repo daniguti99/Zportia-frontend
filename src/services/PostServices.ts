@@ -129,3 +129,49 @@ export async function toggleLike(postId: number) {
 
   return await response.json();
 }
+
+export async function createComment(postId: number, text: string) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/posts/${postId}/comments`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({ text })
+  });
+
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) throw new Error(errorJson.message);
+    if (errorJson?.error) throw new Error(errorJson.error);
+
+    throw new Error("No se pudo crear el comentario");
+  }
+
+  return await response.json();
+}
+
+export async function deleteComment(commentId: number) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/comments/${commentId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) throw new Error(errorJson.message);
+    if (errorJson?.error) throw new Error(errorJson.error);
+
+    throw new Error("No se pudo eliminar el comentario");
+  }
+}
+
+

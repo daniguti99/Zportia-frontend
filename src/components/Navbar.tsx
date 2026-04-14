@@ -3,9 +3,11 @@ import { useAuth } from "../hooks/useAuth";
 
 import "../css/navbar/navbar.css";
 import logo from "../assets/logoZportia.png";
+import { useState } from "react";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
+  const [flipLevel, setFlipLevel] = useState(false);
 
   return (
     <>
@@ -28,13 +30,24 @@ export default function Navbar() {
           <img src={logo} alt="Zportia Logo" className="nav-logo" />
         </div>
 
-          
         {/* RIGHT PROFILE */}
         <div className="nav-right">
-        {/* NIVEL DESTACADO */}
+
+          {/* BADGE DE NIVEL GIRATORIO */}
           {user && (
-            <div className="user-level-badge">
-              {user.level}
+            <div
+              className={`user-level-badge-container ${flipLevel ? "flipped" : ""}`}
+              onClick={() => setFlipLevel(!flipLevel)}
+            >
+              {/* CARA FRONTAL → NIVEL */}
+              <div className={`user-level-badge front level-${user.level.toLowerCase()}`}>
+                {user.level}
+              </div>
+
+              {/* CARA TRASERA → PUNTOS */}
+              <div className="user-level-badge back">
+                {user.points} pts
+              </div>
             </div>
           )}
 
@@ -62,9 +75,7 @@ export default function Navbar() {
                 )}
               </span>
 
-
             </div>
-
 
             {/* DROPDOWN MENU */}
             {user && (

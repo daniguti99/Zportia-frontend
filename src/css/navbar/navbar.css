@@ -192,6 +192,7 @@
 .user-level-badge {
   background: linear-gradient(135deg, #840822, #b30b2e);
   color: white;
+  margin-right: 20px;
 
   font-weight: 700;
   padding: 6px 14px;
@@ -266,3 +267,151 @@
 .dropdown-item.logout:hover {
   background: rgba(255,0,0,0.1);
 }
+
+/* BASE DEL BADGE */
+.user-level-badge {
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  margin-left: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.35s ease;
+}
+
+/* ============================
+   ROOKIE — Gris frío
+   ============================ */
+.level-rookie {
+  background: linear-gradient(135deg, #d7d7d7, #bfbfbf);
+  color: #333;
+  border: 1px solid #a8a8a8;
+  box-shadow: 0 0 6px rgba(150,150,150,0.3);
+}
+
+/* ============================
+   BEGINNER — Verde suave
+   ============================ */
+.level-beginner {
+  background: linear-gradient(135deg, #7ed957, #5cbf3a);
+  color: white;
+  box-shadow: 0 0 10px rgba(94, 191, 58, 0.5);
+  transform: scale(1.03);
+}
+
+/* ============================
+   INTERMEDIATE — Azul vibrante
+   ============================ */
+.level-intermediate {
+  background: linear-gradient(135deg, #1e90ff, #0066cc);
+  color: white;
+  box-shadow: 0 0 14px rgba(30,144,255,0.6);
+  transform: scale(1.06);
+  animation: intermediatePulse 2.5s infinite ease-in-out;
+}
+
+@keyframes intermediatePulse {
+  0% { transform: scale(1.06); }
+  50% { transform: scale(1.10); }
+  100% { transform: scale(1.06); }
+}
+
+/* ============================
+   ADVANCED — Morado real
+   ============================ */
+.level-advanced {
+  background: linear-gradient(135deg, #8a2be2, #5d1bb3);
+  color: white;
+  box-shadow: 0 0 18px rgba(138,43,226,0.7);
+  transform: scale(1.09);
+  animation: advancedGlow 2s infinite ease-in-out;
+}
+
+@keyframes advancedGlow {
+  0% { box-shadow: 0 0 18px rgba(138,43,226,0.7); }
+  50% { box-shadow: 0 0 28px rgba(138,43,226,1); }
+  100% { box-shadow: 0 0 18px rgba(138,43,226,0.7); }
+}
+
+/* ============================
+   EXPERT — Dorado
+   ============================ */
+.level-expert {
+  background: linear-gradient(135deg, #f7d774, #e6b800);
+  color: #4a3b00;
+  box-shadow: 0 0 25px rgba(255,215,0,0.8);
+  transform: scale(1.12);
+  animation: expertShine 1.8s infinite ease-in-out;
+}
+
+@keyframes expertShine {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.25); }
+  100% { filter: brightness(1); }
+}
+
+/* ============================
+   LEGEND — Galaxy multicolor
+   ============================ */
+.level-legend {
+  background: linear-gradient(135deg, #ff0080, #ff8c00, #8a2be2);
+  background-size: 300% 300%;
+  color: white;
+  box-shadow: 0 0 35px rgba(255,0,128,0.9);
+  transform: scale(1.18);
+  animation: legendGalaxy 3s infinite ease-in-out;
+}
+
+@keyframes legendGalaxy {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* CONTENEDOR 3D */
+.user-level-badge-container {
+  width: 110px;
+  height: 40px;
+  perspective: 900px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* CARAS */
+.user-level-badge {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.6s ease;
+}
+
+/* CARA TRASERA */
+.user-level-badge.back {
+  background: #222;
+  color: white;
+  transform: rotateY(180deg);
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
+}
+
+/* ANIMACIÓN DE GIRO */
+.user-level-badge-container.flipped .front {
+  transform: rotateY(180deg);
+}
+
+.user-level-badge-container.flipped .back {
+  transform: rotateY(360deg);
+}
+
+

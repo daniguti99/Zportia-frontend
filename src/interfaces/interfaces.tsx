@@ -9,6 +9,7 @@ export interface User{
   isPrivate: boolean;
   role: string;
   photo: string | null;
+  points: number;
 }
 
 export interface PostResponse {
