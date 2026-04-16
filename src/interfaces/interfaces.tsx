@@ -1,16 +1,21 @@
-export interface User{
+export interface User {
   id: number;
   username: string;
   firstName: string;
   lastName: string;
-  email: string;
-  sports: string;
-  level: string;
+  sports: string[];
+  level: string;        
   isPrivate: boolean;
-  role: string;
   photo: string | null;
   points: number;
+
+  followedByMe: boolean;
+
+  followersCount: number;
+  followingCount: number;
+  postsCount: number;
 }
+
 
 export interface PostResponse {
   id: number;
