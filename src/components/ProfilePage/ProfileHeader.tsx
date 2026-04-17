@@ -1,4 +1,6 @@
 import type { User } from "../../interfaces/interfaces";
+import "./ProfileButtons.css";
+
 
 
 interface ProfileHeaderProps {

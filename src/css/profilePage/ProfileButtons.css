@@ -1,0 +1,50 @@
+/* CONTENEDOR */
+.profile-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+/* BOTÓN BASE */
+.profile-actions button {
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: none;
+}
+
+/* SEGUIR */
+.btn-follow {
+  background: #ff3b5c;
+  color: white;
+}
+
+.btn-follow:hover {
+  background: #ff1f47;
+  transform: translateY(-2px);
+}
+
+/* SIGUIENDO */
+.btn-following {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.btn-following:hover {
+  background: #d5d5d5;
+  transform: translateY(-2px);
+}
+
+/* SOLICITAR SEGUIR */
+.btn-request {
+  background: #2196f3;
+  color: white;
+}
+
+.btn-request:hover {
+  background: #0d7ad8;
+  transform: translateY(-2px);
+}

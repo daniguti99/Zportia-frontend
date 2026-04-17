@@ -6,7 +6,12 @@ import ProfileFollowing from "../components/ProfilePage/ProfileFollowing";
 import ProfilePublic from "../components/ProfilePage/ProfilePublic";
 import ProfilePrivateLocked from "../components/ProfilePage/ProfilePrivateLocked";
 
-import { getOwnProfile, getProfileById } from "../services/ProfileService";
+import { 
+  getOwnProfile, 
+  getProfileById, 
+  getPostById 
+} from "../services/ProfileService";
+
 import type { User } from "../interfaces/interfaces";
 
 export default function ProfilePage() {
@@ -18,6 +23,13 @@ export default function ProfilePage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // POSTS DEL PERFIL
+  const [posts, setPosts] = useState<{ id: number; media: string }[]>([]);
+  const [postsLoading, setPostsLoading] = useState(true);
+
+  // ============================
+  // CARGAR PERFIL
+  // ============================
   useEffect(() => {
     async function loadProfile() {
       setLoading(true);
@@ -56,12 +68,44 @@ export default function ProfilePage() {
     loadProfile();
   }, [id, currentUser?.id]);
 
-  // LOADING
+  // ============================
+  // CARGAR POSTS DEL PERFIL
+  // ============================
+  useEffect(() => {
+    async function loadPosts() {
+      if (!id) return;
+
+      setPostsLoading(true);
+
+      try {
+        const data = await getPostById(Number(id), 0, 12);
+        setPosts(data.content);
+      } catch (err) {
+        console.error("Error cargando posts:", err);
+      } finally {
+        setPostsLoading(false);
+      }
+    }
+
+    loadPosts();
+  }, [id]);
+
+  // ============================
+  // RENDERIZADO
+  // ============================
+
+  // LOADING PERFIL
   if (loading) return <div>Cargando perfil...</div>;
 
   // PERFIL PRIVADO BLOQUEADO
   if (isLocked && profile) {
-    return <ProfilePrivateLocked user={profile} />;
+    return (
+      <ProfilePrivateLocked 
+        user={profile} 
+        posts={posts} 
+        postsLoading={postsLoading}
+      />
+    );
   }
 
   // ERROR REAL DEL BACKEND
@@ -77,10 +121,22 @@ export default function ProfilePage() {
   // PERFIL PROPIO O PERFIL SEGUIDO / PÚBLICO
   if (profile) {
     if (!profile.isPrivate || profile.followedByMe) {
-      return <ProfileFollowing user={profile} />;
+      return (
+        <ProfileFollowing 
+          user={profile} 
+          posts={posts} 
+          postsLoading={postsLoading}
+        />
+      );
     }
 
-    return <ProfilePublic user={profile} />;
+    return (
+      <ProfilePublic 
+        user={profile} 
+        posts={posts} 
+        postsLoading={postsLoading}
+      />
+    );
   }
 
   return null;

@@ -1,4 +1,6 @@
 import "./ProfilePostsGrid.css";
+import "./ProfileButtons.css";
+
 
 interface ProfilePostsGridProps {
   posts: { id: number; imageUrl: string }[];
