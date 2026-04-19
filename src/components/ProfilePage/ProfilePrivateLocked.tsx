@@ -1,12 +1,14 @@
 import { useState } from "react";
 import type { User } from "../../interfaces/interfaces";
 import ProfileHeader from "./ProfileHeader";
-
-import "./ProfileButtons.css";
+import "../../css/profilePage/ProfileButtons.css";
 import { followUser } from "../../services/ProfileService";
 
 interface ProfilePrivateLockedProps {
   user: User;
+  posts: { id: number; media: string }[];
+  postsLoading: boolean;
+  onPostClick: (id: number) => void;
 }
 
 export default function ProfilePrivateLocked({ user }: ProfilePrivateLockedProps) {

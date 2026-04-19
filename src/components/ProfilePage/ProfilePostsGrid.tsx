@@ -1,21 +1,29 @@
-import "./ProfilePostsGrid.css";
-import "./ProfileButtons.css";
-
+import "../../css/profilePage/ProfilePostsGrid.css";
 
 interface ProfilePostsGridProps {
-  posts: { id: number; imageUrl: string }[];
+  posts: { id: number; media: string }[];
+  loading?: boolean;
+  onPostClick?: (postId: number) => void;
 }
 
-export default function ProfilePostsGrid({ posts }: ProfilePostsGridProps) {
+export default function ProfilePostsGrid({ posts, loading, onPostClick }: ProfilePostsGridProps) {
+  if (loading) {
+    return <p className="no-posts">Cargando publicaciones...</p>;
+  }
+
+  if (!posts || posts.length === 0) {
+    return <p className="no-posts">Este usuario aún no tiene publicaciones</p>;
+  }
+
   return (
     <div className="posts-grid">
-      {posts.length === 0 && (
-        <p className="no-posts">Este usuario aún no tiene publicaciones</p>
-      )}
-
       {posts.map((post) => (
-        <div key={post.id} className="post-item">
-          <img src={post.imageUrl} alt="post" />
+        <div 
+          key={post.id} 
+          className="post-item"
+          onClick={() => onPostClick?.(post.id)}
+        >
+          <img src={post.media} alt="post" />
         </div>
       ))}
     </div>

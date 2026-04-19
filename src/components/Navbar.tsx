@@ -21,8 +21,10 @@ export default function Navbar() {
             Explora
           </Link>
 
-          <a className="nav-item">Forum</a>
-          <a className="nav-item">Perfil</a>
+          <Link to={`/profile/${user?.id}`} className="nav-item">
+            Mi perfil
+          </Link>
+
         </div>
 
         {/* CENTER LOGO */}
@@ -80,7 +82,6 @@ export default function Navbar() {
             {/* DROPDOWN MENU */}
             {user && (
               <div className="profile-dropdown">
-                <Link to="/perfil" className="dropdown-item">Mi perfil</Link>
                 <button className="dropdown-item logout" onClick={logout}>
                   Cerrar sesión
                 </button>

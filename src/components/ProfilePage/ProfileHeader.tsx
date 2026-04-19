@@ -1,5 +1,5 @@
 import type { User } from "../../interfaces/interfaces";
-import "./ProfileButtons.css";
+import "../../css/profilePage/ProfileButtons.css";
 
 
 

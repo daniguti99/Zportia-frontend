@@ -113,5 +113,27 @@ export async function getPostById(postId: number) {
   return response.json();
 }
 
+export async function getUserPosts(userId: number, page: number = 0, size: number = 12) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/users/${userId}/posts?page=${page}&size=${size}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) throw new Error(errorJson.message);
+    if (errorJson?.error) throw new Error(errorJson.error);
+
+    throw new Error("No se pudieron cargar las publicaciones");
+  }
+
+  return response.json();
+}
+
 
 

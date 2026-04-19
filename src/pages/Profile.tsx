@@ -6,13 +6,15 @@ import ProfileFollowing from "../components/ProfilePage/ProfileFollowing";
 import ProfilePublic from "../components/ProfilePage/ProfilePublic";
 import ProfilePrivateLocked from "../components/ProfilePage/ProfilePrivateLocked";
 
-import { 
-  getOwnProfile, 
-  getProfileById, 
-  getPostById 
+import {
+  getOwnProfile,
+  getPostById,
+  getProfileById,
+  getUserPosts,
 } from "../services/ProfileService";
 
 import type { User } from "../interfaces/interfaces";
+import PostModal from "../components/ProfilePage/PostModal";
 
 export default function ProfilePage() {
   const { id } = useParams();
@@ -27,6 +29,11 @@ export default function ProfilePage() {
   const [posts, setPosts] = useState<{ id: number; media: string }[]>([]);
   const [postsLoading, setPostsLoading] = useState(true);
 
+  // MODAL
+  const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+  const [selectedPost, setSelectedPost] = useState<any>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
   // ============================
   // CARGAR PERFIL
   // ============================
@@ -37,26 +44,31 @@ export default function ProfilePage() {
       setIsLocked(false);
 
       try {
-        // PERFIL PROPIO
-        if (Number(id) === currentUser?.id) {
+        // 1) Si no hay ID → cargar tu propio perfil
+        if (!id || isNaN(Number(id))) {
           const me = await getOwnProfile();
           setProfile(me);
           return;
         }
 
-        // PERFIL AJENO
-        const data = await getProfileById(Number(id));
+        const numericId = Number(id);
+
+        // 2) Si el ID es tuyo → cargar tu propio perfil
+        if (numericId === currentUser?.id) {
+          const me = await getOwnProfile();
+          setProfile(me);
+          return;
+        }
+
+        // 3) Perfil ajeno
+        const data = await getProfileById(numericId);
         setProfile(data);
 
       } catch (err: any) {
         const msg = err?.message || "Error inesperado";
         setError(msg);
 
-        // PERFIL PRIVADO O BLOQUEADO
-        if (
-          msg.includes("privado") ||
-          msg.includes("No puedes ver este perfil")
-        ) {
+        if (msg.includes("privado") || msg.includes("No puedes ver este perfil")) {
           setIsLocked(true);
         }
 
@@ -69,16 +81,16 @@ export default function ProfilePage() {
   }, [id, currentUser?.id]);
 
   // ============================
-  // CARGAR POSTS DEL PERFIL
+  // CARGAR POSTS
   // ============================
   useEffect(() => {
     async function loadPosts() {
-      if (!id) return;
+      if (!id || isNaN(Number(id))) return;
 
       setPostsLoading(true);
 
       try {
-        const data = await getPostById(Number(id), 0, 12);
+        const data = await getUserPosts(Number(id), 0, 12);
         setPosts(data.content);
       } catch (err) {
         console.error("Error cargando posts:", err);
@@ -91,24 +103,30 @@ export default function ProfilePage() {
   }, [id]);
 
   // ============================
+  // CARGAR POST SELECCIONADO
+  // ============================
+  useEffect(() => {
+    async function loadPost() {
+      if (!selectedPostId) return;
+
+      try {
+        const data = await getPostById(selectedPostId);
+        setSelectedPost(data);
+        setModalOpen(true);
+      } catch (err) {
+        console.error("Error cargando post:", err);
+      }
+    }
+
+    loadPost();
+  }, [selectedPostId]);
+
+  // ============================
   // RENDERIZADO
   // ============================
 
-  // LOADING PERFIL
   if (loading) return <div>Cargando perfil...</div>;
 
-  // PERFIL PRIVADO BLOQUEADO
-  if (isLocked && profile) {
-    return (
-      <ProfilePrivateLocked 
-        user={profile} 
-        posts={posts} 
-        postsLoading={postsLoading}
-      />
-    );
-  }
-
-  // ERROR REAL DEL BACKEND
   if (error && !profile) {
     return (
       <div style={{ padding: "40px", textAlign: "center" }}>
@@ -118,26 +136,63 @@ export default function ProfilePage() {
     );
   }
 
-  // PERFIL PROPIO O PERFIL SEGUIDO / PÚBLICO
-  if (profile) {
-    if (!profile.isPrivate || profile.followedByMe) {
-      return (
-        <ProfileFollowing 
-          user={profile} 
-          posts={posts} 
-          postsLoading={postsLoading}
-        />
-      );
-    }
-
+  if (isLocked && profile) {
     return (
-      <ProfilePublic 
-        user={profile} 
-        posts={posts} 
-        postsLoading={postsLoading}
-      />
+      <>
+        <ProfilePrivateLocked
+          user={profile}
+          posts={posts}
+          postsLoading={postsLoading}
+          onPostClick={(id) => setSelectedPostId(id)}
+        />
+
+        {modalOpen && selectedPost && (
+          <PostModal
+            post={selectedPost}
+            onClose={() => {
+              setModalOpen(false);
+              setSelectedPostId(null);
+              setSelectedPost(null);
+            }}
+          />
+        )}
+      </>
     );
   }
 
-  return null;
+  if (profile) {
+    return (
+      <>
+        {(!profile.isPrivate || profile.followedByMe) ? (
+          <ProfileFollowing
+            user={profile}
+            posts={posts}
+            postsLoading={postsLoading}
+            onPostClick={(id) => setSelectedPostId(id)}
+          />
+        ) : (
+          <ProfilePublic
+            user={profile}
+            posts={posts}
+            postsLoading={postsLoading}
+            onPostClick={(id) => setSelectedPostId(id)}
+          />
+        )}
+
+        {modalOpen && selectedPost && (
+          <PostModal
+            post={selectedPost}
+            onClose={() => {
+              setModalOpen(false);
+              setSelectedPostId(null);
+              setSelectedPost(null);
+            }}
+          />
+        )}
+      </>
+    );
+  }
+
+  // Fallback para evitar pantalla en blanco
+  return <div style={{ padding: 40 }}>No se pudo cargar el perfil</div>;
 }

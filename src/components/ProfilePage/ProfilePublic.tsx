@@ -2,14 +2,17 @@ import { useState } from "react";
 import type { User } from "../../interfaces/interfaces";
 import ProfileHeader from "./ProfileHeader";
 import ProfilePostsGrid from "./ProfilePostsGrid";
-import "./ProfileButtons.css";
+import "../../css/profilePage/ProfileButtons.css";
 import { followUser } from "../../services/ProfileService";
 
 interface ProfilePublicProps {
   user: User;
+  posts: { id: number; media: string }[];
+  postsLoading: boolean;
+  onPostClick: (id: number) => void;
 }
 
-export default function ProfilePublic({ user }: ProfilePublicProps) {
+export default function ProfilePublic({ user, posts, postsLoading, onPostClick }: ProfilePublicProps) {
   const [loading, setLoading] = useState(false);
 
   async function handleFollow() {
@@ -37,7 +40,11 @@ export default function ProfilePublic({ user }: ProfilePublicProps) {
         </button>
       </div>
 
-      <ProfilePostsGrid posts={user.posts ?? []} />
+      <ProfilePostsGrid
+        posts={posts}
+        loading={postsLoading}
+        onPostClick={onPostClick}
+      />
 
     </div>
   );
