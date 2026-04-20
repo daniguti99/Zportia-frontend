@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { User } from "../../interfaces/interfaces";
 import ProfileHeader from "./ProfileHeader";
 import "../../css/profilePage/ProfileButtons.css";
+import "../../css/profilePage/ProfileComponents.css";
 import { followUser } from "../../services/ProfileService";
 
 interface ProfilePrivateLockedProps {

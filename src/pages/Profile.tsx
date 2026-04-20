@@ -5,6 +5,7 @@ import { useAuth } from "../hooks/useAuth";
 import ProfileFollowing from "../components/ProfilePage/ProfileFollowing";
 import ProfilePublic from "../components/ProfilePage/ProfilePublic";
 import ProfilePrivateLocked from "../components/ProfilePage/ProfilePrivateLocked";
+import "../css/profilePage/ProfilePage.css";
 
 import {
   getOwnProfile,
@@ -15,6 +16,8 @@ import {
 
 import type { User } from "../interfaces/interfaces";
 import PostModal from "../components/ProfilePage/PostModal";
+
+
 
 export default function ProfilePage() {
   const { id } = useParams();
@@ -120,6 +123,13 @@ export default function ProfilePage() {
 
     loadPost();
   }, [selectedPostId]);
+
+    console.log("ID desde useParams:", id);
+console.log("currentUser:", currentUser);
+console.log("profile:", profile);
+console.log("error:", error);
+console.log("loading:", loading);
+console.log("posts:", posts);
 
   // ============================
   // RENDERIZADO

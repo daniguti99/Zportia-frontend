@@ -16,7 +16,7 @@ export default function AppRouter() {
             <Route path="/register" element={<Register />} />
             <Route path="/home" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/:id" element={<ProfilePage />} />
             <Route path='*' element={<h1>Error 404</h1>}></Route>
         </Route>
       </Routes>

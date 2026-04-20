@@ -1,0 +1,126 @@
+/* ============================================================
+   CONTENEDOR GENERAL DEL PERFIL
+   ============================================================ */
+
+.profile-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   ESTADO BLOQUEADO
+   ============================================================ */
+
+.profile-container.locked {
+  opacity: 0.85;
+}
+
+.profile-locked-message {
+  text-align: center;
+  margin-top: 10px;
+  color: #ccc;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.locked-grid {
+  margin-top: 20px;
+  padding: 40px 0;
+  text-align: center;
+  color: #999;
+  font-size: 18px;
+}
+
+/* ============================================================
+   ACCIONES (SEGUIR / SIGUIENDO / SOLICITAR)
+   ============================================================ */
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Botones ya definidos en ProfileButtons.css, pero ajustamos spacing */
+.profile-actions button {
+  min-width: 140px;
+}
+
+/* ============================================================
+   GRID DE POSTS (override para coherencia visual)
+   ============================================================ */
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.post-item {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #111;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.post-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-item:hover {
+  opacity: 0.85;
+}
+
+/* Mensaje sin posts */
+.no-posts {
+  text-align: center;
+  padding: 40px 0;
+  color: #aaa;
+  font-size: 17px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 0 12px;
+    margin-top: 20px;
+  }
+
+  .posts-grid {
+    gap: 4px;
+  }
+
+  .profile-actions button {
+    width: 100%;
+    max-width: 260px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    gap: 20px;
+  }
+
+  .no-posts {
+    font-size: 15px;
+  }
+}

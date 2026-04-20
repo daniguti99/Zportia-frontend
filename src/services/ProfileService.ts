@@ -116,7 +116,7 @@ export async function getPostById(postId: number) {
 export async function getUserPosts(userId: number, page: number = 0, size: number = 12) {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`${URL_BASE}/users/${userId}/posts?page=${page}&size=${size}`, {
+  const response = await fetch(`${URL_BASE}/user/${userId}/posts?page=${page}&size=${size}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`
