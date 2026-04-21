@@ -1,74 +1,102 @@
-/* Fondo oscuro con blur */
+/* ============================
+   PALETTE DARK
+   ============================ */
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --accent-primary: #ff006e;
+  --accent-secondary: #0099ff;
+  --accent-tertiary: #7c3aed;
+}
+
+/* Fondo oscuro con blur - DARK MODE */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
-  animation: fadeIn 0.25s ease-out;
+  animation: fadeInDark 0.3s ease-out;
 }
 
-/* Contenedor del modal */
+/* Contenedor del modal - DARK MODE */
 .modal-content {
   position: relative;
-  background: #111;
-  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.9));
+  border-radius: 20px;
   overflow: hidden;
   width: 90%;
   max-width: 900px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  animation: scaleIn 0.25s ease-out;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+  animation: scaleInDark 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7),
+              0 0 60px rgba(255, 0, 110, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Botón de cerrar */
+/* Botón de cerrar - DARK MODE */
 .modal-close {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(255, 255, 255, 0.12);
-  border: none;
-  color: white;
-  font-size: 26px;
-  width: 38px;
-  height: 38px;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-primary);
+  font-size: 28px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   cursor: pointer;
-  transition: 0.2s ease;
-  backdrop-filter: blur(4px);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  z-index: 10;
 }
 
 .modal-close:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 0, 110, 0.2);
+  border-color: rgba(255, 0, 110, 0.4);
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
 }
 
-/* Animaciones */
-@keyframes fadeIn {
+.modal-close:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+/* Animaciones - DARK MODE */
+@keyframes fadeInDark {
   from {
     opacity: 0;
     backdrop-filter: blur(0px);
   }
   to {
     opacity: 1;
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(12px);
   }
 }
 
-@keyframes scaleIn {
+@keyframes scaleInDark {
   from {
-    transform: scale(0.85);
+    transform: scale(0.92) translateY(20px);
     opacity: 0;
   }
   to {
-    transform: scale(1);
+    transform: scale(1) translateY(0);
     opacity: 1;
   }
 }
@@ -81,18 +109,22 @@
   overflow-y: auto;
 }
 
-/* Scroll elegante */
+/* Scroll elegante - DARK MODE */
 .modal-content::-webkit-scrollbar {
   width: 8px;
 }
 
+.modal-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
 .modal-content::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 0, 110, 0.3);
   border-radius: 4px;
 }
 
 .modal-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 0, 110, 0.5);
 }
 
 /* MOBILE */
@@ -100,8 +132,8 @@
 @media (max-width: 768px) {
 
   .modal-overlay {
-    backdrop-filter: blur(4px);
-    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.85);
   }
 
   .modal-content {
@@ -110,19 +142,21 @@
     max-width: none;
     max-height: none;
     border-radius: 0;
-    animation: slideUp 0.25s ease-out;
+    animation: slideUpDark 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     display: flex;
     flex-direction: column;
+    border: none;
   }
 
   /* Botón cerrar más accesible */
   .modal-close {
-    top: 16px;
-    right: 16px;
-    width: 42px;
-    height: 42px;
-    font-size: 30px;
-    background: rgba(0, 0, 0, 0.35);
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    font-size: 32px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   /* PostCard ocupa toda la pantalla */
@@ -132,9 +166,9 @@
   }
 
   /* Animación tipo Instagram */
-  @keyframes slideUp {
+  @keyframes slideUpDark {
     from {
-      transform: translateY(40px);
+      transform: translateY(60px);
       opacity: 0;
     }
     to {
@@ -144,20 +178,20 @@
   }
 }
 
-
-   /*TABLET*/
-
+/* TABLET */
 
 @media (min-width: 769px) and (max-width: 1024px) {
 
   .modal-content {
     width: 85%;
     max-height: 85vh;
-    border-radius: 12px;
+    border-radius: 18px;
   }
 
   .modal-close {
     top: 14px;
     right: 14px;
+    width: 40px;
+    height: 40px;
   }
 }

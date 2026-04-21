@@ -1,5 +1,6 @@
 import type { User } from "../../interfaces/interfaces";
 import "../../css/profilePage/ProfileButtons.css";
+import "../../css/profilePage/ProfileHeader.css";
 
 
 
@@ -25,8 +26,20 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
         <h2 className="profile-name">
           {user.firstName} {user.lastName}
         </h2>
-        <p className="profile-username">@{user.username}</p>
+        <p className="profile-username">{user.username}</p>
       </div>
+
+      {/* DEPORTES */}
+      {user.sports && user.sports.length > 0 && (
+        <div className="profile-sports">
+          {user.sports.map((sport) => (
+            <span key={sport} className="sport-badge">
+              {sport}
+            </span>
+          ))}
+        </div>
+      )}
+
 
       {/* STATS */}
       <div className="profile-header-stats">

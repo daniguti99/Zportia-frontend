@@ -1,7 +1,7 @@
 import "../../css/profilePage/ProfilePostsGrid.css";
 
 interface ProfilePostsGridProps {
-  posts: { id: number; media: string }[];
+  posts: { id: number; photo: string }[];
   loading?: boolean;
   onPostClick?: (postId: number) => void;
 }
@@ -23,7 +23,7 @@ export default function ProfilePostsGrid({ posts, loading, onPostClick }: Profil
           className="post-item"
           onClick={() => onPostClick?.(post.id)}
         >
-          <img src={post.media} alt="post" />
+          <img src={post.photo} alt="post" />
         </div>
       ))}
     </div>

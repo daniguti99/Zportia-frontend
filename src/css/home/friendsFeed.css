@@ -1,57 +1,76 @@
 /* ============================
-   CONTENEDOR BASE DEL FEED
+   CONTENEDOR BASE DEL FEED - DARK MODE
    ============================ */
 .feed-base-container {
   max-width: 900px;
   margin: 80px auto 0 auto;
   padding: 24px;
 
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(6px);
+  background: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5),
+              0 0 40px rgba(255, 0, 110, 0.08);
 
-  animation: fadeIn 0.5s ease;
+  animation: feedFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ============================
-   TÍTULO
+   TÍTULO - DARK MODE
    ============================ */
 .friends-feed-title {
   font-size: 2.4rem;
   font-weight: 900;
   text-align: center;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
 
-  background: linear-gradient(90deg,#840822,#a81a35);
+  background: linear-gradient(135deg, #ff006e 0%, #0099ff 50%, #7c3aed 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(255, 0, 110, 0.3));
 
   letter-spacing: -0.5px;
-  font-style: italic;
+  animation: titleGlow 4s ease infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(255, 0, 110, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(0, 153, 255, 0.4));
+  }
 }
 
 /* ============================
-   LISTA DE POSTS
+   LISTA DE POSTS - DARK MODE
    ============================ */
 .friends-feed-list {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 28px;
 }
 
 .friends-feed-list > * {
-  animation: postAppear 0.5s ease;
+  animation: postAppearDark 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@keyframes postAppear {
-  from { opacity: 0; transform: translateY(25px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+@keyframes postAppearDark {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* ============================
-   ESTADOS
+   ESTADOS - DARK MODE
    ============================ */
 .friends-feed-loading,
 .friends-feed-error,
@@ -63,29 +82,39 @@
 }
 
 .friends-feed-loading {
-  color: var(--primary);
-  animation: pulse 1.5s infinite;
+  background: linear-gradient(135deg, #ff006e, #0099ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: pulseDark 1.5s infinite;
 }
 
 .friends-feed-error {
-  color: #840822;
+  color: #ff6b6b;
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
 }
 
 .friends-feed-empty {
-  color: #555;
-  opacity: 0.8;
+  color: #a0a0a0;
+  opacity: 0.9;
 }
 
 /* ============================
-   ANIMACIONES
+   ANIMACIONES - DARK MODE
    ============================ */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes feedFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@keyframes pulse {
-  0% { opacity: 0.5; }
+@keyframes pulseDark {
+  0% { opacity: 0.6; }
   50% { opacity: 1; }
-  100% { opacity: 0.5; }
+  100% { opacity: 0.6; }
 }

@@ -1,0 +1,56 @@
+.followers-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.followers-modal {
+  background: #111;
+  padding: 20px;
+  border-radius: 14px;
+  width: 350px;
+  max-height: 70vh;
+  overflow-y: auto;
+  box-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
+
+.followers-list {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.follower-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.follower-photo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.follower-username {
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.close-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #ff4d6d, #6a5af9);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}

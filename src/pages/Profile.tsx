@@ -124,12 +124,10 @@ export default function ProfilePage() {
     loadPost();
   }, [selectedPostId]);
 
-    console.log("ID desde useParams:", id);
-console.log("currentUser:", currentUser);
-console.log("profile:", profile);
-console.log("error:", error);
-console.log("loading:", loading);
-console.log("posts:", posts);
+
+
+console.log("PROFILE:", profile);
+
 
   // ============================
   // RENDERIZADO

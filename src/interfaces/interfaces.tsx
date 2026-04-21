@@ -1,10 +1,11 @@
 export interface User {
   id: number;
   username: string;
+  email: string;     
   firstName: string;
   lastName: string;
   sports: string[];
-  level: string;        
+  level: string;
   isPrivate: boolean;
   photo: string | null;
   points: number;
@@ -46,5 +47,8 @@ export interface LikeUser {
   userPhoto: string;
 }
 
-
-
+export interface SimpleUser {
+  id: number;
+  username: string;
+  photo: string | null;
+}
