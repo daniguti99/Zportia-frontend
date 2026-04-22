@@ -7,12 +7,13 @@ import { followUser } from "../../services/ProfileService";
 
 interface ProfilePrivateLockedProps {
   user: User;
-  posts: { id: number; media: string }[];
+  isOwnProfile: boolean;
+  posts: { id: number; photo: string }[];
   postsLoading: boolean;
   onPostClick: (id: number) => void;
 }
 
-export default function ProfilePrivateLocked({ user }: ProfilePrivateLockedProps) {
+export default function ProfilePrivateLocked({ user, isOwnProfile }: ProfilePrivateLockedProps) {
   const [loading, setLoading] = useState(false);
 
   async function handleRequest() {
@@ -28,22 +29,25 @@ export default function ProfilePrivateLocked({ user }: ProfilePrivateLockedProps
   return (
     <div className="profile-container locked">
 
-      <ProfileHeader user={user} />
+      <ProfileHeader user={user} isOwnProfile={isOwnProfile} />
 
       <div className="profile-locked-message">
         <p>Este perfil es privado</p>
         <p>Envía una solicitud para ver sus publicaciones</p>
       </div>
 
-      <div className="profile-actions">
-        <button
-          className="btn-request"
-          onClick={handleRequest}
-          disabled={loading}
-        >
-          {loading ? "..." : "Solicitar seguir"}
-        </button>
-      </div>
+      {/* 🔥 Solo mostrar si NO es mi perfil */}
+      {!isOwnProfile && (
+        <div className="profile-actions">
+          <button
+            className="btn-request"
+            onClick={handleRequest}
+            disabled={loading}
+          >
+            {loading ? "..." : "Solicitar seguir"}
+          </button>
+        </div>
+      )}
 
       <div className="profile-posts-grid locked-grid">
         <p>Contenido bloqueado 🔒</p>

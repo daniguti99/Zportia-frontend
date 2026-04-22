@@ -1,17 +1,35 @@
-import "./FollowersModal.css";
+import { useEffect } from "react";
+import "../../css/profilePage/FollowersModal.css";
+import type { SimpleUser } from '../../interfaces/interfaces';
 
 interface FollowersModalProps {
   title: string;
-  users: { id: number; username: string; photo: string | null }[];
+  users: SimpleUser[];
   onClose: () => void;
 }
 
 export default function FollowersModal({ title, users, onClose }: FollowersModalProps) {
-  return (
-    <div className="followers-modal-overlay" onClick={onClose}>
-      <div className="followers-modal" onClick={(e) => e.stopPropagation()}>
-        <h2>{title}</h2>
 
+  // Cerrar con tecla ESC
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
+  return (
+    <div className="followers-modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
+      <div className="followers-modal" onClick={(e) => e.stopPropagation()}>
+        
+        {/* HEADER */}
+        <div className="followers-header">
+          <h2 className="followers-title">{title}</h2>
+          <button className="close-icon" onClick={onClose}>✕</button>
+        </div>
+
+        {/* LISTA */}
         <div className="followers-list">
           {users.map((u) => (
             <div key={u.id} className="follower-item">
@@ -25,7 +43,6 @@ export default function FollowersModal({ title, users, onClose }: FollowersModal
           ))}
         </div>
 
-        <button className="close-btn" onClick={onClose}>Cerrar</button>
       </div>
     </div>
   );

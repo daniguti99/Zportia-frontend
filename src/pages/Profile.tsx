@@ -5,6 +5,8 @@ import { useAuth } from "../hooks/useAuth";
 import ProfileFollowing from "../components/ProfilePage/ProfileFollowing";
 import ProfilePublic from "../components/ProfilePage/ProfilePublic";
 import ProfilePrivateLocked from "../components/ProfilePage/ProfilePrivateLocked";
+import BlockedByUserPage from "../components/ProfilePage/BlockedByUserPage";
+
 import "../css/profilePage/ProfilePage.css";
 
 import {
@@ -16,20 +18,18 @@ import {
 
 import type { User } from "../interfaces/interfaces";
 import PostModal from "../components/ProfilePage/PostModal";
-
-
+import BlockedByMePage from "../components/ProfilePage/BlockedMyBePage";
 
 export default function ProfilePage() {
   const { id } = useParams();
   const { user: currentUser } = useAuth();
 
   const [profile, setProfile] = useState<User | null>(null);
-  const [isLocked, setIsLocked] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // POSTS DEL PERFIL
-  const [posts, setPosts] = useState<{ id: number; media: string }[]>([]);
+  // POSTS
+  const [posts, setPosts] = useState<{ id: number; photo: string }[]>([]);
   const [postsLoading, setPostsLoading] = useState(true);
 
   // MODAL
@@ -44,10 +44,8 @@ export default function ProfilePage() {
     async function loadProfile() {
       setLoading(true);
       setError(null);
-      setIsLocked(false);
 
       try {
-        // 1) Si no hay ID → cargar tu propio perfil
         if (!id || isNaN(Number(id))) {
           const me = await getOwnProfile();
           setProfile(me);
@@ -56,25 +54,17 @@ export default function ProfilePage() {
 
         const numericId = Number(id);
 
-        // 2) Si el ID es tuyo → cargar tu propio perfil
         if (numericId === currentUser?.id) {
           const me = await getOwnProfile();
           setProfile(me);
           return;
         }
 
-        // 3) Perfil ajeno
         const data = await getProfileById(numericId);
         setProfile(data);
 
       } catch (err: any) {
-        const msg = err?.message || "Error inesperado";
-        setError(msg);
-
-        if (msg.includes("privado") || msg.includes("No puedes ver este perfil")) {
-          setIsLocked(true);
-        }
-
+        setError(err?.message || "Error inesperado");
       } finally {
         setLoading(false);
       }
@@ -124,31 +114,35 @@ export default function ProfilePage() {
     loadPost();
   }, [selectedPostId]);
 
-
-
-console.log("PROFILE:", profile);
-
-
-  // ============================
-  // RENDERIZADO
-  // ============================
-
   if (loading) return <div>Cargando perfil...</div>;
 
-  if (error && !profile) {
+  if (!profile) {
     return (
-      <div style={{ padding: "40px", textAlign: "center" }}>
+      <div style={{ padding: 40 }}>
         <h2>Error</h2>
-        <p>{error}</p>
+        <p>{error ?? "No se pudo cargar el perfil"}</p>
       </div>
     );
   }
 
-  if (isLocked && profile) {
+  // ============================
+  // LÓGICA SOCIAL
+  // ============================
+  const isOwnProfile = currentUser && profile.id === currentUser.id;
+  const blockedMe = profile.blockedMe;
+  const blockedByMe = profile.blockedByMe;
+  const isPrivate = profile.isPrivate;
+  const followedByMe = profile.followedByMe;
+
+  // ============================
+  // A) MI PERFIL
+  // ============================
+  if (isOwnProfile) {
     return (
       <>
-        <ProfilePrivateLocked
+        <ProfileFollowing
           user={profile}
+          isOwnProfile={true}
           posts={posts}
           postsLoading={postsLoading}
           onPostClick={(id) => setSelectedPostId(id)}
@@ -168,24 +162,44 @@ console.log("PROFILE:", profile);
     );
   }
 
-  if (profile) {
+  // ============================
+  // B) ÉL ME BLOQUEÓ
+  // ============================
+  if (blockedMe) {
+    return (
+      <BlockedByUserPage
+        username={profile.username}
+        photo={profile.photo}
+      />
+    );
+  }
+
+  // ============================
+  // C) YO LO BLOQUEÉ → permitir desbloquear
+  // ============================
+  if (blockedByMe) {
+    return (
+      <BlockedByMePage
+        userId={profile.id}
+        username={profile.username}
+        photo={profile.photo}
+      />
+    );
+  }
+
+  // ============================
+  // D) PRIVADO Y NO LO SIGO
+  // ============================
+  if (isPrivate && !followedByMe) {
     return (
       <>
-        {(!profile.isPrivate || profile.followedByMe) ? (
-          <ProfileFollowing
-            user={profile}
-            posts={posts}
-            postsLoading={postsLoading}
-            onPostClick={(id) => setSelectedPostId(id)}
-          />
-        ) : (
-          <ProfilePublic
-            user={profile}
-            posts={posts}
-            postsLoading={postsLoading}
-            onPostClick={(id) => setSelectedPostId(id)}
-          />
-        )}
+        <ProfilePrivateLocked
+          user={profile}
+          isOwnProfile={false}
+          posts={posts}
+          postsLoading={postsLoading}
+          onPostClick={(id) => setSelectedPostId(id)}
+        />
 
         {modalOpen && selectedPost && (
           <PostModal
@@ -201,6 +215,29 @@ console.log("PROFILE:", profile);
     );
   }
 
-  // Fallback para evitar pantalla en blanco
-  return <div style={{ padding: 40 }}>No se pudo cargar el perfil</div>;
+  // ============================
+  // E) PERFIL NORMAL (público o seguido)
+  // ============================
+  return (
+    <>
+      <ProfileFollowing
+        user={profile}
+        isOwnProfile={false}
+        posts={posts}
+        postsLoading={postsLoading}
+        onPostClick={(id) => setSelectedPostId(id)}
+      />
+
+      {modalOpen && selectedPost && (
+        <PostModal
+          post={selectedPost}
+          onClose={() => {
+            setModalOpen(false);
+            setSelectedPostId(null);
+            setSelectedPost(null);
+          }}
+        />
+      )}
+    </>
+  );
 }

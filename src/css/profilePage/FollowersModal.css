@@ -1,56 +1,110 @@
+/* Fondo oscuro con blur */
 .followers-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2000;
+  z-index: 3000;
+  animation: fadeIn 0.25s ease forwards;
 }
 
+/* Animación de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Caja del modal */
 .followers-modal {
   background: #111;
-  padding: 20px;
-  border-radius: 14px;
-  width: 350px;
-  max-height: 70vh;
-  overflow-y: auto;
-  box-shadow: 0 0 20px rgba(255,255,255,0.1);
+  width: 360px;
+  max-height: 75vh;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 0 25px rgba(255,255,255,0.08);
+  animation: slideUp 0.25s ease forwards;
+  overflow: hidden;
 }
 
-.followers-list {
-  margin-top: 15px;
+/* Animación de subida */
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Header */
+.followers-header {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
+.followers-title {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.close-icon {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-icon:hover {
+  color: white;
+}
+
+/* Lista scrollable */
+.followers-list {
+  overflow-y: auto;
+  max-height: 60vh;
+  padding-right: 6px;
+}
+
+/* Scrollbar elegante */
+.followers-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.followers-list::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 10px;
+}
+
+/* Cada usuario */
 .follower-item {
   display: flex;
   align-items: center;
   gap: 12px;
+  padding: 10px 6px;
+  border-radius: 12px;
+  transition: background 0.2s ease;
 }
 
+.follower-item:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+/* Avatar */
 .follower-photo {
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.1);
 }
 
+/* Username */
 .follower-username {
-  font-size: 0.95rem;
-  color: #fff;
-}
-
-.close-btn {
-  margin-top: 20px;
-  width: 100%;
-  padding: 10px;
-  background: linear-gradient(135deg, #ff4d6d, #6a5af9);
-  border: none;
-  border-radius: 8px;
   color: white;
-  font-weight: bold;
-  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
 }

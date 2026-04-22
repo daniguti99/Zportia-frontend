@@ -1,21 +1,29 @@
 export interface User {
   id: number;
   username: string;
-  email: string;     
+
   firstName: string;
   lastName: string;
-  sports: string[];
-  level: string;
-  isPrivate: boolean;
+
   photo: string | null;
+  sports: string[];
+
+  level: string;
   points: number;
+  isPrivate: boolean;
 
   followedByMe: boolean;
+  requestedByMe: boolean;
+  followsMe: boolean;
+  requestedMe: boolean;
+  blockedByMe: boolean;
+  blockedMe: boolean;
 
   followersCount: number;
   followingCount: number;
   postsCount: number;
 }
+
 
 
 export interface PostResponse {
@@ -51,4 +59,11 @@ export interface SimpleUser {
   id: number;
   username: string;
   photo: string | null;
+}
+
+
+export interface FollowResponse {
+  message: string;
+  originUser: SimpleUser;
+  targetUser: SimpleUser;
 }
