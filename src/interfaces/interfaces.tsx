@@ -38,6 +38,7 @@ export interface PostResponse {
   commentsCount: number;
   reactionsCount: number;
   likedByCurrentUser: boolean;
+  sport: string;
 }
 
 export interface CommentResponse {
@@ -66,4 +67,10 @@ export interface FollowResponse {
   message: string;
   originUser: SimpleUser;
   targetUser: SimpleUser;
+}
+
+
+export interface Sport {
+  id: string;
+  name: string;
 }

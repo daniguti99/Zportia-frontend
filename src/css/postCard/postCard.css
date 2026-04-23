@@ -1,79 +1,114 @@
 /* ============================
-   POST CARD (GLASS + DEPTH)
+   POST CARD - DARK PREMIUM GLASSMORPHISM
    ============================ */
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --accent-primary: #ff006e;
+  --accent-secondary: #0099ff;
+  --accent-tertiary: #7c3aed;
+}
+
 .post-card {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);
-  border-radius: 18px;
-  padding: 20px;
-  border: 1px solid rgba(0,0,0,0.05);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  transition: all 0.25s ease;
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.9));
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(255, 0, 110, 0.15);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   overflow: hidden;
 }
 
-/* Glow elegante */
+/* Glow elegante oscuro */
 .post-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #840822, #840822);
+  background: linear-gradient(135deg, #ff006e, #0099ff, #7c3aed);
   opacity: 0;
-  transition: 0.3s;
+  transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .post-card:hover::before {
-  opacity: 0.05;
+  opacity: 0.08;
 }
 
 .post-card:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8), 0 0 80px rgba(255, 0, 110, 0.25);
+  border-color: rgba(255, 0, 110, 0.3);
 }
 
 /* ============================
-   HEADER
+   HEADER - DARK
    ============================ */
 .post-header {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
   position: relative;
   z-index: 1;
 }
 
 .post-avatar {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   object-fit: cover;
-  padding: 2px;
-  background: linear-gradient(135deg, #840822, #840822);
+  border: 2.5px solid rgba(255, 0, 110, 0.6);
+  box-shadow: 0 0 16px rgba(255, 0, 110, 0.5), inset 0 0 10px rgba(255, 0, 110, 0.2);
+  transition: all 0.3s ease;
+}
+
+.post-header:hover .post-avatar {
+  border-color: rgba(255, 0, 110, 1);
+  box-shadow: 0 0 24px rgba(255, 0, 110, 0.8), inset 0 0 10px rgba(255, 0, 110, 0.3);
+  transform: scale(1.08);
 }
 
 .post-username {
   font-weight: 700;
   font-size: 1.05rem;
-  color: #1a1a1a;
+  color: #ffffff;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.post-header:hover .post-username {
+  color: #ff006e;
 }
 
 .post-date {
-  font-size: 0.8rem;
-  color: #777;
+  font-size: 0.85rem;
+  color: #a0a0a0;
+  transition: color 0.3s ease;
+}
+
+.post-header:hover .post-date {
+  color: #c0c0c0;
 }
 
 /* ============================
-   CONTENIDO
+   CONTENIDO - DARK
    ============================ */
 .post-content {
   font-size: 1rem;
-  color: #333;
-  margin-bottom: 14px;
-  line-height: 1.5;
+  color: #c0c0c0;
+  margin-bottom: 18px;
+  line-height: 1.6;
   position: relative;
   z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.post-card:hover .post-content {
+  color: #ffffff;
 }
 
 /* ============================
@@ -81,32 +116,40 @@
    ============================ */
 .post-media {
   width: 100%;
-  border-radius: 14px;
-  margin-bottom: 14px;
-  transition: transform 0.4s ease;
+  border-radius: 16px;
+  margin-bottom: 18px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(255, 0, 110, 0.2);
 }
 
 .post-media:hover {
-  transform: scale(1.04);
+  transform: scale(1.05);
+  border-color: rgba(255, 0, 110, 0.5);
+  box-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
 }
 
 /* ============================
-   UBICACIÓN
+   UBICACIÓN - DARK
    ============================ */
 .post-location {
   font-size: 0.85rem;
-  color: #777;
-  margin-bottom: 12px;
+  color: #a0a0a0;
+  margin-bottom: 14px;
+  transition: color 0.3s ease;
+}
+
+.post-card:hover .post-location {
+  color: #c0c0c0;
 }
 
 /* ============================
-   FOOTER PRO INTERACTIVO
+   FOOTER PREMIUM INTERACTIVO - DARK
    ============================ */
 .post-footer {
   display: flex;
   justify-content: space-around;
-  padding-top: 10px;
-  border-top: 1px solid rgba(0,0,0,0.05);
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 1rem;
   position: relative;
   z-index: 1;
@@ -114,31 +157,37 @@
 
 .post-footer span {
   cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: #a0a0a0;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 /* Hover tipo app moderna */
 .post-footer span:hover {
-  background: rgba(132, 8, 34, 0.1);
-  transform: scale(1.1);
+  background: rgba(255, 0, 110, 0.15);
+  border-color: rgba(255, 0, 110, 0.3);
+  color: #ff006e;
+  transform: scale(1.12);
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
 }
 
-/* LIKE ANIMADO */
+/* LIKE ANIMADO PREMIUM */
 .liked {
-  color: #840822;
-  animation: likePop 0.3s ease;
+  color: #ff006e;
+  animation: likePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes likePop {
-  0% { transform: scale(0.8); }
-  50% { transform: scale(1.4); }
-  100% { transform: scale(1); }
+  0% { transform: scale(0.8); opacity: 0.5; }
+  50% { transform: scale(1.5); }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 /* ============================
-   POPUP OVERLAY
+   POPUP OVERLAY - DARK PREMIUM
    ============================ */
 .comments-popup,
 .likes-popup {
@@ -147,143 +196,238 @@
   left: 0;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(6px);
-  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 3000;
-  animation: fadeIn 0.3s ease;
+  animation: darkFadeIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ============================
-   CAJA DEL POPUP
+   CAJA DEL POPUP - GLASSMORPHISM
    ============================ */
 .comments-box,
 .likes-box {
-  background: #ffffff;
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.9));
   width: 92%;
-  max-width: 450px;
+  max-width: 480px;
   max-height: 75vh;
   overflow-y: auto;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+  padding: 28px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(255, 0, 110, 0.15);
   position: relative;
-  animation: slideUp 0.35s ease;
-  border: 1px solid rgba(0,0,0,0.05);
+  animation: darkSlideUp 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Scroll */
+/* Scroll - Premium Dark */
 .comments-box::-webkit-scrollbar,
 .likes-box::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+}
+
+.comments-box::-webkit-scrollbar-track,
+.likes-box::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
 }
 
 .comments-box::-webkit-scrollbar-thumb,
 .likes-box::-webkit-scrollbar-thumb {
-  background: #840822;
+  background: linear-gradient(180deg, #ff006e, #0099ff);
   border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
+  transition: all 0.3s ease;
+}
+
+.comments-box::-webkit-scrollbar-thumb:hover,
+.likes-box::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff0080, #00b3ff);
+  box-shadow: 0 0 30px rgba(255, 0, 110, 0.8);
 }
 
 /* ============================
-   BOTÓN DE CERRAR
+   BOTÓN DE CERRAR - PREMIUM
    ============================ */
 .close-btn {
   position: absolute;
   top: 14px;
   right: 14px;
-  background: none;
-  border: none;
-  font-size: 1.4rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.2rem;
   cursor: pointer;
-  color: #333;
-  transition: 0.25s ease;
+  color: #a0a0a0;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
 }
 
 .close-btn:hover {
-  transform: scale(1.25) rotate(10deg);
-  color: #840822;
+  background: rgba(255, 0, 110, 0.2);
+  border-color: rgba(255, 0, 110, 0.5);
+  color: #ff006e;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
 }
 
 /* ============================
-   TÍTULO
+   TÍTULO - GRADIENT PREMIUM
    ============================ */
 .comments-box h3,
 .likes-box h3 {
-  margin-bottom: 18px;
-  font-size: 1.5rem;
+  margin-bottom: 24px;
+  font-size: 1.6rem;
   font-weight: 800;
   text-align: center;
-  background: linear-gradient(90deg, #840822, #b01035);
+  background: linear-gradient(135deg, #ff006e, #0099ff, #7c3aed);
   -webkit-background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientFlow 3s ease infinite;
+  letter-spacing: 0.5px;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* ============================
-   ITEMS
+   ITEMS - DARK MODE PREMIUM
    ============================ */
 .comment-item,
 .like-item {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
+  padding: 14px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.comment-item:hover,
+.like-item:hover {
+  background: rgba(255, 0, 110, 0.1);
+  transform: translateX(6px);
+  border-bottom-color: rgba(255, 0, 110, 0.3);
 }
 
 .comment-avatar,
 .like-avatar {
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #840822;
-  box-shadow: 0 0 10px rgba(132, 8, 34, 0.4);
+  border: 2.5px solid rgba(255, 0, 110, 0.6);
+  box-shadow: 0 0 16px rgba(255, 0, 110, 0.5), inset 0 0 10px rgba(255, 0, 110, 0.2);
+  transition: all 0.3s ease;
+}
+
+.comment-item:hover .comment-avatar,
+.like-item:hover .like-avatar {
+  border-color: rgba(255, 0, 110, 1);
+  box-shadow: 0 0 24px rgba(255, 0, 110, 0.8), inset 0 0 10px rgba(255, 0, 110, 0.3);
+  transform: scale(1.05);
 }
 
 .comment-username,
 .like-username {
   font-weight: 700;
-  color: #111;
+  color: #ffffff;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.comment-item:hover .comment-username,
+.like-item:hover .like-username {
+  color: #ff006e;
 }
 
 .comment-content {
-  color: #444;
-  font-size: 0.95rem;
+  color: #a0a0a0;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.comment-item:hover .comment-content,
+.like-item:hover .comment-content {
+  color: #c0c0c0;
 }
 
 /* ============================
-   ANIMACIONES
+   ANIMACIONES - PREMIUM
    ============================ */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes darkFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(20px);
+  }
 }
 
-@keyframes slideUp {
-  from { transform: translateY(25px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+@keyframes darkSlideUp {
+  from {
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 /* ============================
-   AÑADIR COMENTARIO
+   AÑADIR COMENTARIO - PREMIUM
    ============================ */
 .add-comment-btn {
-  margin-top: 12px;
-  padding: 10px 14px;
-  background-color: #840822;
+  margin-top: 18px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #ff006e, #0099ff);
   color: white;
-  border: none;
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.add-comment-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .add-comment-btn:hover {
-  background-color: #6a061c;
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #ff0080, #00b3ff);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 0, 110, 0.6);
+}
+
+.add-comment-btn:hover::before {
+  opacity: 1;
 }
 
 .add-comment-btn:active {
@@ -291,75 +435,117 @@
 }
 
 .add-comment-form {
-  margin-top: 15px;
+  margin-top: 18px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  animation: fadeIn 0.2s ease;
+  gap: 12px;
+  animation: darkFadeIn 0.3s ease;
 }
 
 .add-comment-form textarea {
   width: 100%;
   min-height: 70px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1.5px solid #ccc;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255, 0, 110, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
   resize: none;
   font-size: 14px;
   font-family: inherit;
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.add-comment-form textarea::placeholder {
+  color: #a0a0a0;
 }
 
 .add-comment-form textarea:focus {
-  border-color: #840822;
+  border-color: rgba(255, 0, 110, 0.8);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
 }
 
 .add-comment-form button {
   align-self: flex-end;
-  padding: 8px 14px;
-  background-color: #840822;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #ff006e, #0099ff);
   color: white;
-  border: none;
-  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
+  letter-spacing: 0.3px;
+}
+
+.add-comment-form button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .add-comment-form button:hover {
-  background-color: #6a061c;
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #ff0080, #00b3ff);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 0, 110, 0.6);
+}
+
+.add-comment-form button:hover::before {
+  opacity: 1;
+}
+
+.add-comment-form button:active {
+  transform: translateY(0);
 }
 
 .add-comment-form button:disabled {
-  background-color: #d8a3b0;
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.3), rgba(0, 153, 255, 0.3));
   cursor: not-allowed;
   transform: none;
+  opacity: 0.5;
+  box-shadow: none;
 }
 
 .add-comment-form .error {
-  color: #d9534f;
+  color: #ff6b6b;
   font-size: 13px;
   margin-top: -5px;
+  background: rgba(255, 107, 107, 0.1);
+  padding: 6px 10px;
+  border-radius: 6px;
+  border-left: 2px solid #ff6b6b;
 }
 
-/*BOTÓN ELIMINAR COMENTARIO*/
+/*BOTÓN ELIMINAR COMENTARIO - PREMIUM*/
 .delete-comment-btn {
   margin-left: auto;
-  background: none;
-  border: none;
-  color: #840822;
+  background: rgba(255, 107, 107, 0.15);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  color: #ff6b6b;
   font-size: 1.1rem;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(8px);
 }
 
 .delete-comment-btn:hover {
-  background: rgba(132, 8, 34, 0.12);
+  background: rgba(255, 107, 107, 0.25);
+  border-color: rgba(255, 107, 107, 0.6);
+  color: #ff8a8a;
   transform: scale(1.15);
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.4);
 }
 
 .delete-comment-btn:active {
@@ -369,5 +555,6 @@
 .delete-comment-btn.disabled {
   opacity: 0.4;
   cursor: not-allowed;
+  transform: none;
 }
 

@@ -12,40 +12,40 @@
   --accent-tertiary: #7c3aed;
 }
 
-/* Fondo oscuro con blur - DARK MODE */
+/* Fondo oscuro con blur - PREMIUM GLASSMORPHISM */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(20px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
-  animation: fadeInDark 0.3s ease-out;
+  animation: fadeInDark 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Contenedor del modal - DARK MODE */
+/* Contenedor del modal - PREMIUM GLASSMORPHISM */
 .modal-content {
   position: relative;
   background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.9));
-  border-radius: 20px;
+  border-radius: 24px;
   overflow: hidden;
   width: 90%;
   max-width: 900px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  animation: scaleInDark 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: scaleInDark 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7),
               0 0 60px rgba(255, 0, 110, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Botón de cerrar - DARK MODE */
+/* Botón de cerrar - PREMIUM */
 .modal-close {
   position: absolute;
   top: 16px;
@@ -53,7 +53,7 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--text-primary);
-  font-size: 28px;
+  font-size: 24px;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -69,16 +69,17 @@
 
 .modal-close:hover {
   background: rgba(255, 0, 110, 0.2);
-  border-color: rgba(255, 0, 110, 0.4);
+  border-color: rgba(255, 0, 110, 0.5);
+  color: #ff006e;
   transform: rotate(90deg) scale(1.1);
-  box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
 }
 
 .modal-close:active {
   transform: rotate(90deg) scale(0.95);
 }
 
-/* Animaciones - DARK MODE */
+/* Animaciones - PREMIUM */
 @keyframes fadeInDark {
   from {
     opacity: 0;
@@ -86,7 +87,7 @@
   }
   to {
     opacity: 1;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(20px);
   }
 }
 
@@ -109,22 +110,26 @@
   overflow-y: auto;
 }
 
-/* Scroll elegante - DARK MODE */
+/* Scroll elegante - PREMIUM GRADIENT */
 .modal-content::-webkit-scrollbar {
   width: 8px;
 }
 
 .modal-content::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
 }
 
 .modal-content::-webkit-scrollbar-thumb {
-  background: rgba(255, 0, 110, 0.3);
-  border-radius: 4px;
+  background: linear-gradient(180deg, #ff006e, #0099ff);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
+  transition: all 0.3s ease;
 }
 
 .modal-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 0, 110, 0.5);
+  background: linear-gradient(180deg, #ff0080, #00b3ff);
+  box-shadow: 0 0 30px rgba(255, 0, 110, 0.8);
 }
 
 /* MOBILE */
@@ -132,8 +137,8 @@
 @media (max-width: 768px) {
 
   .modal-overlay {
-    backdrop-filter: blur(8px);
-    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.75);
   }
 
   .modal-content {

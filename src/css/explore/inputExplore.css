@@ -1,0 +1,121 @@
+.search-wrapper {
+  position: relative;
+  width: 300px;
+}
+
+/* INPUT */
+.search-input {
+  width: 100%;
+  height: 56px;
+  background: #010201;
+  border: 2px solid #3a4bff; /* 🔵 borde azul fijo */
+  border-radius: 12px;
+  padding: 0 50px 0 20px;
+  color: white;
+  font-size: 18px;
+  transition: 0.25s ease;
+}
+
+.search-input::placeholder {
+  color: #c0b9c0;
+}
+
+/* HOVER → borde rosa suave */
+.search-input:hover {
+  border-color: #cf30aa;
+  box-shadow: 0 0 8px rgba(207, 48, 170, 0.35);
+}
+
+/* FOCUS → borde rosa más intenso */
+.search-input:focus {
+  outline: none;
+  border-color: #cf30aa;
+  box-shadow: 0 0 12px rgba(207, 48, 170, 0.55);
+}
+
+/* ICONO */
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+
+.search-wrapper {
+  position: relative;
+  width: 300px;
+}
+
+/* INPUT */
+.search-input {
+  width: 100%;
+  height: 56px;
+  background: #010201;
+  border: 2px solid #3a4bff;
+  border-radius: 12px;
+  padding: 0 50px 0 20px;
+  color: white;
+  font-size: 18px;
+  transition: 0.25s ease;
+}
+
+.search-input::placeholder {
+  color: #c0b9c0;
+}
+
+.search-input:hover {
+  border-color: #cf30aa;
+  box-shadow: 0 0 8px rgba(207, 48, 170, 0.35);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #cf30aa;
+  box-shadow: 0 0 12px rgba(207, 48, 170, 0.55);
+}
+
+/* ICONO */
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* RESULTADOS */
+.search-results {
+  position: absolute;
+  top: 62px;
+  width: 100%;
+  background: #0d0d0f;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 6px 0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  z-index: 20;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.search-result-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.search-result-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}

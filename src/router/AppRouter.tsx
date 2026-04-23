@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NavBar from "../components/Navbar";
@@ -39,7 +39,7 @@ export default function AppRouter() {
             }
           />
 
-          <Route path="*" element={<h1>Error 404</h1>} />
+          <Route path="*" element={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>

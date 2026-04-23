@@ -12,8 +12,6 @@
 /* ============================
    FONDO DEPORTIVO PREMIUM
    ============================ */
-
-
 body {
   position: relative;
   background-image: url("/src/assets/background-zportia-white.png");
@@ -33,37 +31,68 @@ body::before {
   z-index: -1;
 }
 
-
-
 /* ============================
-   CONTENEDOR GENERAL EXPLORE
+   CONTENEDOR WRAPPER (FLEX)
    ============================ */
-.explore-container {
-  max-width: 900px;
-  margin: 0 auto;
+.explore-wrapper {
+  display: flex;
+  gap: 24px;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(6px);
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  padding-top: 100px; /* Espacio para el navbar */
   min-height: 100vh;
-  animation: fadeIn 0.5s ease;
+  justify-content: center;
 }
 
+/* ============================
+   SIDEBAR (ASIDEBAR) - A LA IZQUIERDA FIJA
+   ============================ */
+.explore-sidebar {
+  position: fixed;
+  left: 24px;
+  top: 100px;
+  width: auto;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+/* ============================
+   CONTENEDOR PRINCIPAL
+   ============================ */
+.explore-container {
+  max-width: 820px;
+  margin: 80px auto 0 auto;
+  padding: 24px;
+
+  background: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid var(--border-light);
+
+  box-shadow: var(--shadow-dark);
+
+  animation: slideUpFade 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
 /* ============================
    TÍTULO PRO
    ============================ */
 .explore-title {
-  font-size: 2.3rem;
-  font-weight: 800;
+  font-size: 2.4rem;
+  font-weight: 900;
   text-align: center;
-  margin-bottom: 30px;
-  margin-top: 60px;
-  background: var(--primary-gradient);
+  margin-bottom: 40px;
+
+  background: linear-gradient(135deg, #ff006e 0%, #0099ff 50%, #7c3aed 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(255, 0, 110, 0.3));
+
   letter-spacing: -0.5px;
+  animation: titleGlow 4s ease infinite;
 }
 
 /* ============================
@@ -95,15 +124,430 @@ body::before {
 }
 
 /* ============================
+   INPUT PREMIUM STYLES
+   ============================ */
+
+/* GRID - OCULTO */
+.grid {
+  display: none;
+}
+
+/* ELEMENTOS DEL INPUT */
+.white,
+.border,
+.darkBorderBg,
+.glow {
+  max-height: 70px;
+  max-width: 314px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  border-radius: 12px;
+  filter: blur(3px);
+}
+
+.input {
+  background-color: #010201;
+  border: none;
+  width: 301px;
+  height: 56px;
+  border-radius: 10px;
+  color: white;
+  padding-inline: 59px;
+  font-size: 18px;
+}
+
+#poda {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+.input::placeholder {
+  color: #c0b9c0;
+}
+
+.input:focus {
+  outline: none;
+}
+
+#main:focus-within > #input-mask {
+  display: none;
+}
+
+#input-mask {
+  pointer-events: none;
+  width: 100px;
+  height: 20px;
+  position: absolute;
+  background: linear-gradient(90deg, transparent, black);
+  top: 18px;
+  left: 70px;
+}
+
+#pink-mask {
+  pointer-events: none;
+  width: 30px;
+  height: 20px;
+  position: absolute;
+  background: #cf30aa;
+  top: 10px;
+  left: 5px;
+  filter: blur(20px);
+  opacity: 0.8;
+  transition: all 2s;
+}
+
+#poda:hover > #pink-mask {
+  opacity: 0;
+}
+
+.white {
+  max-height: 63px;
+  max-width: 307px;
+  border-radius: 10px;
+  filter: blur(2px);
+}
+
+.white::before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(83deg);
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  filter: brightness(1.4);
+  background-image: conic-gradient(
+    rgba(0, 0, 0, 0) 0%,
+    #a099d8,
+    rgba(0, 0, 0, 0) 8%,
+    rgba(0, 0, 0, 0) 50%,
+    #dfa2da,
+    rgba(0, 0, 0, 0) 58%
+  );
+  transition: all 2s;
+}
+
+.border {
+  max-height: 59px;
+  max-width: 303px;
+  border-radius: 11px;
+  filter: blur(0.5px);
+}
+
+.border::before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(70deg);
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  filter: brightness(1.3);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: conic-gradient(
+    #1c191c,
+    #402fb5 5%,
+    #1c191c 14%,
+    #1c191c 50%,
+    #cf30aa 60%,
+    #1c191c 64%
+  );
+  transition: all 2s;
+}
+
+.darkBorderBg {
+  max-height: 65px;
+  max-width: 312px;
+}
+
+.darkBorderBg::before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(82deg);
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: conic-gradient(
+    rgba(0, 0, 0, 0),
+    #18116a,
+    rgba(0, 0, 0, 0) 10%,
+    rgba(0, 0, 0, 0) 50%,
+    #6e1b60,
+    rgba(0, 0, 0, 0) 60%
+  );
+  transition: all 2s;
+}
+
+#poda:hover > .darkBorderBg::before {
+  transform: translate(-50%, -50%) rotate(-98deg);
+}
+
+#poda:hover > .glow::before {
+  transform: translate(-50%, -50%) rotate(-120deg);
+}
+
+#poda:hover > .white::before {
+  transform: translate(-50%, -50%) rotate(-97deg);
+}
+
+#poda:hover > .border::before {
+  transform: translate(-50%, -50%) rotate(-110deg);
+}
+
+#poda:focus-within > .darkBorderBg::before {
+  transform: translate(-50%, -50%) rotate(442deg);
+  transition: all 4s;
+}
+
+#poda:focus-within > .glow::before {
+  transform: translate(-50%, -50%) rotate(420deg);
+  transition: all 4s;
+}
+
+#poda:focus-within > .white::before {
+  transform: translate(-50%, -50%) rotate(443deg);
+  transition: all 4s;
+}
+
+#poda:focus-within > .border::before {
+  transform: translate(-50%, -50%) rotate(430deg);
+  transition: all 4s;
+}
+
+.glow {
+  overflow: hidden;
+  filter: blur(30px);
+  opacity: 0.4;
+  max-height: 130px;
+  max-width: 354px;
+}
+
+.glow::before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(60deg);
+  position: absolute;
+  width: 999px;
+  height: 999px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: conic-gradient(
+    #000,
+    #402fb5 5%,
+    #000 38%,
+    #000 50%,
+    #cf30aa 60%,
+    #000 87%
+  );
+  transition: all 2s;
+}
+
+@keyframes rotate {
+  100% {
+    transform: translate(-50%, -50%) rotate(450deg);
+  }
+}
+
+@keyframes leftright {
+  0% {
+    transform: translate(0px, 0px);
+    opacity: 1;
+  }
+  49% {
+    transform: translate(250px, 0px);
+    opacity: 0;
+  }
+  80% {
+    transform: translate(-40px, 0px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0px, 0px);
+    opacity: 1;
+  }
+}
+
+#filter-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  max-height: 40px;
+  max-width: 38px;
+  height: 100%;
+  width: 100%;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #161329, black, #1d1b4b);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.filterBorder {
+  height: 42px;
+  width: 40px;
+  position: absolute;
+  overflow: hidden;
+  top: 7px;
+  right: 7px;
+  border-radius: 10px;
+}
+
+.filterBorder::before {
+  content: "";
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  filter: brightness(1.35);
+  background-image: conic-gradient(
+    rgba(0, 0, 0, 0),
+    #3d3a4f,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0) 50%,
+    #3d3a4f,
+    rgba(0, 0, 0, 0) 100%
+  );
+  animation: rotate 4s linear infinite;
+}
+
+#main {
+  position: relative;
+}
+
+#search-icon {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+}
+
+/* ============================
    ANIMACIONES
    ============================ */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes pulse {
-  0% { opacity: 0.5; }
-  50% { opacity: 1; }
-  100% { opacity: 0.5; }
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
 }
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+@media (max-width: 1024px) {
+  .explore-sidebar {
+    position: sticky;
+    left: auto;
+    top: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .explore-wrapper {
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 100px;
+    justify-content: flex-start;
+  }
+
+  .explore-sidebar {
+    position: static;
+    left: auto;
+    width: 100%;
+    align-items: center;
+  }
+
+  .explore-container {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .explore-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .explore-feed {
+    gap: 20px;
+  }
+}
+
+/* ============================
+   SIDEBAR DERECHO
+   ============================ */
+.explore-sidebar-right {
+  position: fixed;
+  right: 24px;
+  top: 100px;
+  width: auto;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Responsive: sidebar derecho también se vuelve normal */
+@media (max-width: 1024px) {
+  .explore-sidebar-right {
+    position: sticky;
+    right: auto;
+    top: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .explore-sidebar-right {
+    position: static;
+    width: 100%;
+    align-items: center;
+  }
+}
+

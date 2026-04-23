@@ -9,10 +9,11 @@ import {
   deleteComment 
 } from "../services/PostServices";
 import { ZportiaContext } from "../context/ZportiaContext";
+import { useNavigate } from "react-router";
 
 export default function PostCard({ post }: { post: PostResponse }) {
   const { user } = useContext(ZportiaContext) || {};
-
+  const navigate = useNavigate();
 
   const currentUserId = user?.id;
 
@@ -39,6 +40,8 @@ export default function PostCard({ post }: { post: PostResponse }) {
   const [likes, setLikes] = useState<LikeUser[]>([]);
   const [loadingLikes, setLoadingLikes] = useState(false);
   const [errorLikes, setErrorLikes] = useState<string | null>(null);
+
+  const [value, setValue] = useState("");
 
 
   // TOGGLE LIKE
@@ -132,6 +135,10 @@ export default function PostCard({ post }: { post: PostResponse }) {
     }
   }
 
+  function handleSelectedUser(userId: number) {
+    navigate(`/profile/${userId}`);
+  }
+
 
   return (
     <>
@@ -142,7 +149,9 @@ export default function PostCard({ post }: { post: PostResponse }) {
           <img src={post.userPhoto} alt={post.username} className="post-avatar" />
 
           <div>
-            <p className="post-username">{post.username}</p>
+            <p className="post-username" onClick={() => handleSelectedUser(post.userId)}>
+              {post.username}
+            </p>
             <span className="post-date">{post.date}</span>
           </div>
         </div>
