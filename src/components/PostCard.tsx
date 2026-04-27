@@ -1,15 +1,17 @@
 import { useContext, useState } from "react";
 import type { CommentResponse, PostResponse, LikeUser } from "../interfaces/interfaces";
 import "../css/postCard/postCard.css";
-import { 
-  getCommentsByPost, 
-  getLikesByPost, 
-  toggleLike, 
-  createComment, 
-  deleteComment 
+import {
+  getCommentsByPost,
+  getLikesByPost,
+  toggleLike,
+  createComment,
+  deleteComment,
+  deletePost
 } from "../services/PostServices";
 import { ZportiaContext } from "../context/ZportiaContext";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 export default function PostCard({ post }: { post: PostResponse }) {
   const { user } = useContext(ZportiaContext) || {};
@@ -139,10 +141,65 @@ export default function PostCard({ post }: { post: PostResponse }) {
     navigate(`/profile/${userId}`);
   }
 
+  async function handleDeletePost() {
+    const result = await Swal.fire({
+      title: "¿Eliminar publicación?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ff006e",
+      cancelButtonColor: "#444",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      background: "#111",
+      color: "#fff",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await deletePost(post.id);
+
+      await Swal.fire({
+        title: "Eliminada",
+        text: "Tu publicación ha sido eliminada",
+        icon: "success",
+        background: "#111",
+        color: "#fff",
+        confirmButtonColor: "#0099ff",
+      });
+
+      // Si estás en un modal → ciérralo
+      if (typeof window !== "undefined" && window.location.pathname.includes("profile")) {
+        window.location.reload();
+      }
+
+    } catch (err: any) {
+      Swal.fire({
+        title: "Error",
+        text: err.message,
+        icon: "error",
+        background: "#111",
+        color: "#fff",
+        confirmButtonColor: "#ff006e",
+      });
+    }
+  }
+
 
   return (
     <>
       <div className="post-card">
+
+        {/* PAPELERA */}
+        {post.userId === currentUserId && (
+          <span
+            className="delete-post-btn"
+            onClick={handleDeletePost}
+          >
+            🗑️
+          </span>
+        )}
 
         {/* HEADER */}
         <div className="post-header">

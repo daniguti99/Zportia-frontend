@@ -467,3 +467,15 @@
 .login-image:hover {
   transform: scale(1.05);
 }
+
+
+.zportia-alert {
+  border: 1px solid rgba(255, 0, 110, 0.4);
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.3),
+              0 0 30px rgba(0, 153, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+.zportia-alert.error {
+  border-color: rgba(255, 107, 107, 0.4);
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+}

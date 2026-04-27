@@ -1,6 +1,8 @@
 import "../css/login/login.css";
 import logo from "../assets/logoZportia.png";
 import player from "../assets/img1Login.png";
+import Swal from "sweetalert2";
+
 
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,16 +25,39 @@ export default function Login() {
     resolver: zodResolver(loginSchema)
   });
 
-  const onSubmit: SubmitHandler<LoginForm> = async (data) => {
-    try {
-      const res = await loginRequest(data.email, data.password);
-      zportia?.login(res.token);
-      alert("Login correcto");
-      navigate("/home");
-    } catch {
-      alert("Credenciales incorrectas");
-    }
-  };
+const onSubmit: SubmitHandler<LoginForm> = async (data) => {
+  try {
+    const res = await loginRequest(data.email, data.password);
+    zportia?.login(res.token);
+
+    Swal.fire({
+      title: "Login correcto",
+      text: "Bienvenido de nuevo",
+      icon: "success",
+      background: "#111",
+      color: "#fff",
+      confirmButtonColor: "#0099ff",
+      customClass: {
+        popup: "zportia-alert",
+      }
+    });
+
+    navigate("/home");
+  } catch {
+    Swal.fire({
+      title: "Error",
+      text: "Credenciales incorrectas",
+      icon: "error",
+      background: "#111",
+      color: "#fff",
+      confirmButtonColor: "#ff006e",
+      customClass: {
+        popup: "zportia-alert",
+      }
+    });
+  }
+};
+
 
   return (
     <div className="login-page">

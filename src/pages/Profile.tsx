@@ -16,9 +16,10 @@ import {
   getUserPosts,
 } from "../services/ProfileService";
 
-import type { User } from "../interfaces/interfaces";
+import type { PostResponse, User } from "../interfaces/interfaces";
 import PostModal from "../components/ProfilePage/PostModal";
 import BlockedByMePage from "../components/ProfilePage/BlockedMyBePage";
+import CreatePostButton from "../components/Buttons/CreatePostButton";
 
 export default function ProfilePage() {
   const { id } = useParams();
@@ -34,7 +35,7 @@ export default function ProfilePage() {
 
   // MODAL
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
-  const [selectedPost, setSelectedPost] = useState<any>(null);
+  const [selectedPost, setSelectedPost] = useState<PostResponse | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
   // ============================
@@ -146,6 +147,7 @@ export default function ProfilePage() {
           posts={posts}
           postsLoading={postsLoading}
           onPostClick={(id) => setSelectedPostId(id)}
+          showCreateButton={true}
         />
 
         {modalOpen && selectedPost && (

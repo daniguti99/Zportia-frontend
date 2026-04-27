@@ -1,7 +1,8 @@
 import PostCard from "../PostCard";
 import "../../css/profilePage/PostModal.css";
+import type { PostResponse } from "../../interfaces/interfaces";
 
-export default function PostModal({ post, onClose }: { post: any; onClose: () => void }) {
+export default function PostModal({ post, onClose }: { post: PostResponse; onClose: () => void }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div 

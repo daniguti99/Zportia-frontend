@@ -73,11 +73,7 @@ export default function Navbar() {
               </div>
             )}
           </div>
-          <div className="profile-dropdown">
-                <button className="dropdown-item logout" onClick={logout}>
-                  Cerrar sesión
-                </button>
-              </div>
+          
 
         </div>
       </nav>

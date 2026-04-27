@@ -158,3 +158,11 @@
     padding: 32px 12px;
   }
 }
+
+
+.profile-create-post-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}

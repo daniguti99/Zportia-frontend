@@ -10,9 +10,11 @@ interface ProfileFollowingProps {
   posts: { id: number; photo: string }[];
   postsLoading: boolean;
   onPostClick: (id: number) => void;
+  showCreateButton?: boolean;
+
 }
 
-export default function ProfileFollowing({ user, isOwnProfile, posts, postsLoading, onPostClick }: ProfileFollowingProps) {
+export default function ProfileFollowing({ user, isOwnProfile, posts, postsLoading, onPostClick, showCreateButton }: ProfileFollowingProps) {
   return (
     <div className="profile-container">
 
@@ -22,6 +24,7 @@ export default function ProfileFollowing({ user, isOwnProfile, posts, postsLoadi
         posts={posts}
         loading={postsLoading}
         onPostClick={onPostClick}
+        showCreateButton={showCreateButton}
       />
 
     </div>

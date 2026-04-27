@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect, type ReactNode } from "react";
 import { getCurrentUser } from "../services/AuthService";
-import type { User } from "../interfaces/interfaces"; // <-- tu interfaz externa
+import type { User } from "../interfaces/interfaces";
+import Swal from "sweetalert2";
+
 
 interface ZportiaContextType {
   token: string | null;
@@ -53,12 +55,25 @@ export function ZportiaProvider({ children }: { children: ReactNode }) {
   };
 
   // LOGOUT
-  const logout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-    setUser(null);
-    alert("Has cerrado sesión correctamente");
-  };
+const logout = () => {
+  localStorage.removeItem("token");
+  setToken(null);
+  setUser(null);
+
+  Swal.fire({
+    title: "Sesión cerrada",
+    text: "Has cerrado sesión correctamente",
+    icon: "success",
+    background: "#111",
+    color: "#fff",
+    confirmButtonColor: "#0099ff",
+    confirmButtonText: "Aceptar",
+    customClass: {
+      popup: "zportia-alert",
+    }
+  });
+};
+
 
   return (
     <ZportiaContext.Provider value={{ token, user, loading, login, logout }}>

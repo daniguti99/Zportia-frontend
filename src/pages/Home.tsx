@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ZportiaContext } from "../context/ZportiaContext";
 import FriendsFeed from "../components/FriendsFeed";
+import CreatePostButton from "../components/Buttons/CreatePostButton";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -17,14 +18,25 @@ export default function LandingPage() {
     return <div className="landing-container">Cargando...</div>;
   }
 
-  // Si el usuario está autenticado → mostrar feed con el mismo estilo que Explore
-  if (user) {
-    return (
-      <div className="feed-base-container">
+
+if (user) {
+  return (
+    <div className="explore-wrapper">
+
+      {/* ASIDE IZQUIERDO — MISMO SITIO QUE SEARCHINPUT EN EXPLORE */}
+      <aside className="explore-sidebar">
+        <CreatePostButton />
+      </aside>
+
+      {/* FEED CENTRAL */}
+      <div className="explore-container">
         <FriendsFeed />
       </div>
-    );
-  }
+
+    </div>
+  );
+}
+
 
   // Si NO está autenticado → mostrar la landing pública
   return (

@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { getPendingRequests, acceptFollow, rejectFollow } from "../../services/ProfileService";
 import "../../css/profilePage/FollowRequestsModal.css";
+import type { SimpleUser } from "../../interfaces/interfaces";
 
 interface FollowRequestsModalProps {
   onClose: () => void;
 }
 
 export default function FollowRequestsModal({ onClose }: FollowRequestsModalProps) {
-  const [requests, setRequests] = useState<any[]>([]);
+  const [requests, setRequests] = useState<SimpleUser[]>([]);
   const [loading, setLoading] = useState(true);
+  const [globalError, setGlobalError] = useState("");
 
   async function loadRequests() {
     try {
@@ -25,13 +27,23 @@ export default function FollowRequestsModal({ onClose }: FollowRequestsModalProp
   }, []);
 
   async function handleAccept(id: number) {
-    await acceptFollow(id);
-    loadRequests();
+    try {
+      await acceptFollow(id);
+      setGlobalError("");
+      loadRequests();
+    } catch (err: any) {
+      setGlobalError(err.message || "Error desconocido");
+    }
   }
 
   async function handleReject(id: number) {
-    await rejectFollow(id);
-    loadRequests();
+    try {
+      await rejectFollow(id);
+      setGlobalError("");
+      loadRequests();
+    } catch (err: any) {
+      setGlobalError(err.message || "Error desconocido");
+    }
   }
 
   return (
@@ -41,6 +53,10 @@ export default function FollowRequestsModal({ onClose }: FollowRequestsModalProp
         <button className="close-btn" onClick={onClose}>✕</button>
 
         <h2 className="modal-title">Solicitudes de seguimiento</h2>
+
+        {globalError && (
+          <p className="global-error">{globalError}</p>
+        )}
 
         {loading && <p className="loading-text">Cargando...</p>}
 

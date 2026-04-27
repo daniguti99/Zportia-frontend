@@ -175,3 +175,56 @@ export async function deleteComment(commentId: number) {
 }
 
 
+
+export async function createPost(content: string | null,file: File,location: string | null) {
+  const token = localStorage.getItem("token");
+
+  const formData = new FormData();
+  if (content) formData.append("content", content);
+  if (location) formData.append("location", location);
+  formData.append("file", file);
+
+  const response = await fetch(`${URL_BASE}/posts`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData
+  });
+
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) throw new Error(errorJson.message);
+    if (errorJson?.error) throw new Error(errorJson.error);
+
+    throw new Error("No se pudo crear la publicación");
+  }
+
+  return response.json();
+}
+
+
+export async function deletePost(postId: number) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/posts/${postId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) throw new Error(errorJson.message);
+    if (errorJson?.error) throw new Error(errorJson.error);
+
+    throw new Error("No se pudo eliminar la publicación");
+  }
+
+  return response.text();
+}
+
+
