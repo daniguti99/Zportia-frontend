@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { User } from "../../interfaces/interfaces";
 import ProfileHeader from "./ProfileHeader";
+import Swal from "sweetalert2";
 import "../../css/profilePage/ProfileButtons.css";
 import "../../css/profilePage/ProfileComponents.css";
 import { followUser } from "../../services/ProfileService";
@@ -20,7 +21,14 @@ export default function ProfilePrivateLocked({ user, isOwnProfile }: ProfilePriv
     try {
       setLoading(true);
       await followUser(user.id);
-      alert("Solicitud enviada");
+      await Swal.fire({
+        title: "Solicitud enviada",
+        text: "Tu solicitud ha sido enviada",
+        icon: "success",
+        background: "#111",
+        color: "#fff",
+        confirmButtonColor: "#0099ff",
+      });
     } finally {
       setLoading(false);
     }

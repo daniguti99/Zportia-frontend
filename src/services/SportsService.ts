@@ -1,6 +1,9 @@
+import type { AllSportsResponse } from "../interfaces/interfaces";
+
 const URL_BASE = "http://localhost:8080/api";
 
-export async function getAllSports() {
+
+export async function getAllSports(): Promise<AllSportsResponse> {
   const token = localStorage.getItem("token");
 
   const response = await fetch(`${URL_BASE}/sports`, {

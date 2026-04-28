@@ -6,6 +6,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 import { registerRequest } from "../services/AuthService";
 import { createRegisterSchema, type RegisterForm } from "../schemas/registerSchema";
@@ -29,7 +30,14 @@ export default function Register() {
 
     try {
       await registerRequest(data);
-      alert("Usuario registrado correctamente");
+      await Swal.fire({
+        title: "Registro exitoso",
+        text: "Usuario registrado correctamente",
+        icon: "success",
+        background: "#111",
+        color: "#fff",
+        confirmButtonColor: "#0099ff",
+      });
       navigate("/login");
     } catch (err: any) {
       setBackendError(err.message);

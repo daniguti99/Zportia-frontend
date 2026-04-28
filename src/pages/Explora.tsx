@@ -16,6 +16,7 @@ export default function Explore() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+
   useEffect(() => {
     async function loadPosts() {
       try {
@@ -51,7 +52,7 @@ export default function Explore() {
 
       {/* ASIDE IZQUIERDO — BUSCADOR PREMIUM */}
       <aside className="explore-sidebar">
-        <SearchInput/>
+        <SearchInput />
       </aside>
 
       {/* FEED CENTRAL */}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import type { User, SimpleUser } from "../../interfaces/interfaces";
 
 import FollowersModal from "../../components/ProfilePage/FollowersModal";
@@ -57,7 +58,14 @@ export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps
       setModalTitle("Seguidores");
       setModalOpen(true);
     } catch (err: any) {
-      alert(err.message);
+      Swal.fire({
+        title: "Error",
+        text: err.message,
+        icon: "error",
+        background: "#111",
+        color: "#fff",
+        confirmButtonColor: "#ff006e",
+      });
     } finally {
       setLoading(false);
     }
@@ -71,7 +79,14 @@ export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps
       setModalTitle("Seguidos");
       setModalOpen(true);
     } catch (err: any) {
-      alert(err.message);
+      Swal.fire({
+        title: "Error",
+        text: err.message,
+        icon: "error",
+        background: "#111",
+        color: "#fff",
+        confirmButtonColor: "#ff006e",
+      });
     } finally {
       setLoading(false);
     }

@@ -74,3 +74,13 @@ export interface Sport {
   id: string;
   name: string;
 }
+
+export interface SportResponse {
+  id: number;
+  name: string;
+}
+
+export interface AllSportsResponse {
+  message: string;
+  sports: SportResponse[];
+}

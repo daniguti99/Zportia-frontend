@@ -153,6 +153,7 @@ export default function ProfilePage() {
         {modalOpen && selectedPost && (
           <PostModal
             post={selectedPost}
+            currentUser={currentUser}
             onClose={() => {
               setModalOpen(false);
               setSelectedPostId(null);
@@ -206,6 +207,7 @@ export default function ProfilePage() {
         {modalOpen && selectedPost && (
           <PostModal
             post={selectedPost}
+            currentUser={currentUser}
             onClose={() => {
               setModalOpen(false);
               setSelectedPostId(null);
@@ -233,6 +235,7 @@ export default function ProfilePage() {
       {modalOpen && selectedPost && (
         <PostModal
           post={selectedPost}
+          currentUser={currentUser}
           onClose={() => {
             setModalOpen(false);
             setSelectedPostId(null);

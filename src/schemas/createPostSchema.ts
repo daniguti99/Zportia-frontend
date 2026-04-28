@@ -9,6 +9,11 @@ export const createPostSchema = z.object({
 
   location: z.string().optional(),
 
+  sport: z
+    .string()
+    .min(1, "Debes seleccionar un deporte")
+    .max(50, "El deporte no puede superar los 50 caracteres"),
+
   file: z
     .any()
     .refine((value) => value instanceof FileList && value.length > 0, {

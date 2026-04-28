@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "../../css/profilePage/FollowersModal.css";
 import type { SimpleUser } from '../../interfaces/interfaces';
+import { useNavigate } from "react-router-dom";
 
 interface FollowersModalProps {
   title: string;
@@ -9,6 +10,8 @@ interface FollowersModalProps {
 }
 
 export default function FollowersModal({ title, users, onClose }: FollowersModalProps) {
+
+  const navigate = useNavigate();
 
   // Cerrar con tecla ESC
   useEffect(() => {
@@ -22,7 +25,7 @@ export default function FollowersModal({ title, users, onClose }: FollowersModal
   return (
     <div className="followers-modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
       <div className="followers-modal" onClick={(e) => e.stopPropagation()}>
-        
+
         {/* HEADER */}
         <div className="followers-header">
           <h2 className="followers-title">{title}</h2>
@@ -38,10 +41,18 @@ export default function FollowersModal({ title, users, onClose }: FollowersModal
                 alt={u.username}
                 className="follower-photo"
               />
-              <span className="follower-username">{u.username}</span>
+
+              <span
+                className="follower-username"
+                onClick={() => navigate(`/profile/${u.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                {u.username}
+              </span>
             </div>
           ))}
         </div>
+
 
       </div>
     </div>

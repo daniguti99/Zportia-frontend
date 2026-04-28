@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { getFriendsPosts } from "../services/PostServices";
 import PostCard from "./PostCard";
+import { useAuth } from "../hooks/useAuth";
 import type { PostResponse } from "../interfaces/interfaces";
 import "../css/home/friendsFeed.css";
 
 export default function FriendsFeed() {
+  const { user: currentUser } = useAuth();
   const [posts, setPosts] = useState<PostResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +39,7 @@ export default function FriendsFeed() {
     {!loading && !error && (
       <div className="friends-feed-list">
         {posts.length > 0 ? (
-          posts.map((post) => <PostCard key={post.id} post={post} />)
+          posts.map((post) => <PostCard key={post.id} post={post} currentUser={currentUser} />)
         ) : (
           <p className="friends-feed-empty">Tus amigos aún no han publicado nada</p>
         )}

@@ -1,46 +1,135 @@
-.create-post-container {
-  max-width: 600px;
-  margin: 40px auto;
-  background: rgba(20, 20, 20, 0.9);
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 0 30px rgba(255, 0, 110, 0.2);
+/* === CONTENEDOR GENERAL === */
+.create-post-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* centrado horizontal, bajado vertical */
+  padding-top: 120px;      /* 👈 controla cuánto baja */
+  padding-bottom: 60px;
+  background: #0d0d0d;
 }
 
+/* === FORMULARIO === */
+.create-post-container {
+  width: 90%;
+  max-width: 750px;
+  background: rgba(20, 20, 20, 0.95);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(255, 0, 110, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+/* === TÍTULO === */
 .create-post-title {
   text-align: center;
   color: white;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
+/* === FORM GROUP === */
 .create-post-form .form-group {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
 
+/* === LABELS === */
 .create-post-form label {
   color: #ccc;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
 }
 
+/* === INPUTS Y TEXTAREA === */
 .create-post-form input,
 .create-post-form textarea {
   background: #111;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 10px;
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 14px;
+  font-size: 1.1rem;
+  border-radius: 10px;
   color: white;
+  transition: 0.2s;
 }
 
+.create-post-form input:focus,
+.create-post-form textarea:focus {
+  border-color: #ff006e;
+  box-shadow: 0 0 10px rgba(255, 0, 110, 0.4);
+}
+
+/* === TEXTAREA MÁS ALTO === */
+.create-post-form textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* === PREVIEW DE IMAGEN === */
 .preview-image {
   width: 100%;
-  border-radius: 12px;
-  margin-top: 10px;
+  border-radius: 14px;
+  margin-top: 15px;
+  box-shadow: 0 0 20px rgba(0, 153, 255, 0.25);
 }
 
+/* === ERRORES === */
 .error {
   color: #ff6b6b;
-  font-size: 13px;
-  margin-top: 4px;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+
+/* WRAPPER */
+.sport-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* SELECT PREMIUM */
+.sport-select {
+  width: 100%;
+  height: 56px;
+  background: #010201;
+  border: 2px solid #3a4bff; /* 🔵 borde azul fijo */
+  border-radius: 12px;
+  padding: 0 50px 0 20px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  appearance: none;
+  transition: 0.25s ease;
+}
+
+/* Hover → rosa suave */
+.sport-select:hover {
+  border-color: #cf30aa;
+  box-shadow: 0 0 8px rgba(207, 48, 170, 0.35);
+}
+
+/* Focus → rosa intenso */
+.sport-select:focus {
+  outline: none;
+  border-color: #cf30aa;
+  box-shadow: 0 0 12px rgba(207, 48, 170, 0.55);
+}
+
+/* ICONO DEL DROPDOWN */
+.sport-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0.85;
+  font-size: 20px;
+}
+
+/* Loading */
+.sport-loading {
+  color: #c0b9c0;
+  font-size: 16px;
 }

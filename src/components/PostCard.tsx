@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import type { CommentResponse, PostResponse, LikeUser } from "../interfaces/interfaces";
+import type { CommentResponse, PostResponse, LikeUser, User } from "../interfaces/interfaces";
 import "../css/postCard/postCard.css";
 import {
   getCommentsByPost,
@@ -13,11 +13,11 @@ import { ZportiaContext } from "../context/ZportiaContext";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
-export default function PostCard({ post }: { post: PostResponse }) {
-  const { user } = useContext(ZportiaContext) || {};
-  const navigate = useNavigate();
+export default function PostCard({ post, currentUser }: { post: PostResponse; currentUser: User | null }) {
 
-  const currentUserId = user?.id;
+  const { user } = useContext(ZportiaContext) || {};
+  const currentUserId = currentUser?.id || user?.id;
+  const navigate = useNavigate();
 
   // LIKE
   const [liked, setLiked] = useState(post.likedByCurrentUser);
@@ -45,6 +45,9 @@ export default function PostCard({ post }: { post: PostResponse }) {
 
   const [value, setValue] = useState("");
 
+  console.log("post.userId:", post.userId);
+  console.log("currentUserId:", currentUserId);
+
 
   // TOGGLE LIKE
   async function handleToggleLike() {
@@ -59,7 +62,14 @@ export default function PostCard({ post }: { post: PostResponse }) {
     } catch (err: any) {
       const msg = err.message || "Error al dar like";
       setErrorLike(msg);
-      alert(msg);
+      Swal.fire({
+        title: "Error",
+        text: msg,
+        icon: "error",
+        background: "#111",
+        color: "#fff",
+        confirmButtonColor: "#ff006e",
+      });
     }
   }
 
@@ -105,9 +115,20 @@ export default function PostCard({ post }: { post: PostResponse }) {
 
   // ELIMINAR COMENTARIO
   async function handleDeleteComment(commentId: number) {
-    const confirmDelete = window.confirm("¿Seguro que quieres eliminar este comentario?");
+    const result = await Swal.fire({
+      title: "¿Eliminar comentario?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ff006e",
+      cancelButtonColor: "#444",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      background: "#111",
+      color: "#fff",
+    });
 
-    if (!confirmDelete) return;
+    if (!result.isConfirmed) return;
 
     try {
       await deleteComment(commentId);
@@ -116,7 +137,14 @@ export default function PostCard({ post }: { post: PostResponse }) {
       setCommentsCount(prev => prev - 1);
 
     } catch (err: any) {
-      alert(err.message || "No se pudo eliminar el comentario");
+      Swal.fire({
+        title: "Error",
+        text: err.message || "No se pudo eliminar el comentario",
+        icon: "error",
+        background: "#111",
+        color: "#fff",
+        confirmButtonColor: "#ff006e",
+      });
     }
   }
 
@@ -186,6 +214,19 @@ export default function PostCard({ post }: { post: PostResponse }) {
     }
   }
 
+  function formatDate(dateString: string) {
+    const date = new Date(dateString);
+
+    return date.toLocaleDateString("es-ES", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric"
+    }) + " • " + date.toLocaleTimeString("es-ES", {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  }
+
 
   return (
     <>
@@ -209,7 +250,7 @@ export default function PostCard({ post }: { post: PostResponse }) {
             <p className="post-username" onClick={() => handleSelectedUser(post.userId)}>
               {post.username}
             </p>
-            <span className="post-date">{post.date}</span>
+            <span className="post-date">{formatDate(post.date)}</span>
           </div>
         </div>
 

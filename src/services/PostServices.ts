@@ -176,13 +176,14 @@ export async function deleteComment(commentId: number) {
 
 
 
-export async function createPost(content: string | null,file: File,location: string | null) {
+export async function createPost(content: string | null,file: File,location: string | null, sport: string) {
   const token = localStorage.getItem("token");
 
   const formData = new FormData();
   if (content) formData.append("content", content);
   if (location) formData.append("location", location);
   formData.append("file", file);
+  formData.append("sport", sport);
 
   const response = await fetch(`${URL_BASE}/posts`, {
     method: "POST",

@@ -23,7 +23,6 @@ if (user) {
   return (
     <div className="explore-wrapper">
 
-      {/* ASIDE IZQUIERDO — MISMO SITIO QUE SEARCHINPUT EN EXPLORE */}
       <aside className="explore-sidebar">
         <CreatePostButton />
       </aside>

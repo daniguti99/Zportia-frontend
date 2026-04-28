@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 import {
     followUser,
     unfollowUser,
@@ -35,7 +36,14 @@ export default function FollowBlockButtons({
             await followUser(userId);
             onUpdate();
         } catch (e: any) {
-            alert(e.message);
+            Swal.fire({
+              title: "Error",
+              text: e.message,
+              icon: "error",
+              background: "#111",
+              color: "#fff",
+              confirmButtonColor: "#ff006e",
+            });
         } finally {
             setLoading(false);
         }
@@ -47,7 +55,14 @@ export default function FollowBlockButtons({
             await unfollowUser(userId);
             onUpdate();
         } catch (e: any) {
-            alert(e.message);
+            Swal.fire({
+              title: "Error",
+              text: e.message,
+              icon: "error",
+              background: "#111",
+              color: "#fff",
+              confirmButtonColor: "#ff006e",
+            });
         } finally {
             setLoading(false);
         }
@@ -59,7 +74,14 @@ export default function FollowBlockButtons({
             await blockUser(userId);
             onUpdate();
         } catch (e: any) {
-            alert(e.message);
+            Swal.fire({
+              title: "Error",
+              text: e.message,
+              icon: "error",
+              background: "#111",
+              color: "#fff",
+              confirmButtonColor: "#ff006e",
+            });
         } finally {
             setLoading(false);
         }
@@ -71,7 +93,14 @@ export default function FollowBlockButtons({
             await unblockUser(userId);
             onUpdate();
         } catch (e: any) {
-            alert(e.message);
+            Swal.fire({
+              title: "Error",
+              text: e.message,
+              icon: "error",
+              background: "#111",
+              color: "#fff",
+              confirmButtonColor: "#ff006e",
+            });
         } finally {
             setLoading(false);
         }

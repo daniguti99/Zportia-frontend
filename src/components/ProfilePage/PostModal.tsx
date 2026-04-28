@@ -1,8 +1,12 @@
 import PostCard from "../PostCard";
 import "../../css/profilePage/PostModal.css";
-import type { PostResponse } from "../../interfaces/interfaces";
+import type { PostResponse, User } from "../../interfaces/interfaces";
+import { useContext } from "react";
+import { ZportiaContext } from "../../context/ZportiaContext";
 
-export default function PostModal({ post, onClose }: { post: PostResponse; onClose: () => void }) {
+export default function PostModal({ post, onClose, currentUser }: { post: PostResponse; onClose: () => void; currentUser: User | null }) {
+    const { user } = useContext(ZportiaContext) || {};
+    const currentUserId = currentUser?.id || user?.id;
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div 
@@ -12,7 +16,7 @@ export default function PostModal({ post, onClose }: { post: PostResponse; onClo
         <button className="modal-close" onClick={onClose}>×</button>
 
         {/* Aquí va tu PostCard */}
-        <PostCard post={post} />
+        <PostCard post={post} currentUser={currentUser} />
       </div>
     </div>
   );
