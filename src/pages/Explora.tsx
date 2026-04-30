@@ -1,4 +1,3 @@
-// pages/Explore.tsx
 import { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 import type { PostResponse } from "../interfaces/interfaces";
@@ -7,68 +6,127 @@ import "../css/explore/explore.css";
 
 import SportDropdown from "../components/Explore/SportDropdown";
 import SearchInput from "../components/Explore/SearchInput";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Explore() {
   const [posts, setPosts] = useState<PostResponse[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<PostResponse[]>([]);
   const [selectedSport, setSelectedSport] = useState("");
 
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const { user: currentUser } = useAuth();
 
+  // 🔥 Cargar primera página SIN useRef
   useEffect(() => {
-    async function loadPosts() {
-      try {
-        const data = await getExplorePosts();
-        setPosts(data);
-        setFilteredPosts(data);
-      } catch (err: any) {
-        setError(err.message || "No se pudieron cargar las publicaciones 😔");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadPosts();
+    init();
   }, []);
 
-  // FILTRAR SOLO POR DEPORTE
-  useEffect(() => {
-    let filtered = posts;
+  async function init() {
+    try {
+      const data = await getExplorePosts(0, 10);
 
-    if (selectedSport) {
-      filtered = filtered.filter((p) => p.sport === selectedSport);
+      setPosts(data.content);
+      setFilteredPosts(data.content);
+
+      setPage(1);
+      setHasMore(!data.last);
+
+    } catch (err: any) {
+      setError(err.message || "No se pudieron cargar las publicaciones 😔");
+    } finally {
+      setLoading(false);
     }
+  }
 
-    setFilteredPosts(filtered);
+  async function loadMore() {
+    try {
+      if (loadingMore) return;
+
+      setLoadingMore(true);
+
+      const data = await getExplorePosts(page, 10);
+
+      setPosts(prev => [...prev, ...data.content]);
+
+      if (!selectedSport) {
+        setFilteredPosts(prev => [...prev, ...data.content]);
+      }
+
+      if (data.last) {
+        setHasMore(false);
+      } else {
+        setPage(prev => prev + 1);
+      }
+
+    } catch (err: any) {
+      setError(err.message || "No se pudieron cargar las publicaciones 😔");
+    } finally {
+      setLoadingMore(false);
+    }
+  }
+
+  // 🔥 Filtrar por deporte
+  useEffect(() => {
+    if (!selectedSport) {
+      setFilteredPosts(posts);
+    } else {
+      setFilteredPosts(posts.filter(p => p.sport === selectedSport));
+    }
   }, [selectedSport, posts]);
 
-  if (loading) return <p className="explore-loading">Explorando...</p>;
-  if (error) return <p className="explore-error">{error}</p>;
+  if (loading)
+    return <p className="explore-loading">Explorando...</p>;
+
+  if (error)
+    return <p className="explore-error">{error}</p>;
 
   return (
     <div className="explore-wrapper">
 
-      {/* ASIDE IZQUIERDO — BUSCADOR PREMIUM */}
       <aside className="explore-sidebar">
         <SearchInput />
       </aside>
 
-      {/* FEED CENTRAL */}
       <div className="explore-container">
         <h1 className="explore-title">Explorar</h1>
 
         <div className="explore-feed">
           {filteredPosts.length > 0 ? (
-            filteredPosts.map((post) => <PostCard key={post.id} post={post} />)
+            filteredPosts.map((post) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                currentUser={currentUser}
+              />
+            ))
           ) : (
-            <p>No hay publicaciones disponibles</p>
+            <div className="no-posts-message">
+              <p className="no-posts-icon">📭</p>
+              <h3>No hay publicaciones disponibles</h3>
+              <p className="no-posts-text">
+                Intenta con otro deporte o busca diferentes palabras clave
+              </p>
+            </div>
           )}
         </div>
+
+        {hasMore && (
+          <button
+            className="load-more-btn"
+            onClick={loadMore}
+            disabled={loadingMore}
+          >
+            {loadingMore ? "Cargando..." : "Cargar más"}
+          </button>
+        )}
       </div>
 
-      {/* ASIDE DERECHO — DROPDOWN DE DEPORTES */}
       <aside className="explore-sidebar-right">
         <SportDropdown
           selectedSport={selectedSport}

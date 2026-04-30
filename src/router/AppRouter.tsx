@@ -41,6 +41,16 @@ export default function AppRouter() {
           />
 
           <Route
+            path="edit/:postId"
+            element={
+              <ProtectedRoute>
+                <CreatePost />
+              </ProtectedRoute>
+            }
+          />
+
+
+          <Route
             path="profile/:id"
             element={
               <ProtectedRoute>

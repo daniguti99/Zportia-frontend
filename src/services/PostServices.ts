@@ -1,30 +1,30 @@
 const URL_BASE = "http://localhost:8080/api";
 
-export async function getExplorePosts() {
+export async function getExplorePosts(page = 0, size = 10) {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`${URL_BASE}/posts/explore`, {
-    headers: {
-      Authorization: `Bearer ${token}`
+  const response = await fetch(
+    `${URL_BASE}/posts/explore?page=${page}&size=${size}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
-  });
+  );
 
   if (!response.ok) {
-    // Intentar obtener mensaje del backend
     const errorJson = await response.json().catch(() => null);
 
-    if (errorJson?.message) {
-      throw new Error(errorJson.message);
-    }
-    if (errorJson?.error) {
-      throw new Error(errorJson.error);
-    }
+    if (errorJson?.message) throw new Error(errorJson.message);
+    if (errorJson?.error) throw new Error(errorJson.error);
 
     throw new Error("No se pudieron cargar los posts");
   }
 
-  return await response.json();
+  const data = await response.json();
+  return data;
 }
+
 
 export async function getCommentsByPost(postId: number) {
   const token = localStorage.getItem("token");
@@ -78,30 +78,30 @@ export async function getLikesByPost(postId: number) {
 }
 
 
-export async function getFriendsPosts() {
+export async function getFriendsPosts(page = 0, size = 10) {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`${URL_BASE}/posts/friends`, {
-    headers: {
-      Authorization: `Bearer ${token}`
+  const response = await fetch(
+    `${URL_BASE}/posts/friends?page=${page}&size=${size}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     }
-  });
+  );
 
   if (!response.ok) {
     const errorJson = await response.json().catch(() => null);
 
-    if (errorJson?.message) {
-      throw new Error(errorJson.message);
-    }
-    if (errorJson?.error) {
-      throw new Error(errorJson.error);
-    }
+    if (errorJson?.message) throw new Error(errorJson.message);
+    if (errorJson?.error) throw new Error(errorJson.error);
 
     throw new Error("No se pudieron cargar las publicaciones de amigos");
   }
 
-  return await response.json();
+  return await response.json(); // ← devuelve Page<PostResponse>
 }
+
 
 
 export async function toggleLike(postId: number) {
@@ -229,3 +229,30 @@ export async function deletePost(postId: number) {
 }
 
 
+export async function updatePost(postId: number, data: {
+  content: string | null;
+  location: string | null;
+  sport: string | null;
+}) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/posts/edit/${postId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) throw new Error(errorJson.message);
+    if (errorJson?.error) throw new Error(errorJson.error);
+
+    throw new Error("No se pudo actualizar la publicación");
+  }
+
+  return await response.json();
+}

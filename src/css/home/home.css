@@ -58,7 +58,7 @@ body::before {
    ============================ */
 .feed-base-container {
   max-width: 820px;
-  margin: 80px auto 0 auto;
+  margin: 120px auto 0 auto;
   padding: 24px;
 
   background: rgba(26, 26, 26, 0.8);

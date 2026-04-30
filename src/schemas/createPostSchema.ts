@@ -30,3 +30,24 @@ export const createPostSchema = z.object({
 });
 
 export type CreatePostForm = z.infer<typeof createPostSchema>;
+
+
+export const editPostSchema = z.object({
+  content: z
+    .string()
+    .max(500, "El contenido no puede superar los 500 caracteres")
+    .optional()
+    .or(z.literal("")),
+
+  location: z.string().optional(),
+
+  sport: z
+    .string()
+    .min(1, "Debes seleccionar un deporte")
+    .max(50, "El deporte no puede superar los 50 caracteres"),
+
+  file: z.any().optional(), // 👈 ya no obligatorio
+});
+
+export type EditPostForm = z.infer<typeof editPostSchema>;
+

@@ -1,4 +1,5 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import type { CommentResponse, PostResponse, LikeUser, User } from "../interfaces/interfaces";
 import "../css/postCard/postCard.css";
 import {
@@ -44,6 +45,20 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
   const [errorLikes, setErrorLikes] = useState<string | null>(null);
 
   const [value, setValue] = useState("");
+  const postCardRef = useRef<HTMLDivElement>(null);
+
+  // Bloquear scroll cuando el popup está abierto
+  useEffect(() => {
+    if (showComments || showLikes) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showComments, showLikes]);
 
   console.log("post.userId:", post.userId);
   console.log("currentUserId:", currentUserId);
@@ -72,7 +87,6 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
       });
     }
   }
-
 
   // ABRIR COMENTARIOS
   async function openComments() {
@@ -227,19 +241,39 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     });
   }
 
-
   return (
     <>
-      <div className="post-card">
+      <div className="post-card" ref={postCardRef}>
 
-        {/* PAPELERA */}
+        {/* ACCIONES DEL POST PROPIO */}
         {post.userId === currentUserId && (
-          <span
-            className="delete-post-btn"
-            onClick={handleDeletePost}
-          >
-            🗑️
-          </span>
+          <div className="post-actions">
+
+            {/* EDITAR */}
+            <span
+              className="edit-post-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                navigate(`/edit/${post.id}`);
+              }}
+            >
+              ✏️
+            </span>
+
+            {/* PAPELERA */}
+            <span
+              className="delete-post-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                handleDeletePost();
+              }}
+            >
+              🗑️
+            </span>
+
+          </div>
         )}
 
         {/* HEADER */}
@@ -285,7 +319,7 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
 
 
       {/* POPUP DE COMENTARIOS */}
-      {showComments && (
+      {showComments && createPortal(
         <div className="comments-popup">
           <div className="comments-box">
             <button className="close-btn" onClick={() => setShowComments(false)}>
@@ -356,12 +390,13 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
               </>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
 
       {/* POPUP DE LIKES */}
-      {showLikes && (
+      {showLikes && createPortal(
         <div className="likes-popup">
           <div className="likes-box">
             <button className="close-btn" onClick={() => setShowLikes(false)}>
@@ -388,7 +423,8 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
               </>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

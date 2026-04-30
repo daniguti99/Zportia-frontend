@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createPostSchema, type CreatePostForm } from "../schemas/createPostSchema";
+import { createPostSchema, editPostSchema, type CreatePostForm } from "../schemas/createPostSchema";
 import Swal from "sweetalert2";
 import "../css/createPost/CreatePost.css";
-import { createPost } from "../services/PostServices";
+import { createPost, updatePost } from "../services/PostServices";
 import { getAllSports } from "../services/SportsService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import type { PostResponse } from "../interfaces/interfaces";
+import { getPostById } from "../services/ProfileService";
 
 export default function CreatePost() {
 
   const navigate = useNavigate();
   const [sports, setSports] = useState<string[]>([]);
+
+  const { postId } = useParams();
+  const isEditing = Boolean(postId);
+
+  const [editingPost, setEditingPost] = useState<PostResponse | null>(null);
 
   useEffect(() => {
     async function loadSports() {
@@ -33,15 +40,40 @@ export default function CreatePost() {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors }
   } = useForm<CreatePostForm>({
-    resolver: zodResolver(createPostSchema)
+    resolver: zodResolver(isEditing ? editPostSchema : createPostSchema)
   });
 
   const file = watch("file");
 
   const onSubmit: SubmitHandler<CreatePostForm> = async (data) => {
     try {
+
+      //MODO EDICIÓN
+      if (isEditing && editingPost) {
+        const updated = await updatePost(editingPost.id, {
+          content: data.content || null,
+          location: data.location || null,
+          sport: data.sport || null
+        });
+
+        Swal.fire({
+          title: "Publicación actualizada",
+          text: "Los cambios se han guardado correctamente",
+          icon: "success",
+          background: "#111",
+          color: "#fff",
+          confirmButtonColor: "#0099ff",
+          customClass: { popup: "zportia-alert" }
+        });
+
+        navigate(`/profile/${updated.userId}`);
+        return;
+      }
+
+      //MODO CREAR
       const fileToSend = data.file as File;
 
       await createPost(
@@ -76,12 +108,36 @@ export default function CreatePost() {
     }
   };
 
+
+  useEffect(() => {
+    async function loadPostToEdit() {
+      if (!isEditing) return;
+
+      try {
+        const data = await getPostById(Number(postId));
+        setEditingPost(data);
+
+        setValue("content", data.content || "");
+        setValue("location", data.location || "");
+        setValue("sport", data.sport || "");
+      } catch (err) {
+        console.error("Error cargando post para editar:", err);
+      }
+    }
+
+    loadPostToEdit();
+  }, [isEditing, postId, setValue]);
+
+
   return (
     <div className="create-post-page">
 
       <div className="create-post-container">
 
-        <h2 className="create-post-title">Crear publicación</h2>
+        <h2 className="create-post-title">
+          {isEditing ? "Editar publicación" : "Crear publicación"}
+        </h2>
+
 
         <form onSubmit={handleSubmit(onSubmit)} className="create-post-form">
 
@@ -142,7 +198,13 @@ export default function CreatePost() {
               type="file"
               accept="image/*,video/mp4"
               {...register("file")}
+              disabled={isEditing}
             />
+            {isEditing && editingPost?.media && (
+              <img src={editingPost.media} className="preview-image" />
+            )}
+
+
             {errors.file && <span className="error">{String(errors.file.message)}</span>}
           </div>
 
@@ -155,7 +217,7 @@ export default function CreatePost() {
           )}
 
           <button type="submit" className="btn-primary">
-            Publicar
+            {isEditing ? "Guardar cambios" : "Publicar"}
           </button>
 
         </form>
