@@ -25,9 +25,9 @@ export default function FriendsFeed() {
     try {
       const data = await getFriendsPosts(0, 10);
 
-      setPosts(data.content);
+      setPosts(data?.content ?? []);
       setPage(1);
-      setHasMore(!data.last);
+      setHasMore(!data?.last);
 
     } catch (err: any) {
       setError(err.message || "No se pudieron cargar las publicaciones 😔");
@@ -44,9 +44,9 @@ export default function FriendsFeed() {
 
       const data = await getFriendsPosts(page, 10);
 
-      setPosts(prev => [...prev, ...data.content]);  // 👈 AHORA SÍ: data.content
+      setPosts(prev => [...prev, ...(data?.content ?? [])]);
 
-      if (data.last) {
+      if (data?.last) {
         setHasMore(false);
       } else {
         setPage(prev => prev + 1);

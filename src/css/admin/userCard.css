@@ -1,0 +1,168 @@
+.admin-user-card {
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 28px;
+  width: 100%;
+  max-width: 520px;
+  margin: 30px auto;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7),
+              0 0 60px rgba(0, 153, 255, 0.15);
+  backdrop-filter: blur(15px);
+  animation: fadeIn 0.4s ease;
+}
+
+/* HEADER */
+.admin-user-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.admin-user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(0, 153, 255, 0.6);
+  box-shadow: 0 0 20px rgba(0, 153, 255, 0.4);
+}
+
+.admin-user-info h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.admin-user-username {
+  color: #00b3ff;
+  font-size: 1rem;
+  margin-top: 4px;
+}
+
+.admin-user-id {
+  color: #a0a0a0;
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+/* STATUS */
+.admin-user-status {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.status-badge {
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-active {
+  background: rgba(0, 200, 80, 0.2);
+  color: #00c850;
+  border: 1px solid rgba(0, 200, 80, 0.4);
+}
+
+.status-blocked {
+  background: rgba(255, 0, 110, 0.2);
+  color: #ff006e;
+  border: 1px solid rgba(255, 0, 110, 0.4);
+}
+
+.status-deleted {
+  background: rgba(255, 150, 0, 0.2);
+  color: #ff9600;
+  border: 1px solid rgba(255, 150, 0, 0.4);
+}
+
+/* ACTION BUTTONS */
+.admin-user-actions {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.admin-btn {
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.25s ease;
+  font-size: 15px;
+}
+
+.admin-btn:hover {
+  transform: translateY(-3px);
+}
+
+/* COLORS */
+.admin-btn.danger {
+  background: rgba(255, 0, 110, 0.2);
+  color: #ff006e;
+  border-color: rgba(255, 0, 110, 0.4);
+}
+
+.admin-btn.danger:hover {
+  background: rgba(255, 0, 110, 0.35);
+}
+
+.admin-btn.warning {
+  background: rgba(255, 150, 0, 0.2);
+  color: #ff9600;
+  border-color: rgba(255, 150, 0, 0.4);
+}
+
+.admin-btn.warning:hover {
+  background: rgba(255, 150, 0, 0.35);
+}
+
+.admin-btn.success {
+  background: rgba(0, 200, 80, 0.2);
+  color: #00c850;
+  border-color: rgba(0, 200, 80, 0.4);
+}
+
+.admin-btn.success:hover {
+  background: rgba(0, 200, 80, 0.35);
+}
+
+.admin-btn.info {
+  background: rgba(0, 153, 255, 0.2);
+  color: #0099ff;
+  border-color: rgba(0, 153, 255, 0.4);
+}
+
+.admin-btn.info:hover {
+  background: rgba(0, 153, 255, 0.35);
+}
+
+.admin-btn.recover {
+  background: rgba(124, 58, 237, 0.2);
+  color: #7c3aed;
+  border-color: rgba(124, 58, 237, 0.4);
+}
+
+.admin-btn.recover:hover {
+  background: rgba(124, 58, 237, 0.35);
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-btn {
+  width: 150px;           /* 🔥 todos exactamente iguales */
+  padding: 10px 0;        /* padding vertical */
+  text-align: center;
+}
+

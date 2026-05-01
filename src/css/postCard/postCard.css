@@ -605,3 +605,35 @@
   background: #ff3f8e;
   box-shadow: 0 0 10px rgba(255, 0, 110, 0.5);
 }
+
+
+
+.post-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  width: 100%;
+}
+
+
+.post-location {
+  font-size: 0.85rem;
+  color: #a0a0a0;
+  transition: color 0.3s ease;
+}
+
+
+.post-sport {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #00b3ff;
+  opacity: 0.9;
+  text-transform: capitalize;
+  transition: color 0.3s ease;
+}
+
+
+.post-card:hover .post-sport {
+  color: #33cfff;
+}

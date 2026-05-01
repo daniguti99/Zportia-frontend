@@ -25,38 +25,60 @@ export default function Login() {
     resolver: zodResolver(loginSchema)
   });
 
-const onSubmit: SubmitHandler<LoginForm> = async (data) => {
-  try {
-    const res = await loginRequest(data.email, data.password);
-    zportia?.login(res.token);
+  const onSubmit: SubmitHandler<LoginForm> = async (data) => {
+    try {
+      const res = await loginRequest(data.email, data.password);
 
-    Swal.fire({
-      title: "Login correcto",
-      text: "Bienvenido de nuevo",
-      icon: "success",
-      background: "#111",
-      color: "#fff",
-      confirmButtonColor: "#0099ff",
-      customClass: {
-        popup: "zportia-alert",
-      }
-    });
+      // Guardamos token y disparamos la carga del usuario
+      await zportia?.login(res.token);
 
-    navigate("/home");
-  } catch {
-    Swal.fire({
-      title: "Error",
-      text: "Credenciales incorrectas",
-      icon: "error",
-      background: "#111",
-      color: "#fff",
-      confirmButtonColor: "#ff006e",
-      customClass: {
-        popup: "zportia-alert",
-      }
-    });
-  }
-};
+      Swal.fire({
+        title: "Login correcto",
+        text: "Bienvenido de nuevo",
+        icon: "success",
+        background: "#111",
+        color: "#fff",
+        confirmButtonColor: "#0099ff",
+        customClass: {
+          popup: "zportia-alert",
+        }
+      });
+
+      // Esperamos a que el contexto cargue el usuario completamente
+      const checkRoleAndNavigate = setInterval(() => {
+        if (zportia?.user) {
+          clearInterval(checkRoleAndNavigate);
+          if (zportia.user.role === "ADMIN") {
+            navigate("/admin");
+          } else {
+            navigate("/home");
+          }
+        }
+      }, 50);
+
+      // Fallback: si no carga en 3 segundos, ir a home
+      setTimeout(() => {
+        clearInterval(checkRoleAndNavigate);
+        navigate("/home");
+      }, 3000);
+
+    } catch {
+      Swal.fire({
+        title: "Error",
+        text: "Credenciales incorrectas",
+        icon: "error",
+        background: "#111",
+        color: "#fff",
+        confirmButtonColor: "#ff006e",
+        customClass: {
+          popup: "zportia-alert",
+        }
+      });
+    }
+  };
+
+
+
 
 
   return (
@@ -94,8 +116,8 @@ const onSubmit: SubmitHandler<LoginForm> = async (data) => {
               <button type="submit" className="btn-login">Sign in</button>
 
               <label className="text-register">
-                  ¿Todavía no tienes cuenta?
-                </label>
+                ¿Todavía no tienes cuenta?
+              </label>
 
               <button className="btn-secondary" onClick={() => navigate("/register")}>
                 Registrarse

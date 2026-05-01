@@ -1,7 +1,7 @@
 import "../css/home/home.css";
 import logo from "../assets/logoZportia.png";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ZportiaContext } from "../context/ZportiaContext";
 import FriendsFeed from "../components/FriendsFeed";
 import CreatePostButton from "../components/Buttons/CreatePostButton";
@@ -14,10 +14,21 @@ export default function LandingPage() {
 
   const { user, loading } = context;
 
+  // Redirigir admins a /admin automáticamente
+  useEffect(() => {
+    if (user && user.role === "ADMIN") {
+      navigate("/admin", { replace: true });
+    }
+  }, [user, navigate]);
+
   if (loading) {
     return <div className="landing-container">Cargando...</div>;
   }
 
+  // Si el usuario es admin, no mostrar nada (la redirección está en proceso)
+  if (user && user.role === "ADMIN") {
+    return null;
+  }
 
 if (user) {
   return (

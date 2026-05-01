@@ -6,13 +6,19 @@ import Home from "../pages/Home";
 import Explore from "../pages/Explora";
 import ProfilePage from "../pages/Profile";
 import ProtectedRoute from "../guards/ProtectedRoute";
+import AdminRoute from "../guards/AdminRoute";
 import CreatePost from "../pages/CreatePost";
+import AdminHome from "../pages/Admin/AdminHome";
+import AdminUsersPage from "../pages/Admin/AdminUsersPage";
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* NAVBAR ENVOLVIENDO TODAS LAS RUTAS */}
         <Route path="/" element={<NavBar />}>
+
           {/* HOME público */}
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
@@ -21,7 +27,7 @@ export default function AppRouter() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
 
-          {/* PROTEGIDAS */}
+          {/* PROTEGIDAS (USER + ADMIN) */}
           <Route
             path="explore"
             element={
@@ -49,7 +55,6 @@ export default function AppRouter() {
             }
           />
 
-
           <Route
             path="profile/:id"
             element={
@@ -59,8 +64,37 @@ export default function AppRouter() {
             }
           />
 
+          {/* 🔥 RUTAS ADMIN */}
+          <Route
+            path="dashboard"
+            element={
+              <AdminRoute>
+                <AdminHome />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="admin/users"
+            element={
+              <AdminRoute>
+                <AdminUsersPage />
+              </AdminRoute>
+            }
+          />
+
+          {/* <Route
+            path="admin/posts"
+            element={
+              <AdminRoute>
+                <AdminPostsPage />
+              </AdminRoute>
+            }
+          />
+
           {/* fallback */}
           <Route path="*" element={<Home />} />
+
         </Route>
       </Routes>
     </BrowserRouter>

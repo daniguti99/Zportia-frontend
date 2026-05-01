@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import "../css/navbar/navbar.css";
 import logo from "../assets/logoZportia.png";
@@ -9,27 +9,46 @@ export default function Navbar() {
   const [flipLevel, setFlipLevel] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
 
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith("/admin");
+
   return (
     <>
       <nav className="navbar">
 
         {/* LEFT MENU */}
         <div className="nav-left">
-          <Link to="/home" className="nav-item">Home</Link>
-          <Link to="/explore" className="nav-item">Explora</Link>
-          <Link to={`/profile/${user?.id}`} className="nav-item">Mi perfil</Link>
+
+          {user?.role === "ADMIN" ? (
+            <>
+              <NavLink to="/dashboard" className="nav-item">Dashboard</NavLink>
+              <NavLink to="/admin/users" className="nav-item">Usuarios</NavLink>
+              <NavLink to="/admin/posts" className="nav-item">Posts</NavLink>
+            </>
+          ) : (
+            <>
+              <NavLink to="/home" className="nav-item">Home</NavLink>
+              <NavLink to="/explore" className="nav-item">Explora</NavLink>
+              <NavLink to={`/profile/${user?.id}`} className="nav-item">Mi perfil</NavLink>
+            </>
+          )}
+
         </div>
 
         {/* CENTER LOGO */}
         <div className="nav-center">
-          <img src={logo} alt="Zportia Logo" className="nav-logo" />
+          <img
+            src={logo}
+            alt="Zportia Logo"
+            className={`nav-logo ${isAdminPage ? "admin-glow" : ""}`}
+          />
         </div>
 
         {/* RIGHT PROFILE */}
         <div className="nav-right">
 
-          {/* BADGE DE NIVEL GIRATORIO */}
-          {user && (
+          {/* BADGE DE NIVEL (solo usuarios normales) */}
+          {user && user.role !== "ADMIN" && (
             <div
               className={`user-level-badge-container ${flipLevel ? "flipped" : ""}`}
               onClick={() => setFlipLevel(!flipLevel)}
@@ -43,6 +62,7 @@ export default function Navbar() {
             </div>
           )}
 
+          {/* PERFIL */}
           <div className="profile" onClick={() => setShowDropdown(!showDropdown)}>
             <div className="profile-hover">
               {user?.photo ? (
@@ -73,7 +93,6 @@ export default function Navbar() {
               </div>
             )}
           </div>
-          
 
         </div>
       </nav>

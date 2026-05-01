@@ -241,10 +241,10 @@ body::before {
 .btn-primary {
   background: var(--accent-gradient);
   color: white;
-  padding: 16px 44px;
+  padding: 14px 32px;
   border: none;
-  border-radius: 14px;
-  font-size: 16px;
+  border-radius: 12px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.5px;
   cursor: pointer;
@@ -288,10 +288,10 @@ body::before {
 .btn-secondary {
   background: transparent;
   color: var(--text-primary);
-  padding: 16px 44px;
+  padding: 14px 32px;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 14px;
-  font-size: 16px;
+  border-radius: 12px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.5px;
   cursor: pointer;

@@ -54,7 +54,7 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     } else {
       document.body.style.overflow = 'unset';
     }
-    
+
     return () => {
       document.body.style.overflow = 'unset';
     };
@@ -294,9 +294,16 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
           <img src={post.media} alt="post" className="post-media" />
         )}
 
-        {post.location && (
-          <p className="post-location">📍 {post.location}</p>
-        )}
+        <div className="post-meta-row">
+          {post.location && (
+            <p className="post-location">📍 {post.location}</p>
+          )}
+
+          {post.sport && (
+            <p className="post-sport">⚽ {post.sport}</p>
+          )}
+        </div>
+
 
         <div className="post-footer">
 

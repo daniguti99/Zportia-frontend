@@ -99,7 +99,7 @@ export async function getFriendsPosts(page = 0, size = 10) {
     throw new Error("No se pudieron cargar las publicaciones de amigos");
   }
 
-  return await response.json(); // ← devuelve Page<PostResponse>
+  return await response.json();
 }
 
 

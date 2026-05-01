@@ -22,6 +22,7 @@ export interface User {
   followersCount: number;
   followingCount: number;
   postsCount: number;
+  role: string;
 }
 
 
@@ -83,4 +84,17 @@ export interface SportResponse {
 export interface AllSportsResponse {
   message: string;
   sports: SportResponse[];
+}
+
+export interface UserDetailsAdminDTO {
+  id: number;
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  isPrivate: boolean;
+  photo: string | null;
+  level: string;
+  status: string;
 }
