@@ -49,7 +49,7 @@ export default function Login() {
         if (zportia?.user) {
           clearInterval(checkRoleAndNavigate);
           if (zportia.user.role === "ADMIN") {
-            navigate("/admin");
+            navigate("/dashboard");
           } else {
             navigate("/home");
           }

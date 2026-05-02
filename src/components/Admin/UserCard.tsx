@@ -2,7 +2,7 @@ import "../../css/admin/userCard.css";
 import type { UserDetailsAdminDTO } from "../../interfaces/interfaces";
 
 interface UserCardProps {
-  user: UserDetailsAdminDTO
+  user: UserDetailsAdminDTO;
 }
 
 export default function UserCard({ user }: UserCardProps) {
@@ -25,11 +25,30 @@ export default function UserCard({ user }: UserCardProps) {
         </div>
       </div>
 
-      {/* STATUS */}
-      <div className="admin-user-status">
-        <span className={`status-badge status-${user.status?.toLowerCase() || "active"}`}>
-          {user.status || "ACTIVE"}
+      {/* STATUS + ROLE + LEVEL */}
+      <div className="admin-user-status-section">
+
+        <span className={`status-badge status-${user.status?.toLowerCase()}`}>
+          {user.status}
         </span>
+
+        <span className="role-badge">
+          Rol: {user.role}
+        </span>
+
+        <span className="level-badge">
+          Nivel: {user.level}
+        </span>
+
+        <span className="privacy-badge">
+          {user.isPrivate ? "Privado" : "Público"}
+        </span>
+
+      </div>
+
+      {/* EXTRA INFO */}
+      <div className="admin-user-extra">
+        <p><strong>Email:</strong> {user.email}</p>
       </div>
 
       {/* ACTION BUTTONS */}

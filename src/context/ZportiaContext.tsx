@@ -10,6 +10,7 @@ interface ZportiaContextType {
   loading: boolean;
   login: (jwt: string) => Promise<void>;
   logout: () => void;
+  refreshUser: () => Promise<void>;
 }
 
 export const ZportiaContext = createContext<ZportiaContextType | null>(null);
@@ -55,28 +56,34 @@ export function ZportiaProvider({ children }: { children: ReactNode }) {
   };
 
   // LOGOUT
-const logout = () => {
-  localStorage.removeItem("token");
-  setToken(null);
-  setUser(null);
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    setUser(null);
 
-  Swal.fire({
-    title: "Sesión cerrada",
-    text: "Has cerrado sesión correctamente",
-    icon: "success",
-    background: "#111",
-    color: "#fff",
-    confirmButtonColor: "#0099ff",
-    confirmButtonText: "Aceptar",
-    customClass: {
-      popup: "zportia-alert",
-    }
-  });
-};
+    Swal.fire({
+      title: "Sesión cerrada",
+      text: "Has cerrado sesión correctamente",
+      icon: "success",
+      background: "#111",
+      color: "#fff",
+      confirmButtonColor: "#0099ff",
+      confirmButtonText: "Aceptar",
+      customClass: {
+        popup: "zportia-alert",
+      }
+    });
+  };
+
+  async function refreshUser() {
+    const me = await getCurrentUser();
+    setUser(me);
+  }
+
 
 
   return (
-    <ZportiaContext.Provider value={{ token, user, loading, login, logout }}>
+    <ZportiaContext.Provider value={{ token, user, loading, login, logout, refreshUser }}>
       {children}
     </ZportiaContext.Provider>
   );

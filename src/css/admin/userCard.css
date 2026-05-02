@@ -1,18 +1,34 @@
-.admin-user-card {
-  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.9));
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  padding: 28px;
+/* ============================
+   CONTENEDOR GENERAL (CENTRAR TODO)
+   ============================ */
+.admin-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   width: 100%;
-  max-width: 520px;
-  margin: 30px auto;
-  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7),
-              0 0 60px rgba(0, 153, 255, 0.15);
-  backdrop-filter: blur(15px);
-  animation: fadeIn 0.4s ease;
 }
 
-/* HEADER */
+/* ============================
+   TARJETA ADMIN - CONTENEDOR (MÁS GRANDE)
+   ============================ */
+.admin-user-card {
+  margin: 0 auto;
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;          /* más redondeado */
+  padding: 28px;                /* más espacio interno */
+  width: 100%;
+  max-width: 460px;             /* 🔥 tarjeta más grande */
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* ============================
+   HEADER (MÁS GRANDE)
+   ============================ */
 .admin-user-header {
   display: flex;
   align-items: center;
@@ -20,149 +36,144 @@
 }
 
 .admin-user-avatar {
-  width: 80px;
-  height: 80px;
+  width: 90px;                  /* 🔥 avatar más grande */
+  height: 90px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid rgba(0, 153, 255, 0.6);
-  box-shadow: 0 0 20px rgba(0, 153, 255, 0.4);
+  border: 3px solid rgba(255, 255, 255, 0.15);
 }
 
-.admin-user-info h2 {
-  margin: 0;
-  color: #fff;
-  font-size: 1.4rem;
+.admin-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-user-name {
+  font-size: 1.5rem;            /* 🔥 más grande */
   font-weight: 700;
+  color: #fff;
 }
 
 .admin-user-username {
-  color: #00b3ff;
   font-size: 1rem;
-  margin-top: 4px;
+  color: #bbb;
 }
 
 .admin-user-id {
-  color: #a0a0a0;
   font-size: 0.9rem;
-  margin-top: 2px;
+  color: #888;
 }
 
-/* STATUS */
-.admin-user-status {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.status-badge {
-  padding: 8px 16px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.status-active {
-  background: rgba(0, 200, 80, 0.2);
-  color: #00c850;
-  border: 1px solid rgba(0, 200, 80, 0.4);
-}
-
-.status-blocked {
-  background: rgba(255, 0, 110, 0.2);
-  color: #ff006e;
-  border: 1px solid rgba(255, 0, 110, 0.4);
-}
-
-.status-deleted {
-  background: rgba(255, 150, 0, 0.2);
-  color: #ff9600;
-  border: 1px solid rgba(255, 150, 0, 0.4);
-}
-
-/* ACTION BUTTONS */
-.admin-user-actions {
-  margin-top: 28px;
+/* ============================
+   STATUS + ROLE + LEVEL + PRIVACY (MÁS GRANDES)
+   ============================ */
+.admin-user-status-section {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
+}
+
+.status-badge,
+.role-badge,
+.level-badge,
+.privacy-badge {
+  padding: 8px 14px;            /* 🔥 más grandes */
+  border-radius: 10px;
+  font-size: 0.95rem;           /* 🔥 texto más grande */
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* ============================
+   EXTRA INFO (MÁS GRANDE)
+   ============================ */
+.admin-user-extra {
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1rem;              /* 🔥 más grande */
+  color: #ddd;
+}
+
+/* ============================
+   BOTONES DE ACCIÓN (MÁS GRANDES)
+   ============================ */
+.admin-user-actions {
+  display: flex;
   justify-content: center;
+  flex-wrap: nowrap;
+  gap: 10px;
 }
 
 .admin-btn {
-  padding: 14px 32px;
-  border-radius: 12px;
+  width: 85px;                  /* 🔥 botones más grandes */
+  padding: 10px 6px;            /* más altos */
+  border-radius: 8px;
+  font-size: 0.8rem;            /* texto más grande */
   font-weight: 700;
   cursor: pointer;
-  border: 1px solid transparent;
-  transition: 0.25s ease;
-  font-size: 15px;
-}
-
-.admin-btn:hover {
-  transform: translateY(-3px);
-}
-
-/* COLORS */
-.admin-btn.danger {
-  background: rgba(255, 0, 110, 0.2);
-  color: #ff006e;
-  border-color: rgba(255, 0, 110, 0.4);
-}
-
-.admin-btn.danger:hover {
-  background: rgba(255, 0, 110, 0.35);
-}
-
-.admin-btn.warning {
-  background: rgba(255, 150, 0, 0.2);
-  color: #ff9600;
-  border-color: rgba(255, 150, 0, 0.4);
-}
-
-.admin-btn.warning:hover {
-  background: rgba(255, 150, 0, 0.35);
-}
-
-.admin-btn.success {
-  background: rgba(0, 200, 80, 0.2);
-  color: #00c850;
-  border-color: rgba(0, 200, 80, 0.4);
-}
-
-.admin-btn.success:hover {
-  background: rgba(0, 200, 80, 0.35);
-}
-
-.admin-btn.info {
-  background: rgba(0, 153, 255, 0.2);
-  color: #0099ff;
-  border-color: rgba(0, 153, 255, 0.4);
-}
-
-.admin-btn.info:hover {
-  background: rgba(0, 153, 255, 0.35);
-}
-
-.admin-btn.recover {
-  background: rgba(124, 58, 237, 0.2);
-  color: #7c3aed;
-  border-color: rgba(124, 58, 237, 0.4);
-}
-
-.admin-btn.recover:hover {
-  background: rgba(124, 58, 237, 0.35);
-}
-
-/* ANIMATION */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.admin-btn {
-  width: 150px;           /* 🔥 todos exactamente iguales */
-  padding: 10px 0;        /* padding vertical */
+  border: none;
+  transition: 0.2s ease;
   text-align: center;
+  white-space: nowrap;
 }
 
+/* Colores */
+.admin-btn.danger { background: #ff3b6b; color: white; }
+.admin-btn.warning { background: #ffae00; color: #000; }
+.admin-btn.success { background: #00c853; color: white; }
+.admin-btn.info { background: #0099ff; color: white; }
+.admin-btn.recover { background: #7c3aed; color: white; }
+
+/* Hover */
+.admin-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* ============================
+   CONTENEDOR DE INPUT + TARJETA
+   ============================ */
+.admin-users-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.admin-center-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 600px;             /* 🔥 más ancho */
+  margin-top: 20px;
+}
+
+.admin-center-box input {
+  margin: 0 auto;
+  display: block;
+  font-size: 1.1rem;            /* 🔥 input más grande */
+  padding: 12px 14px;
+}
+
+.admin-title {
+  margin-top: 100px;
+  font-size: 2.2rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ff006e, #0099ff, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1.5px;
+}

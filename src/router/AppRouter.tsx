@@ -10,6 +10,7 @@ import AdminRoute from "../guards/AdminRoute";
 import CreatePost from "../pages/CreatePost";
 import AdminHome from "../pages/Admin/AdminHome";
 import AdminUsersPage from "../pages/Admin/AdminUsersPage";
+import EditProfile from "../pages/EditProfile";
 
 export default function AppRouter() {
   return (
@@ -82,6 +83,16 @@ export default function AppRouter() {
               </AdminRoute>
             }
           />
+
+          <Route
+            path="edit-profile"
+            element={
+              <ProtectedRoute>
+                <EditProfile />
+              </ProtectedRoute>
+            }
+          />
+
 
           {/* <Route
             path="admin/posts"

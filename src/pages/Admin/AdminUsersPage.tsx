@@ -4,20 +4,22 @@ import UserSearchInput from "../../components/Admin/UserSearchInput";
 import type { UserDetailsAdminDTO } from "../../interfaces/interfaces";
 
 export default function AdminUsersPage() {
-const [selectedUser, setSelectedUser] = useState<UserDetailsAdminDTO | null>(null);
-
+  const [selectedUser, setSelectedUser] = useState<UserDetailsAdminDTO | null>(null);
 
   return (
-    <div className="admin-users-page">
+    <div className="admin-users-wrapper">
+
       <h1 className="admin-title">Gestión de Usuarios</h1>
 
-      <UserSearchInput onSelect={setSelectedUser} />
+      <div className="admin-center-box">
+        <UserSearchInput onSelect={setSelectedUser} />
 
-      {selectedUser && (
-        <div className="admin-user-card-wrapper">
+        {selectedUser && (
           <UserCard user={selectedUser} />
-        </div>
-      )}
+        )}
+      </div>
+
     </div>
   );
 }
+

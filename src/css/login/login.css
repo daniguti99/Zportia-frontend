@@ -57,7 +57,7 @@
 
   width: 85%;
   max-width: 1200px;
-  height: 720px;
+  height: 850px;
 
   display: flex;
 
@@ -112,7 +112,7 @@
 .login-card {
 
   width: 80%;
-  max-width: 380px;
+  max-width: 450px;
 
   background: linear-gradient(135deg, rgba(42, 42, 42, 0.9), rgba(32, 32, 32, 0.85));
 

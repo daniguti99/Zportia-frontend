@@ -294,6 +294,89 @@ export async function rejectFollow(userId: number) {
   return response.json();
 }
 
+export async function updateProfile(data: {
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  isPrivate?: boolean;
+}) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/user/profile`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) throw new Error(errorJson.message);
+    if (errorJson?.error) throw new Error(errorJson.error);
+
+    throw new Error("No se pudo actualizar el perfil");
+  }
+
+  return await response.json();
+}
+
+export async function updateProfilePhoto(formData: FormData) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/user/profile/photo`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) throw new Error(errorJson.message);
+    if (errorJson?.error) throw new Error(errorJson.error);
+
+    throw new Error("No se pudo actualizar la foto de perfil");
+  }
+
+  return await response.json();
+}
+
+
+export async function updatePassword(data: {
+  currentPassword: string;
+  newPassword: string;
+  repeatPassword: string;
+}) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/user/profile/password`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) throw new Error(errorJson.message);
+    if (errorJson?.error) throw new Error(errorJson.error);
+
+    throw new Error("No se pudo cambiar la contraseña");
+  }
+
+  return await response.json();
+}
+
+
+
 
 
 
