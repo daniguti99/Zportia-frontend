@@ -26,7 +26,8 @@ export function createRegisterSchema() {
 
       repeatPassword: z.string().min(1, "Debes repetir la contraseña"),
 
-      sports: z.string().optional(),
+      sports: z.array(z.number()).min(1, "Debes seleccionar al menos un deporte"),
+
       isPrivate: z.boolean().optional()
     })
     .refine((data) => data.password === data.repeatPassword, {

@@ -20,3 +20,22 @@ export async function getAllUsers() {
 }
 
 
+export async function updateUserSports(userId: number, sports: number[]) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/profile/${userId}/sports`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({ sports })
+  });
+
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+    throw new Error(errorJson?.message || "Error al actualizar los deportes");
+  }
+
+  return await response.json();
+}

@@ -3,7 +3,6 @@ import logo from "../assets/logoZportia.png";
 import player from "../assets/img1Login.png";
 import Swal from "sweetalert2";
 
-
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginForm } from "../schemas/loginSchema";
@@ -14,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const zportia = useContext(ZportiaContext);
-
   const navigate = useNavigate();
 
   const {
@@ -39,15 +37,14 @@ export default function Login() {
         background: "#111",
         color: "#fff",
         confirmButtonColor: "#0099ff",
-        customClass: {
-          popup: "zportia-alert",
-        }
+        customClass: { popup: "zportia-alert" }
       });
 
       // Esperamos a que el contexto cargue el usuario completamente
       const checkRoleAndNavigate = setInterval(() => {
         if (zportia?.user) {
           clearInterval(checkRoleAndNavigate);
+
           if (zportia.user.role === "ADMIN") {
             navigate("/dashboard");
           } else {
@@ -62,7 +59,36 @@ export default function Login() {
         navigate("/home");
       }, 3000);
 
-    } catch {
+    } catch (err: any) {
+      const msg = err.message?.toUpperCase?.() || "";
+
+
+      if (msg.includes("BLOQUEADO")) {
+        return Swal.fire({
+          title: "Usuario bloqueado",
+          text: "Tu cuenta ha sido bloqueada por un administrador.",
+          icon: "error",
+          background: "#111",
+          color: "#fff",
+          confirmButtonColor: "#ff006e",
+          customClass: { popup: "zportia-alert" }
+        });
+      }
+
+
+      if (msg.includes("ELIMINADO")) {
+        return Swal.fire({
+          title: "Usuario eliminado",
+          text: "Tu cuenta ha sido eliminada por un administrador.",
+          icon: "error",
+          background: "#111",
+          color: "#fff",
+          confirmButtonColor: "#ff006e",
+          customClass: { popup: "zportia-alert" }
+        });
+      }
+
+
       Swal.fire({
         title: "Error",
         text: "Credenciales incorrectas",
@@ -70,16 +96,10 @@ export default function Login() {
         background: "#111",
         color: "#fff",
         confirmButtonColor: "#ff006e",
-        customClass: {
-          popup: "zportia-alert",
-        }
+        customClass: { popup: "zportia-alert" }
       });
     }
   };
-
-
-
-
 
   return (
     <div className="login-page">
@@ -119,7 +139,11 @@ export default function Login() {
                 ¿Todavía no tienes cuenta?
               </label>
 
-              <button className="btn-secondary" onClick={() => navigate("/register")}>
+              <button
+                className="btn-secondary"
+                type="button"
+                onClick={() => navigate("/register")}
+              >
                 Registrarse
               </button>
 

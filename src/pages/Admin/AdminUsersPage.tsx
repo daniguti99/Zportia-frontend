@@ -15,11 +15,13 @@ export default function AdminUsersPage() {
         <UserSearchInput onSelect={setSelectedUser} />
 
         {selectedUser && (
-          <UserCard user={selectedUser} />
+          <UserCard
+            user={selectedUser}
+            onUpdate={setSelectedUser}
+          />
         )}
       </div>
 
     </div>
   );
 }
-

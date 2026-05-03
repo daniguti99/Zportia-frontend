@@ -4,18 +4,25 @@ const URL_BASE = "http://localhost:8080/auth";
 
 export async function loginRequest(email: string, password: string) {
 
-    const response = await fetch(`${URL_BASE}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-    });
+  const response = await fetch(`${URL_BASE}/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  });
 
-    if(!response.ok) {
-        throw new Error("Credenciales erróneas");
+  if (!response.ok) {
+    const errorJson = await response.json().catch(() => null);
+
+    if (errorJson?.message) {
+      throw new Error(errorJson.message);
     }
 
-    return response.json();
+    throw new Error("Credenciales erróneas");
+  }
+
+  return response.json();
 }
+
 
 export async function registerRequest(data: RegisterForm) {
   try {

@@ -62,7 +62,7 @@ export default function EditProfile() {
   });
 
 
-  async function handleProfileUpdate(data: any) {
+  async function handleProfileUpdate(data: { username: string; firstName: string; lastName: string; isPrivate: boolean }) {
     await updateProfile({
       username: data.username,
       firstName: data.firstName,
@@ -71,7 +71,7 @@ export default function EditProfile() {
     });
   }
 
-  async function handlePhotoUpdate(data: any) {
+  async function handlePhotoUpdate(data: { photo: FileList }) {
     const formData = new FormData();
 
     if (data.photo instanceof FileList && data.photo.length > 0) {
@@ -83,7 +83,7 @@ export default function EditProfile() {
     await updateProfilePhoto(formData);
   }
 
-  async function handlePasswordUpdate(data: any) {
+  async function handlePasswordUpdate(data: { currentPassword: string; newPassword: string; repeatPassword: string }) {
     await updatePassword({
       currentPassword: data.currentPassword,
       newPassword: data.newPassword,

@@ -1,5 +1,5 @@
 /* ============================
-   CONTENEDOR GENERAL (CENTRAR TODO)
+   CONTENEDOR GENERAL
    ============================ */
 .admin-page-container {
   display: flex;
@@ -10,16 +10,16 @@
 }
 
 /* ============================
-   TARJETA ADMIN - CONTENEDOR (MÁS GRANDE)
+   TARJETA ADMIN - CONTENEDOR
    ============================ */
 .admin-user-card {
   margin: 0 auto;
   background: #111;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 22px;          /* más redondeado */
-  padding: 28px;                /* más espacio interno */
+  border-radius: 22px;
+  padding: 28px; 
   width: 100%;
-  max-width: 460px;             /* 🔥 tarjeta más grande */
+  max-width: 460px; 
   display: flex;
   flex-direction: column;
   gap: 22px;
@@ -36,7 +36,7 @@
 }
 
 .admin-user-avatar {
-  width: 90px;                  /* 🔥 avatar más grande */
+  width: 90px; 
   height: 90px;
   border-radius: 50%;
   object-fit: cover;
@@ -50,7 +50,7 @@
 }
 
 .admin-user-name {
-  font-size: 1.5rem;            /* 🔥 más grande */
+  font-size: 1.5rem;
   font-weight: 700;
   color: #fff;
 }
@@ -66,7 +66,7 @@
 }
 
 /* ============================
-   STATUS + ROLE + LEVEL + PRIVACY (MÁS GRANDES)
+   STATUS + ROLE + LEVEL + PRIVACY
    ============================ */
 .admin-user-status-section {
   display: flex;
@@ -78,9 +78,9 @@
 .role-badge,
 .level-badge,
 .privacy-badge {
-  padding: 8px 14px;            /* 🔥 más grandes */
+  padding: 8px 14px;
   border-radius: 10px;
-  font-size: 0.95rem;           /* 🔥 texto más grande */
+  font-size: 0.95rem;
   font-weight: 600;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -95,12 +95,12 @@
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 1rem;              /* 🔥 más grande */
+  font-size: 1rem; 
   color: #ddd;
 }
 
 /* ============================
-   BOTONES DE ACCIÓN (MÁS GRANDES)
+   BOTONES DE ACCIÓN
    ============================ */
 .admin-user-actions {
   display: flex;
@@ -110,10 +110,10 @@
 }
 
 .admin-btn {
-  width: 85px;                  /* 🔥 botones más grandes */
-  padding: 10px 6px;            /* más altos */
+  width: 85px;
+  padding: 10px 6px; 
   border-radius: 8px;
-  font-size: 0.8rem;            /* texto más grande */
+  font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
   border: none;
@@ -154,14 +154,14 @@
   justify-content: center;
   gap: 24px;
   width: 100%;
-  max-width: 600px;             /* 🔥 más ancho */
+  max-width: 600px; 
   margin-top: 20px;
 }
 
 .admin-center-box input {
   margin: 0 auto;
   display: block;
-  font-size: 1.1rem;            /* 🔥 input más grande */
+  font-size: 1.1rem;  
   padding: 12px 14px;
 }
 
