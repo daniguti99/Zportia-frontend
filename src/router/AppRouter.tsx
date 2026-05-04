@@ -11,6 +11,7 @@ import CreatePost from "../pages/CreatePost";
 import AdminHome from "../pages/Admin/AdminHome";
 import AdminUsersPage from "../pages/Admin/AdminUsersPage";
 import EditProfile from "../pages/EditProfile";
+import AdminPostsPage from "../pages/Admin/AdminPosts";
 
 export default function AppRouter() {
   return (
@@ -65,6 +66,15 @@ export default function AppRouter() {
             }
           />
 
+          <Route
+            path="edit-profile"
+            element={
+              <ProtectedRoute>
+                <EditProfile />
+              </ProtectedRoute>
+            }
+          />
+
           {/* 🔥 RUTAS ADMIN */}
           <Route
             path="dashboard"
@@ -85,16 +95,6 @@ export default function AppRouter() {
           />
 
           <Route
-            path="edit-profile"
-            element={
-              <ProtectedRoute>
-                <EditProfile />
-              </ProtectedRoute>
-            }
-          />
-
-
-          {/* <Route
             path="admin/posts"
             element={
               <AdminRoute>

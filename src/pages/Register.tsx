@@ -2,34 +2,59 @@ import "../css/login/login.css";
 import logo from "../assets/logoZportia.png";
 import player from "../assets/img1Login.png";
 
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 import { registerRequest } from "../services/AuthService";
+import { getAllSports } from "../services/SportsService";
 import { createRegisterSchema, type RegisterForm } from "../schemas/registerSchema";
-import { isValid } from "zod";
+import SportsModal from "../components/SportsModal";
+import "../css/login/sportsModal.css";
 
 export default function Register() {
   const navigate = useNavigate();
   const [backendError, setBackendError] = useState("");
 
+  // Deportes
+  const [sports, setSports] = useState<{ id: number; name: string }[]>([]);
+  const [selectedSports, setSelectedSports] = useState<number[]>([]);
+  const [isSportsModalOpen, setIsSportsModalOpen] = useState(false);
+
+  // Cargar deportes al montar
+  useEffect(() => {
+    getAllSports().then((res) => setSports(res.sports));
+  }, []);
+
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setValue // 👈 AÑADIDO
   } = useForm<RegisterForm>({
     resolver: zodResolver(createRegisterSchema()),
     mode: "onChange"
   });
 
+  function toggleSport(id: number) {
+    setSelectedSports((prev) =>
+      prev.includes(id)
+        ? prev.filter((s) => s !== id)
+        : [...prev, id]
+    );
+  }
+
   async function onSubmit(data: RegisterForm) {
     setBackendError("");
 
     try {
-      await registerRequest(data);
+      await registerRequest({
+        ...data,
+        sports: selectedSports
+      });
+
       await Swal.fire({
         title: "Registro exitoso",
         text: "Usuario registrado correctamente",
@@ -38,6 +63,7 @@ export default function Register() {
         color: "#fff",
         confirmButtonColor: "#0099ff",
       });
+
       navigate("/login");
     } catch (err: any) {
       setBackendError(err.message);
@@ -97,9 +123,17 @@ export default function Register() {
                 )}
               </div>
 
+              {/* BOTÓN PARA ABRIR MODAL */}
               <div className="form-group">
-                <label>Deportes (opcional)</label>
-                <input type="text" {...register("sports")} />
+                <label>Deportes</label>
+                <button
+                  type="button"
+                  className="btn-login"
+                  onClick={() => setIsSportsModalOpen(true)}
+                >
+                  Seleccionar deportes ({selectedSports.length})
+                </button>
+                {errors.sports && <span className="error">{errors.sports.message}</span>}
               </div>
 
               <div className="form-group checkbox-group">
@@ -131,6 +165,19 @@ export default function Register() {
         </div>
 
       </div>
+
+      {/* MODAL DE DEPORTES */}
+      <SportsModal
+        isOpen={isSportsModalOpen}
+        sports={sports}
+        selectedSports={selectedSports}
+        onToggle={toggleSport}
+        onClose={() => {
+          setValue("sports", selectedSports);
+          setIsSportsModalOpen(false);
+        }}
+      />
+
     </div>
   );
 }

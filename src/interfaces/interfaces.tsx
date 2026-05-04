@@ -72,7 +72,7 @@ export interface FollowResponse {
 
 
 export interface Sport {
-  id: string;
+  id: number;
   name: string;
 }
 
@@ -97,4 +97,17 @@ export interface UserDetailsAdminDTO {
   photo: string | null;
   level: string;
   status: string;
+}
+
+
+export interface AdminPostResponse {
+  id: number;
+  content: string;
+  media: string | null;
+  location: string | null;
+  date: string;
+  userId: number;
+  username: string;
+  userPhoto: string | null;
+  sport: string;
 }

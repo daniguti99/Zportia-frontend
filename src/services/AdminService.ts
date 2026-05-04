@@ -47,3 +47,43 @@ export const blockUser = (id: number) => adminAction(`${id}/block`);
 export const activateUser = (id: number) => adminAction(`${id}/activate`);
 export const unlockUser = (id: number) => adminAction(`${id}/unlock`);
 export const recoverUser = (id: number) => adminAction(`${id}/recover`);
+
+
+
+// Obtener post por ID
+export async function getPostByIdAdmin(id: number) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/posts/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(text || "Error al obtener el post");
+  }
+
+  return await response.json();
+}
+
+// Eliminar post
+export async function deletePostAdmin(id: number) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/posts/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(text || "Error al eliminar el post");
+  }
+
+  return await response.json();
+}
