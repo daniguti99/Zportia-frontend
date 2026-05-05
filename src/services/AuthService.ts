@@ -1,6 +1,6 @@
 import type { RegisterForm } from "../schemas/registerSchema";
 
-const URL_BASE = "http://localhost:8080/auth";
+const URL_BASE = "https://api-25-26-daniguti99.onrender.com/auth";
 
 export async function loginRequest(email: string, password: string) {
 

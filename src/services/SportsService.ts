@@ -1,6 +1,6 @@
 import type { AllSportsResponse } from "../interfaces/interfaces";
 
-const URL_BASE = "http://localhost:8080/api";
+const URL_BASE = "https://api-25-26-daniguti99.onrender.com/api";
 
 
 export async function getAllSports(): Promise<AllSportsResponse> {

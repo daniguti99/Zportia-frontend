@@ -1,4 +1,4 @@
-const URL_BASE = "http://localhost:8080/api/admin";
+const URL_BASE = "https://api-25-26-daniguti99.onrender.com/api/admin";
 
 export async function getUserDetailsAdmin(query: string) {
   const token = localStorage.getItem("token");

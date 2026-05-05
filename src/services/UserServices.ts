@@ -1,4 +1,4 @@
-const URL_BASE = "http://localhost:8080/user";
+const URL_BASE = "https://api-25-26-daniguti99.onrender.com/user";
 
 export async function getAllUsers() {
   const token = localStorage.getItem("token");
