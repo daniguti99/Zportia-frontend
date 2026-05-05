@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 import ProfileFollowing from "../components/ProfilePage/ProfileFollowing";
-import ProfilePublic from "../components/ProfilePage/ProfilePublic";
 import ProfilePrivateLocked from "../components/ProfilePage/ProfilePrivateLocked";
 import BlockedByUserPage from "../components/ProfilePage/BlockedByUserPage";
 
@@ -19,7 +18,6 @@ import {
 import type { PostResponse, User } from "../interfaces/interfaces";
 import PostModal from "../components/ProfilePage/PostModal";
 import BlockedByMePage from "../components/ProfilePage/BlockedMyBePage";
-import CreatePostButton from "../components/Buttons/CreatePostButton";
 
 export default function ProfilePage() {
   const { id } = useParams();

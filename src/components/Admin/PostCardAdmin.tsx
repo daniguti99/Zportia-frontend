@@ -4,7 +4,6 @@ import type { AdminPostResponse } from "../../interfaces/interfaces";
 
 import {
   deletePostAdmin,
-  getPostByIdAdmin
 } from "../../services/AdminService";
 
 interface PostCardProps {

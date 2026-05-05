@@ -44,7 +44,6 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
   const [loadingLikes, setLoadingLikes] = useState(false);
   const [errorLikes, setErrorLikes] = useState<string | null>(null);
 
-  const [value, setValue] = useState("");
   const postCardRef = useRef<HTMLDivElement>(null);
 
   // Bloquear scroll cuando el popup está abierto
@@ -79,7 +78,7 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
       setErrorLike(msg);
       Swal.fire({
         title: "Error",
-        text: msg,
+        text: errorLike!,
         icon: "error",
         background: "#111",
         color: "#fff",
