@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import "../../css/createPost/createPostButton.css";
-
+import "../../css/createPost/CreatePostButton.css";
 export default function CreatePostButton() {
   const navigate = useNavigate();
 
