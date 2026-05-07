@@ -92,11 +92,11 @@ export default function Login() {
 
   return (
     <div className="login-page">
-      <div className="login-container responsive-login">
+      <div className="login-container">
 
         {/* LEFT SIDE */}
-        <div className="login-left responsive-left">
-          <div className="login-card responsive-card">
+        <div className="login-left">
+          <div className="login-card">
             <img src={logo} alt="Sportia Logo" className="login-logo" />
 
             <h2 className="login-title">INICIO DE SESIÓN</h2>
@@ -141,7 +141,7 @@ export default function Login() {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="login-right responsive-right">
+        <div className="login-right">
           <img src={player} alt="Player" className="login-image" />
         </div>
 

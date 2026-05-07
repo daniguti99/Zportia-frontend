@@ -38,9 +38,16 @@ export default function SportsModal({
           ))}
         </div>
 
-        <button className="btn-login" onClick={onClose}>
-          Guardar selección
-        </button>
+        {/* BOTONES */}
+        <div className="modal-buttons">
+          <button className="btn-login" onClick={onClose}>
+            Guardar selección
+          </button>
+
+          <button className="btn-cancel" onClick={onClose}>
+            Cancelar
+          </button>
+        </div>
 
       </div>
     </div>
