@@ -251,21 +251,43 @@
 }
 
 .sport-badge {
-  background: linear-gradient(135deg, #ff4d6d, #6a5af9);
+  padding: 6px 14px;
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+
   color: white;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.75rem;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.3px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  letter-spacing: 0.4px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  box-shadow:
+    0 0 12px rgba(0,153,255,0.25),
+    0 0 18px rgba(255,0,110,0.15);
+
+  transition: 0.25s ease;
 }
 
 .sport-badge:hover {
-  transform: scale(1.08);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow:
+    0 0 18px rgba(0,153,255,0.45),
+    0 0 26px rgba(255,0,110,0.35);
+  border-color: rgba(255,255,255,0.25);
+}
+
+/* Icono dentro de la burbuja */
+.sport-badge::before {
+  font-size: 14px;
   opacity: 0.9;
 }
+
 
 /* ============================
    STATS
