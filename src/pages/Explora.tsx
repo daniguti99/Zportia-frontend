@@ -22,13 +22,15 @@ export default function Explore() {
 
   const { user: currentUser } = useAuth();
 
-  // 🔥 Cargar primera página SIN useRef
+
   useEffect(() => {
     init();
   }, []);
 
   async function init() {
     try {
+      setLoading(true);
+
       const data = await getExplorePosts(0, 10);
 
       setPosts(data.content);
@@ -40,9 +42,11 @@ export default function Explore() {
     } catch (err: any) {
       setError(err.message || "No se pudieron cargar las publicaciones 😔");
     } finally {
-      setLoading(false);
     }
+
+    setLoading(false);
   }
+
 
   async function loadMore() {
     try {
@@ -81,7 +85,13 @@ export default function Explore() {
   }, [selectedSport, posts]);
 
   if (loading)
-    return <p className="explore-loading">Explorando...</p>;
+    return (
+      <div className="explore-loading">
+        <div className="loader-spinner"></div>
+        Cargando publicaciones...
+      </div>
+    );
+
 
   if (error)
     return <p className="explore-error">{error}</p>;

@@ -824,3 +824,51 @@ body::before {
 }
 
 
+/* ============================
+   LOADER PREMIUM ZPORTIA (PROFILE)
+   ============================ */
+
+.profile-loading-premium {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 140px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-secondary);
+
+  animation: profileFadeIn 0.6s ease forwards;
+}
+
+.profile-spinner-premium {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  margin-bottom: 18px;
+
+  border: 4px solid rgba(255, 255, 255, 0.08);
+  border-top-color: var(--accent-secondary);
+  border-right-color: var(--accent-primary);
+
+  animation: profileSpin 1s linear infinite, profileGlow 2s ease-in-out infinite;
+}
+
+@keyframes profileSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes profileGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(0,153,255,0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(255,0,110,0.5));
+  }
+}
+
+@keyframes profileFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

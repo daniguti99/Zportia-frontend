@@ -444,12 +444,10 @@
       );
   }
 
-  /* LEFT MENU */
   .nav-left {
     gap: 14px;
   }
 
-  /* ITEMS */
   .nav-item {
     width: 46px;
     height: 46px;
@@ -471,7 +469,6 @@
       );
 
     border: 1px solid rgba(255,255,255,0.08);
-
     backdrop-filter: blur(10px);
 
     transition:
@@ -487,73 +484,54 @@
 
   .nav-item:hover {
     transform: translateY(-2px) scale(1.06);
-
     border-color: rgba(255,0,110,0.35);
-
     box-shadow:
       0 0 20px rgba(255,0,110,0.18),
       0 0 30px rgba(0,153,255,0.12);
   }
 
-  /* ICONOS BASE */
+  /* ICONOS COMO IMAGEN (SIN TEXTO GRADIENTE) */
   .nav-item::before {
-    font-size: 20px;
-    font-weight: 700;
+    content: "";
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: drop-shadow(0 0 6px rgba(0, 153, 255, 0.6));
+    transition: transform 0.25s ease, filter 0.25s ease;
+  }
 
-    background: linear-gradient(
-      135deg,
-      #ff006e,
-      #0099ff,
-      #7c3aed
-    );
+  .nav-item.home::before {
+    background-image: url("../assets/home.png");
+  }
 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .nav-item.explore::before {
+    background-image: url("../assets/explore.png");
+  }
 
-    opacity: 0.92;
+  .nav-item.profile-icon::before {
+    background-image: url("../assets/profile.png");
+  }
 
-    transition:
-      transform 0.25s ease,
-      opacity 0.25s ease;
+  .nav-item.dashboard::before {
+    background-image: url("../assets/home.png");
+  }
+
+  .nav-item.users::before {
+    background-image: url("../assets/users.png");
+  }
+
+  .nav-item.posts::before {
+    background-image: url("../assets/posts.png");
   }
 
   .nav-item:hover::before {
     transform: scale(1.12);
-    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(0, 153, 255, 0.9));
   }
 
-  /* ICONOS MODERNOS */
-  .nav-item.home::before {
-    content: "⌂";
-    font-size: 22px;
-  }
-
-  .nav-item.explore::before {
-    content: "◉";
-    font-size: 18px;
-  }
-
-  .nav-item.profile-icon::before {
-    content: "◌";
-    font-size: 22px;
-  }
-
-  .nav-item.dashboard::before {
-    content: "◫";
-    font-size: 18px;
-  }
-
-  .nav-item.users::before {
-    content: "◎";
-    font-size: 18px;
-  }
-
-  .nav-item.posts::before {
-    content: "▣";
-    font-size: 18px;
-  }
-
-  /* ACTIVO */
   .nav-item.active {
     background:
       linear-gradient(
@@ -561,24 +539,17 @@
         rgba(255,0,110,0.16),
         rgba(0,153,255,0.14)
       );
-
     border-color: rgba(255,0,110,0.35);
-
     box-shadow:
       0 0 22px rgba(255,0,110,0.2),
       0 0 30px rgba(0,153,255,0.12);
   }
 
   .nav-item.active::before {
-    opacity: 1;
     transform: scale(1.15);
+    filter: drop-shadow(0 0 14px rgba(0, 153, 255, 1));
   }
 
-  .nav-item.active::after {
-    display: none;
-  }
-
-  /* LOGO */
   .nav-logo {
     height: 40px;
     filter:
@@ -586,7 +557,6 @@
       drop-shadow(0 0 16px rgba(0,153,255,0.12));
   }
 
-  /* PERFIL */
   .profile-hover {
     width: 48px;
     height: 48px;
@@ -595,13 +565,10 @@
   .profile-avatar {
     width: 50px;
     height: 50px;
-
     border: 2px solid rgba(255,0,110,0.35);
-
     box-shadow:
       0 0 16px rgba(255,0,110,0.18),
       0 0 22px rgba(0,153,255,0.08);
-
     transition:
       transform 0.25s ease,
       box-shadow 0.25s ease,
@@ -610,9 +577,7 @@
 
   .profile-avatar:hover {
     transform: scale(1.05);
-
     border-color: rgba(255,0,110,0.7);
-
     box-shadow:
       0 0 24px rgba(255,0,110,0.3),
       0 0 34px rgba(0,153,255,0.18);
@@ -622,31 +587,23 @@
     display: none;
   }
 
-  /* BADGE NIVEL */
   .user-level-badge-container {
     display: none;
   }
 
-  /* DROPDOWN */
   .profile-dropdown {
     top: 72px;
     right: -4px;
-
     min-width: 170px;
-
     border-radius: 18px;
-
     background:
       linear-gradient(
         135deg,
         rgba(20,20,20,0.96),
         rgba(10,10,10,0.94)
       );
-
     backdrop-filter: blur(20px);
-
     border: 1px solid rgba(255,255,255,0.08);
-
     box-shadow:
       0 20px 50px rgba(0,0,0,0.55),
       0 0 30px rgba(255,0,110,0.08);
@@ -661,6 +618,7 @@
     background: rgba(255,255,255,0.06);
   }
 }
+
 
 /* ============================
    SMALL MOBILE
@@ -688,7 +646,7 @@
   }
 
   .nav-logo {
-    height: 34px;
+    height: 40px;
   }
 
   .profile-hover {

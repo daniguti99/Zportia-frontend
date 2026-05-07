@@ -16,7 +16,6 @@ export default function FriendsFeed() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // 🔥 Cargar primera página
   useEffect(() => {
     init();
   }, []);
@@ -59,8 +58,14 @@ export default function FriendsFeed() {
     }
   }
 
-  if (loading && posts.length === 0)
-    return <p className="friends-feed-loading">Cargando publicaciones...</p>;
+  // ⭐ LOADER PREMIUM ZPORTIA AQUÍ
+  if (loading)
+    return (
+      <div className="friendsfeed-loading-premium">
+        <div className="friendsfeed-spinner"></div>
+        Cargando publicaciones...
+      </div>
+    );
 
   if (error)
     return <p className="friends-feed-error">{error}</p>;
@@ -81,7 +86,6 @@ export default function FriendsFeed() {
         )}
       </div>
 
-      {/* 🔥 BOTÓN CARGAR MÁS */}
       {hasMore && (
         <button
           className="load-more-btn"

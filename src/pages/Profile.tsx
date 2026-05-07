@@ -113,7 +113,14 @@ export default function ProfilePage() {
     loadPost();
   }, [selectedPostId]);
 
-  if (loading) return <div>Cargando perfil...</div>;
+  if (loading)
+    return (
+      <div className="profile-loading-premium">
+        <div className="profile-spinner-premium"></div>
+        Cargando perfil...
+      </div>
+    );
+
 
   if (!profile) {
     return (

@@ -21,31 +21,32 @@ export default function LandingPage() {
     }
   }, [user, navigate]);
 
-  if (loading) {
-    return <div className="landing-container">Cargando...</div>;
-  }
+
+  if (loading) return null;
+
+
 
   // Si el usuario es admin, no mostrar nada (la redirección está en proceso)
   if (user && user.role === "ADMIN") {
     return null;
   }
 
-if (user) {
-  return (
-    <div className="explore-wrapper">
+  if (user) {
+    return (
+      <div className="explore-wrapper">
 
-      <aside className="explore-sidebar">
-        <CreatePostButton />
-      </aside>
+        <aside className="explore-sidebar">
+          <CreatePostButton />
+        </aside>
 
-      {/* FEED CENTRAL */}
-      <div className="explore-container">
-        <FriendsFeed />
+        {/* FEED CENTRAL */}
+        <div className="explore-container">
+          <FriendsFeed />
+        </div>
+
       </div>
-
-    </div>
-  );
-}
+    );
+  }
 
 
   // Si NO está autenticado → mostrar la landing pública
