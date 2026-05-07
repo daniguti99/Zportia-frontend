@@ -479,3 +479,59 @@
   border-color: rgba(255, 107, 107, 0.4);
   box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
 }
+
+
+
+@media (max-width: 1024px) {
+  .login-container {
+    height: auto;
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .responsive-login {
+    flex-direction: column;
+    height: auto;
+    padding: 20px 0;
+  }
+
+  .responsive-left {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .responsive-card {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .responsive-right {
+    display: none;
+  }
+
+  .login-logo {
+    width: 130px;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-card {
+    padding: 28px;
+  }
+
+  .login-title {
+    font-size: 22px;
+  }
+
+  .form-group input {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .btn-login,
+  .btn-secondary {
+    padding: 12px;
+    font-size: 15px;
+  }
+}

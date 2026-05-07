@@ -26,8 +26,6 @@ export default function Login() {
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     try {
       const res = await loginRequest(data.email, data.password);
-
-      // Guardamos token y disparamos la carga del usuario
       await zportia?.login(res.token);
 
       Swal.fire({
@@ -40,20 +38,14 @@ export default function Login() {
         customClass: { popup: "zportia-alert" }
       });
 
-      // Esperamos a que el contexto cargue el usuario completamente
       const checkRoleAndNavigate = setInterval(() => {
         if (zportia?.user) {
           clearInterval(checkRoleAndNavigate);
-
-          if (zportia.user.role === "ADMIN") {
-            navigate("/dashboard");
-          } else {
-            navigate("/home");
-          }
+          if (zportia.user.role === "ADMIN") navigate("/dashboard");
+          else navigate("/home");
         }
       }, 50);
 
-      // Fallback: si no carga en 3 segundos, ir a home
       setTimeout(() => {
         clearInterval(checkRoleAndNavigate);
         navigate("/home");
@@ -61,7 +53,6 @@ export default function Login() {
 
     } catch (err: any) {
       const msg = err.message?.toUpperCase?.() || "";
-
 
       if (msg.includes("BLOQUEADO")) {
         return Swal.fire({
@@ -75,7 +66,6 @@ export default function Login() {
         });
       }
 
-
       if (msg.includes("ELIMINADO")) {
         return Swal.fire({
           title: "Usuario eliminado",
@@ -87,7 +77,6 @@ export default function Login() {
           customClass: { popup: "zportia-alert" }
         });
       }
-
 
       Swal.fire({
         title: "Error",
@@ -103,11 +92,11 @@ export default function Login() {
 
   return (
     <div className="login-page">
-      <div className="login-container">
+      <div className="login-container responsive-login">
 
         {/* LEFT SIDE */}
-        <div className="login-left">
-          <div className="login-card">
+        <div className="login-left responsive-left">
+          <div className="login-card responsive-card">
             <img src={logo} alt="Sportia Logo" className="login-logo" />
 
             <h2 className="login-title">INICIO DE SESIÓN</h2>
@@ -152,7 +141,7 @@ export default function Login() {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="login-right">
+        <div className="login-right responsive-right">
           <img src={player} alt="Player" className="login-image" />
         </div>
 

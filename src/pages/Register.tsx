@@ -18,12 +18,10 @@ export default function Register() {
   const navigate = useNavigate();
   const [backendError, setBackendError] = useState("");
 
-  // Deportes
   const [sports, setSports] = useState<{ id: number; name: string }[]>([]);
   const [selectedSports, setSelectedSports] = useState<number[]>([]);
   const [isSportsModalOpen, setIsSportsModalOpen] = useState(false);
 
-  // Cargar deportes al montar
   useEffect(() => {
     getAllSports().then((res) => setSports(res.sports));
   }, []);
@@ -32,7 +30,7 @@ export default function Register() {
     register,
     handleSubmit,
     formState: { errors },
-    setValue // 👈 AÑADIDO
+    setValue
   } = useForm<RegisterForm>({
     resolver: zodResolver(createRegisterSchema()),
     mode: "onChange"
@@ -72,11 +70,11 @@ export default function Register() {
 
   return (
     <div className="login-page">
-      <div className="login-container">
+      <div className="login-container responsive-login">
 
         {/* LEFT SIDE */}
-        <div className="login-left">
-          <div className="login-card">
+        <div className="login-left responsive-left">
+          <div className="login-card responsive-card">
             <img src={logo} alt="Sportia Logo" className="login-logo" />
 
             <h2 className="login-title">REGISTRO</h2>
@@ -123,7 +121,6 @@ export default function Register() {
                 )}
               </div>
 
-              {/* BOTÓN PARA ABRIR MODAL */}
               <div className="form-group">
                 <label>Deportes</label>
                 <button
@@ -160,13 +157,12 @@ export default function Register() {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="login-right">
+        <div className="login-right responsive-right">
           <img src={player} alt="Player" className="login-image" />
         </div>
 
       </div>
 
-      {/* MODAL DE DEPORTES */}
       <SportsModal
         isOpen={isSportsModalOpen}
         sports={sports}
