@@ -1,6 +1,6 @@
 import type { FollowResponse, PostResponse, SimpleUser } from "../interfaces/interfaces";
 
-const URL_BASE = "http://localhost:8080";
+const URL_BASE = "https://api-25-26-daniguti99.onrender.com";
 
 export async function getOwnProfile() {
   const token = localStorage.getItem("token");

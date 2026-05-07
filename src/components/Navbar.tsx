@@ -21,15 +21,15 @@ export default function Navbar() {
 
           {user?.role === "ADMIN" ? (
             <>
-              <NavLink to="/dashboard" className="nav-item">Dashboard</NavLink>
-              <NavLink to="/admin/users" className="nav-item">Usuarios</NavLink>
-              <NavLink to="/admin/posts" className="nav-item">Posts</NavLink>
+              <NavLink to="/dashboard" className="nav-item dashboard">Dashboard</NavLink>
+              <NavLink to="/admin/users" className="nav-item users">Usuarios</NavLink>
+              <NavLink to="/admin/posts" className="nav-item posts">Posts</NavLink>
             </>
           ) : (
             <>
-              <NavLink to="/home" className="nav-item">Home</NavLink>
-              <NavLink to="/explore" className="nav-item">Explora</NavLink>
-              <NavLink to={`/profile/${user?.id}`} className="nav-item">Mi perfil</NavLink>
+              <NavLink to="/home" className="nav-item home">Home</NavLink>
+              <NavLink to="/explore" className="nav-item explore">Explora</NavLink>
+              <NavLink to={`/profile/${user?.id}`} className="nav-item profile-icon">Mi perfil</NavLink>
             </>
           )}
 
