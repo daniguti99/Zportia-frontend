@@ -5,7 +5,11 @@ import type { User, SimpleUser } from "../../interfaces/interfaces";
 import FollowersModal from "../../components/ProfilePage/FollowersModal";
 import FollowRequestsModal from "../../components/ProfilePage/FollowRequestsModal";
 
-import { getFollowers, getFollowing, getPendingRequests } from "../../services/ProfileService";
+import {
+  getFollowers,
+  getFollowing,
+  getPendingRequests
+} from "../../services/ProfileService";
 
 import FollowBlockButtons from "../../components/ProfilePage/FollowBlockButton";
 
@@ -17,11 +21,18 @@ interface ProfileHeaderProps {
   isOwnProfile: boolean;
 }
 
-export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps) {
+export default function ProfileHeader({
+  user,
+  isOwnProfile
+}: ProfileHeaderProps) {
+
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalUsers, setModalUsers] = useState<SimpleUser[]>([]);
   const [loading, setLoading] = useState(false);
+
+  // FOTO PERFIL MODAL
+  const [photoOpen, setPhotoOpen] = useState(false);
 
   // 🔔 NOTIFICACIONES
   const [requestsCount, setRequestsCount] = useState(0);
@@ -32,7 +43,7 @@ export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps
   }
 
   // ============================
-  // CARGAR SOLICITUDES PENDIENTES
+  // CARGAR SOLICITUDES
   // ============================
   useEffect(() => {
     async function loadRequests() {
@@ -45,19 +56,26 @@ export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps
     }
 
     if (isOwnProfile) loadRequests();
+
   }, [isOwnProfile]);
 
   // ============================
-  // MODALES DE FOLLOWERS / FOLLOWING
+  // FOLLOWERS
   // ============================
   async function openFollowers() {
     try {
+
       setLoading(true);
+
       const data = await getFollowers(user.id);
+
       setModalUsers(data);
       setModalTitle("Seguidores");
+
       setModalOpen(true);
+
     } catch (err: any) {
+
       Swal.fire({
         title: "Error",
         text: err.message,
@@ -66,19 +84,30 @@ export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps
         color: "#fff",
         confirmButtonColor: "#ff006e",
       });
+
     } finally {
       setLoading(false);
     }
   }
 
+  // ============================
+  // FOLLOWING
+  // ============================
   async function openFollowing() {
+
     try {
+
       setLoading(true);
+
       const data = await getFollowing(user.id);
+
       setModalUsers(data);
       setModalTitle("Seguidos");
+
       setModalOpen(true);
+
     } catch (err: any) {
+
       Swal.fire({
         title: "Error",
         text: err.message,
@@ -87,6 +116,7 @@ export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps
         color: "#fff",
         confirmButtonColor: "#ff006e",
       });
+
     } finally {
       setLoading(false);
     }
@@ -96,38 +126,50 @@ export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps
     <>
       <div className="profile-header-container">
 
-        {/* FOTO + MARCO */}
-        <div className={`profile-photo-wrapper level-${user.level.toLowerCase()}`}>
+        {/* FOTO */}
+        <div
+          className={`profile-photo-wrapper level-${user.level.toLowerCase()}`}
+        >
           <img
             src={user.photo ?? "/assets/default-profile.png"}
             alt="Foto de perfil"
             className="profile-photo"
+            onClick={() => setPhotoOpen(true)}
           />
         </div>
 
-        {/* NOMBRE + USERNAME */}
+        {/* INFO */}
         <div className="profile-header-info">
+
           <h2 className="profile-name">
             {user.firstName} {user.lastName}
           </h2>
-          <p className="profile-username">@{user.username}</p>
 
-{/* 🔔 NOTIFICACIONES (solo si es mi perfil) */}
-{isOwnProfile && (
-  <div className="notifications-box" onClick={() => setRequestsOpen(true)}>
-    <div className="notif-left">
-      <span className="notif-icon">🔔</span>
-      <span className="notif-text">Notificaciones</span>
-    </div>
+          <p className="profile-username">
+            @{user.username}
+          </p>
 
-    {requestsCount > 0 && (
-      <span className="notif-count">{requestsCount}</span>
-    )}
-  </div>
-)}
+          {/* NOTIFICACIONES */}
+          {isOwnProfile && (
+            <div
+              className="notifications-box"
+              onClick={() => setRequestsOpen(true)}
+            >
 
+              <div className="notif-left">
+                <span className="notif-icon">🔔</span>
+                <span className="notif-text">Notificaciones</span>
+              </div>
 
-          {/* 🔥 BOTONES SEGUIR / BLOQUEAR (solo si NO es mi perfil) */}
+              {requestsCount > 0 && (
+                <span className="notif-count">
+                  {requestsCount}
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* BOTONES */}
           {!isOwnProfile && (
             <FollowBlockButtons
               userId={user.id}
@@ -142,6 +184,7 @@ export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps
 
           {/* LEVEL + POINTS */}
           <div className="profile-level-points-bar">
+
             <div className={`level-box ${getLevelClass(user.level)}`}>
               <span className="level-icon">⭐</span>
               <span className="level-text">{user.level}</span>
@@ -149,11 +192,14 @@ export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps
 
             <div className="points-box">
               <span className="points-icon">🔥</span>
-              <span className="points-text">{user.points} pts</span>
+              <span className="points-text">
+                {user.points} pts
+              </span>
             </div>
+
           </div>
 
-          {/* DEPORTES */}
+          {/* SPORTS */}
           {user.sports && user.sports.length > 0 && (
             <div className="profile-sports">
               {user.sports.map((sport) => (
@@ -166,25 +212,62 @@ export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps
 
           {/* STATS */}
           <div className="profile-header-stats">
+
             <div className="stat">
               <strong>{user.postsCount}</strong>
               <span>Publicaciones</span>
             </div>
 
-            <div className="stat clickable" onClick={openFollowers}>
+            <div
+              className="stat clickable"
+              onClick={openFollowers}
+            >
               <strong>{user.followersCount}</strong>
               <span>Seguidores</span>
             </div>
 
-            <div className="stat clickable" onClick={openFollowing}>
+            <div
+              className="stat clickable"
+              onClick={openFollowing}
+            >
               <strong>{user.followingCount}</strong>
               <span>Seguidos</span>
             </div>
+
           </div>
         </div>
       </div>
 
-      {/* MODAL FOLLOWERS / FOLLOWING */}
+      {/* FOTO MODAL */}
+      {photoOpen && (
+        <div
+          className="profile-photo-overlay"
+          onClick={() => setPhotoOpen(false)}
+        >
+
+          <div
+            className="profile-photo-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+
+            <button
+              className="close-photo-btn"
+              onClick={() => setPhotoOpen(false)}
+            >
+              ✕
+            </button>
+
+            <img
+              src={user.photo ?? "/assets/default-profile.png"}
+              alt={user.username}
+              className="profile-photo-large"
+            />
+
+          </div>
+        </div>
+      )}
+
+      {/* MODAL FOLLOWERS */}
       {modalOpen && (
         <FollowersModal
           title={modalTitle}
@@ -193,9 +276,11 @@ export default function ProfileHeader({ user, isOwnProfile }: ProfileHeaderProps
         />
       )}
 
-      {/* MODAL SOLICITUDES */}
+      {/* MODAL REQUESTS */}
       {requestsOpen && (
-        <FollowRequestsModal onClose={() => setRequestsOpen(false)} />
+        <FollowRequestsModal
+          onClose={() => setRequestsOpen(false)}
+        />
       )}
 
       {/* LOADING */}

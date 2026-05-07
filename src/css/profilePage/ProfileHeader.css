@@ -392,3 +392,160 @@
   0% { transform: scale(0.6); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
 }
+
+
+/* =========================================
+   FOTO PERFIL MODAL PREMIUM
+========================================= */
+
+.profile-photo {
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.profile-photo:hover {
+  transform: scale(1.05);
+
+  box-shadow:
+    0 0 30px rgba(255, 0, 110, 0.4);
+}
+
+/* OVERLAY */
+
+.profile-photo-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.88);
+
+  backdrop-filter: blur(14px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 99999;
+
+  padding: 20px;
+
+  animation: profileFadeIn 0.25s ease;
+}
+
+/* MODAL */
+
+.profile-photo-modal {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  animation: profileZoomIn 0.3s ease;
+}
+
+/* FOTO GRANDE */
+
+.profile-photo-large {
+  width: min(88vw, 520px);
+  height: min(88vw, 520px);
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border: 4px solid rgba(255, 0, 110, 0.7);
+
+  box-shadow:
+    0 0 60px rgba(255, 0, 110, 0.5),
+    0 0 100px rgba(0, 153, 255, 0.3);
+}
+
+/* CLOSE */
+
+.close-photo-btn {
+  position: absolute;
+
+  top: -18px;
+  right: -18px;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  background: rgba(255,255,255,0.1);
+
+  color: white;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(10px);
+
+  transition: 0.3s ease;
+}
+
+.close-photo-btn:hover {
+  background: rgba(255, 0, 110, 0.8);
+
+  transform: rotate(90deg) scale(1.1);
+
+  box-shadow:
+    0 0 25px rgba(255, 0, 110, 0.6);
+}
+
+/* ANIMACIONES */
+
+@keyframes profileFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes profileZoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .profile-photo-large {
+    width: min(85vw, 360px);
+    height: min(85vw, 360px);
+  }
+
+  .close-photo-btn {
+    top: -10px;
+    right: -10px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .profile-photo-large {
+    width: 82vw;
+    height: 82vw;
+  }
+
+  .close-photo-btn {
+    width: 40px;
+    height: 40px;
+  }
+}

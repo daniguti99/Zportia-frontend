@@ -22,6 +22,7 @@
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   overflow: visible;
+  margin-bottom: 50px;
 }
 
 /* Glow elegante oscuro */
@@ -564,6 +565,7 @@
 
 .post-card {
   position: visible;
+  margin-bottom: 50px;
 }
 
 
@@ -642,3 +644,317 @@
   z-index: 9999 !important;
 }
 
+/* ============================
+   RESPONSIVE - TABLET
+   ============================ */
+
+@media (max-width: 1024px) {
+
+  .post-card {
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 50px;
+  }
+
+  .post-header {
+    gap: 12px;
+  }
+
+  .post-avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .post-username {
+    font-size: 1rem;
+  }
+
+  .post-content {
+    font-size: 0.95rem;
+  }
+
+  .post-media {
+    border-radius: 14px;
+  }
+
+  .post-footer {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .post-footer span {
+    flex: 1;
+    text-align: center;
+    min-width: 90px;
+  }
+
+  .comments-box,
+  .likes-box {
+    width: 95%;
+    padding: 24px;
+    max-height: 80vh;
+  }
+
+  .comments-box h3,
+  .likes-box h3 {
+    font-size: 1.4rem;
+  }
+
+  .comment-item,
+  .like-item {
+    padding: 12px 10px;
+  }
+
+  .comment-avatar,
+  .like-avatar {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ============================
+   RESPONSIVE - MOBILE
+   ============================ */
+
+@media (max-width: 768px) {
+
+  .post-card {
+    padding: 18px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 50px;
+  }
+
+  .post-card:hover {
+    transform: none;
+  }
+
+  .post-header {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .post-avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  .post-username {
+    font-size: 0.95rem;
+  }
+
+  .post-date {
+    font-size: 0.75rem;
+  }
+
+  .post-content {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  .post-media {
+    border-radius: 12px;
+  }
+
+  .post-media:hover {
+    transform: none;
+  }
+
+  .post-meta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .post-location,
+  .post-sport {
+    font-size: 0.8rem;
+  }
+
+  .post-footer {
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .post-footer span {
+    flex: 1 1 45%;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .post-footer span:hover {
+    transform: none;
+  }
+
+  .post-actions {
+    top: 8px;
+    right: 8px;
+    gap: 6px;
+  }
+
+  .edit-post-btn,
+  .delete-post-btn {
+    padding: 5px 8px;
+    font-size: 15px;
+  }
+
+  .comments-popup,
+  .likes-popup {
+    padding: 14px;
+    align-items: flex-end;
+  }
+
+  .comments-box,
+  .likes-box {
+    width: 100%;
+    max-width: 100%;
+    max-height: 88vh;
+    border-radius: 22px 22px 0 0;
+    padding: 22px 18px;
+    animation: darkSlideMobile 0.35s ease;
+  }
+
+  .comments-box h3,
+  .likes-box h3 {
+    font-size: 1.25rem;
+    margin-bottom: 18px;
+  }
+
+  .close-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .comment-item,
+  .like-item {
+    gap: 10px;
+    padding: 10px 8px;
+  }
+
+  .comment-avatar,
+  .like-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .comment-username,
+  .like-username {
+    font-size: 0.9rem;
+  }
+
+  .comment-content {
+    font-size: 0.82rem;
+  }
+
+  .add-comment-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .add-comment-form textarea {
+    font-size: 14px;
+    min-height: 90px;
+  }
+
+  .add-comment-form button {
+    width: 100%;
+    align-self: stretch;
+  }
+
+  .delete-comment-btn {
+    padding: 6px 8px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ============================
+   RESPONSIVE - SMALL MOBILE
+   ============================ */
+
+@media (max-width: 480px) {
+
+  .post-card {
+    padding: 14px;
+    border-radius: 14px;
+    margin-bottom: 50px;
+  }
+
+  .post-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .post-username {
+    font-size: 0.9rem;
+  }
+
+  .post-date {
+    font-size: 0.72rem;
+  }
+
+  .post-content {
+    font-size: 0.88rem;
+  }
+
+  .post-footer span {
+    flex: 1 1 100%;
+    font-size: 0.85rem;
+    padding: 9px;
+  }
+
+  .comments-box,
+  .likes-box {
+    padding: 20px 14px;
+  }
+
+  .comments-box h3,
+  .likes-box h3 {
+    font-size: 1.1rem;
+  }
+
+  .comment-avatar,
+  .like-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .comment-content {
+    font-size: 0.78rem;
+  }
+
+  .add-comment-btn,
+  .add-comment-form button {
+    font-size: 0.85rem;
+  }
+
+  .add-comment-form textarea {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .close-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* ============================
+   ANIMACIÓN MOBILE POPUP
+   ============================ */
+
+@keyframes darkSlideMobile {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
