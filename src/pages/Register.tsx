@@ -22,6 +22,8 @@ export default function Register() {
   const [selectedSports, setSelectedSports] = useState<number[]>([]);
   const [isSportsModalOpen, setIsSportsModalOpen] = useState(false);
 
+  const [loading, setLoading] = useState(false); // ⭐ loading añadido
+
   useEffect(() => {
     getAllSports().then((res) => setSports(res.sports));
   }, []);
@@ -45,6 +47,8 @@ export default function Register() {
   }
 
   async function onSubmit(data: RegisterForm) {
+    if (loading) return; // evita doble click
+    setLoading(true);
     setBackendError("");
 
     try {
@@ -63,8 +67,11 @@ export default function Register() {
       });
 
       navigate("/login");
+
     } catch (err: any) {
       setBackendError(err.message);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -85,37 +92,37 @@ export default function Register() {
 
               <div className="form-group">
                 <label>Nombre de usuario</label>
-                <input type="text" {...register("username")} />
+                <input type="text" {...register("username")} disabled={loading} />
                 {errors.username && <span className="error">{errors.username.message}</span>}
               </div>
 
               <div className="form-group">
                 <label>Nombre</label>
-                <input type="text" {...register("firstName")} />
+                <input type="text" {...register("firstName")} disabled={loading} />
                 {errors.firstName && <span className="error">{errors.firstName.message}</span>}
               </div>
 
               <div className="form-group">
                 <label>Apellidos</label>
-                <input type="text" {...register("lastName")} />
+                <input type="text" {...register("lastName")} disabled={loading} />
                 {errors.lastName && <span className="error">{errors.lastName.message}</span>}
               </div>
 
               <div className="form-group">
                 <label>Email</label>
-                <input type="email" {...register("email")} />
+                <input type="email" {...register("email")} disabled={loading} />
                 {errors.email && <span className="error">{errors.email.message}</span>}
               </div>
 
               <div className="form-group">
                 <label>Contraseña</label>
-                <input type="password" {...register("password")} />
+                <input type="password" {...register("password")} disabled={loading} />
                 {errors.password && <span className="error">{errors.password.message}</span>}
               </div>
 
               <div className="form-group">
                 <label>Repetir contraseña</label>
-                <input type="password" {...register("repeatPassword")} />
+                <input type="password" {...register("repeatPassword")} disabled={loading} />
                 {errors.repeatPassword && (
                   <span className="error">{errors.repeatPassword.message}</span>
                 )}
@@ -127,6 +134,7 @@ export default function Register() {
                   type="button"
                   className="btn-login"
                   onClick={() => setIsSportsModalOpen(true)}
+                  disabled={loading}
                 >
                   Seleccionar deportes ({selectedSports.length})
                 </button>
@@ -135,10 +143,13 @@ export default function Register() {
 
               <div className="form-group checkbox-group">
                 <label>Perfil privado</label>
-                <input type="checkbox" {...register("isPrivate")} />
+                <input type="checkbox" {...register("isPrivate")} disabled={loading} />
               </div>
 
-              <button type="submit" className="btn-login">Crear cuenta</button>
+              {/* BOTÓN REGISTRO BLOQUEADO MIENTRAS CARGA */}
+              <button type="submit" className="btn-login" disabled={loading}>
+                {loading ? "Creando..." : "Crear cuenta"}
+              </button>
 
               <label className="text-register">
                 ¿Ya tienes cuenta?
@@ -148,6 +159,7 @@ export default function Register() {
                 type="button"
                 className="btn-secondary"
                 onClick={() => navigate("/login")}
+                disabled={loading}
               >
                 Iniciar sesión
               </button>

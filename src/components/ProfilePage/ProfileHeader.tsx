@@ -31,10 +31,8 @@ export default function ProfileHeader({
   const [modalUsers, setModalUsers] = useState<SimpleUser[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // FOTO PERFIL MODAL
   const [photoOpen, setPhotoOpen] = useState(false);
 
-  // 🔔 NOTIFICACIONES
   const [requestsCount, setRequestsCount] = useState(0);
   const [requestsOpen, setRequestsOpen] = useState(false);
 
@@ -42,9 +40,6 @@ export default function ProfileHeader({
     return `level-box-${level.toLowerCase()}`;
   }
 
-  // ============================
-  // CARGAR SOLICITUDES
-  // ============================
   useEffect(() => {
     async function loadRequests() {
       try {
@@ -59,12 +54,10 @@ export default function ProfileHeader({
 
   }, [isOwnProfile]);
 
-  // ============================
-  // FOLLOWERS
-  // ============================
   async function openFollowers() {
-    try {
+    if (loading) return; // ⭐ evita doble click
 
+    try {
       setLoading(true);
 
       const data = await getFollowers(user.id);
@@ -90,13 +83,10 @@ export default function ProfileHeader({
     }
   }
 
-  // ============================
-  // FOLLOWING
-  // ============================
   async function openFollowing() {
+    if (loading) return; // ⭐ evita doble click
 
     try {
-
       setLoading(true);
 
       const data = await getFollowing(user.id);
@@ -219,7 +209,7 @@ export default function ProfileHeader({
             </div>
 
             <div
-              className="stat clickable"
+              className={`stat clickable ${loading ? "disabled" : ""}`} // ⭐ evita clicks
               onClick={openFollowers}
             >
               <strong>{user.followersCount}</strong>
@@ -227,7 +217,7 @@ export default function ProfileHeader({
             </div>
 
             <div
-              className="stat clickable"
+              className={`stat clickable ${loading ? "disabled" : ""}`} // ⭐ evita clicks
               onClick={openFollowing}
             >
               <strong>{user.followingCount}</strong>

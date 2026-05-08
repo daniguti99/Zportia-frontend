@@ -18,6 +18,8 @@ export default function ProfilePrivateLocked({ user, isOwnProfile }: ProfilePriv
   const [loading, setLoading] = useState(false);
 
   async function handleRequest() {
+    if (loading) return; // ⭐ evita doble click
+
     try {
       setLoading(true);
       await followUser(user.id);

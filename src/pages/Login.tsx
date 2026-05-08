@@ -7,13 +7,15 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginForm } from "../schemas/loginSchema";
 import { loginRequest } from "../services/AuthService";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ZportiaContext } from "../context/ZportiaContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const zportia = useContext(ZportiaContext);
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -24,6 +26,9 @@ export default function Login() {
   });
 
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
+    if (loading) return; // evita doble click
+    setLoading(true);
+
     try {
       const res = await loginRequest(data.email, data.password);
       await zportia?.login(res.token);
@@ -55,7 +60,7 @@ export default function Login() {
       const msg = err.message?.toUpperCase?.() || "";
 
       if (msg.includes("BLOQUEADO")) {
-        return Swal.fire({
+        Swal.fire({
           title: "Usuario bloqueado",
           text: "Tu cuenta ha sido bloqueada por un administrador.",
           icon: "error",
@@ -64,10 +69,11 @@ export default function Login() {
           confirmButtonColor: "#ff006e",
           customClass: { popup: "zportia-alert" }
         });
+        return;
       }
 
       if (msg.includes("ELIMINADO")) {
-        return Swal.fire({
+        Swal.fire({
           title: "Usuario eliminado",
           text: "Tu cuenta ha sido eliminada por un administrador.",
           icon: "error",
@@ -76,6 +82,7 @@ export default function Login() {
           confirmButtonColor: "#ff006e",
           customClass: { popup: "zportia-alert" }
         });
+        return;
       }
 
       Swal.fire({
@@ -87,6 +94,9 @@ export default function Login() {
         confirmButtonColor: "#ff006e",
         customClass: { popup: "zportia-alert" }
       });
+
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -122,7 +132,14 @@ export default function Login() {
                 <a className="forgot">Forgot password?</a>
               </div>
 
-              <button type="submit" className="btn-login">Sign in</button>
+              {/* BOTÓN LOGIN BLOQUEADO MIENTRAS CARGA */}
+              <button
+                type="submit"
+                className="btn-login"
+                disabled={loading}
+              >
+                {loading ? "Cargando..." : "Sign in"}
+              </button>
 
               <label className="text-register">
                 ¿Todavía no tienes cuenta?
@@ -132,6 +149,7 @@ export default function Login() {
                 className="btn-secondary"
                 type="button"
                 onClick={() => navigate("/register")}
+                disabled={loading}
               >
                 Registrarse
               </button>

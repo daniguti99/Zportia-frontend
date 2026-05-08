@@ -36,11 +36,10 @@ export default function FriendsFeed() {
   }
 
   async function loadMore() {
+    if (loadingMore) return; // evita doble click instantáneo
+    setLoadingMore(true);
+
     try {
-      if (loadingMore) return;
-
-      setLoadingMore(true);
-
       const data = await getFriendsPosts(page, 10);
 
       setPosts(prev => [...prev, ...(data?.content ?? [])]);
@@ -57,7 +56,6 @@ export default function FriendsFeed() {
       setLoadingMore(false);
     }
   }
-
 
   if (loading)
     return (

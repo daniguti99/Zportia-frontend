@@ -14,6 +14,7 @@ export default function CreatePost() {
 
   const navigate = useNavigate();
   const [sports, setSports] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false); // ⭐ loading
 
   const { postId } = useParams();
   const isEditing = Boolean(postId);
@@ -24,11 +25,7 @@ export default function CreatePost() {
     async function loadSports() {
       try {
         const data = await getAllSports();
-        console.log("SPORTS RESPONSE:", data);
-
-        // data.sports = [{id, name}, ...]
         setSports(data.sports.map((s: any) => s.name));
-
       } catch (err) {
         console.error("Error cargando deportes:", err);
       }
@@ -49,9 +46,12 @@ export default function CreatePost() {
   const file = watch("file");
 
   const onSubmit: SubmitHandler<CreatePostForm> = async (data) => {
-    try {
+    if (loading) return; // ⭐ evita doble click
 
-      //MODO EDICIÓN
+    try {
+      setLoading(true); // ⭐ bloquea botón
+
+      // MODO EDICIÓN
       if (isEditing && editingPost) {
         const updated = await updatePost(editingPost.id, {
           content: data.content || null,
@@ -73,7 +73,7 @@ export default function CreatePost() {
         return;
       }
 
-      //MODO CREAR
+      // MODO CREAR
       const fileToSend = data.file as File;
 
       await createPost(
@@ -105,6 +105,8 @@ export default function CreatePost() {
         confirmButtonColor: "#ff006e",
         customClass: { popup: "zportia-alert" }
       });
+    } finally {
+      setLoading(false); // ⭐ desbloquea botón
     }
   };
 
@@ -138,7 +140,6 @@ export default function CreatePost() {
           {isEditing ? "Editar publicación" : "Crear publicación"}
         </h2>
 
-
         <form onSubmit={handleSubmit(onSubmit)} className="create-post-form">
 
           {/* CONTENIDO */}
@@ -148,6 +149,7 @@ export default function CreatePost() {
               {...register("content")}
               maxLength={500}
               placeholder="Escribe algo..."
+              disabled={loading} // ⭐ bloquea inputs
             />
             {errors.content && <span className="error">{errors.content.message}</span>}
           </div>
@@ -159,6 +161,7 @@ export default function CreatePost() {
               type="text"
               {...register("location")}
               placeholder="Ej: Madrid, España"
+              disabled={loading} // ⭐
             />
             {errors.location && <span className="error">{errors.location.message}</span>}
           </div>
@@ -172,7 +175,11 @@ export default function CreatePost() {
                 <div className="sport-loading">Cargando deportes...</div>
               ) : (
                 <>
-                  <select className="sport-select" {...register("sport")}>
+                  <select
+                    className="sport-select"
+                    {...register("sport")}
+                    disabled={loading} // ⭐
+                  >
                     <option value="">Selecciona un deporte</option>
                     {sports.map((sport) => (
                       <option key={sport} value={sport}>
@@ -181,7 +188,6 @@ export default function CreatePost() {
                     ))}
                   </select>
 
-                  {/* ICONO DEL DROPDOWN */}
                   <span className="sport-icon">⌄</span>
                 </>
               )}
@@ -190,7 +196,6 @@ export default function CreatePost() {
             {errors.sport && <span className="error">{errors.sport.message}</span>}
           </div>
 
-
           {/* ARCHIVO */}
           <div className="form-group">
             <label>Imagen o video (obligatorio)</label>
@@ -198,12 +203,12 @@ export default function CreatePost() {
               type="file"
               accept="image/*,video/mp4"
               {...register("file")}
-              disabled={isEditing}
+              disabled={isEditing || loading} // ⭐ bloquea mientras carga
             />
+
             {isEditing && editingPost?.media && (
               <img src={editingPost.media} className="preview-image" />
             )}
-
 
             {errors.file && <span className="error">{String(errors.file.message)}</span>}
           </div>
@@ -216,8 +221,10 @@ export default function CreatePost() {
             />
           )}
 
-          <button type="submit" className="btn-primary">
-            {isEditing ? "Guardar cambios" : "Publicar"}
+          <button type="submit" className="btn-primary" disabled={loading}>
+            {loading
+              ? (isEditing ? "Guardando..." : "Publicando...")
+              : (isEditing ? "Guardar cambios" : "Publicar")}
           </button>
 
         </form>

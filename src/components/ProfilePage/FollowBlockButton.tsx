@@ -31,6 +31,7 @@ export default function FollowBlockButtons({
     const [loading, setLoading] = useState(false);
 
     async function handleFollow() {
+        if (loading) return; // ⭐ evita doble click
         try {
             setLoading(true);
             await followUser(userId);
@@ -50,6 +51,7 @@ export default function FollowBlockButtons({
     }
 
     async function handleUnfollow() {
+        if (loading) return; // ⭐ evita doble click
         try {
             setLoading(true);
             await unfollowUser(userId);
@@ -69,6 +71,7 @@ export default function FollowBlockButtons({
     }
 
     async function handleBlock() {
+        if (loading) return; // ⭐ evita doble click
         try {
             setLoading(true);
             await blockUser(userId);
@@ -88,6 +91,7 @@ export default function FollowBlockButtons({
     }
 
     async function handleUnblock() {
+        if (loading) return; // ⭐ evita doble click
         try {
             setLoading(true);
             await unblockUser(userId);

@@ -12,6 +12,9 @@ export default function FollowRequestsModal({ onClose }: FollowRequestsModalProp
   const [loading, setLoading] = useState(true);
   const [globalError, setGlobalError] = useState("");
 
+  const [loadingAccept, setLoadingAccept] = useState<number | null>(null); // ⭐
+  const [loadingReject, setLoadingReject] = useState<number | null>(null); // ⭐
+
   async function loadRequests() {
     try {
       setLoading(true);
@@ -27,22 +30,30 @@ export default function FollowRequestsModal({ onClose }: FollowRequestsModalProp
   }, []);
 
   async function handleAccept(id: number) {
+    if (loadingAccept || loadingReject) return; // evita doble click
     try {
+      setLoadingAccept(id);
       await acceptFollow(id);
       setGlobalError("");
       loadRequests();
     } catch (err: any) {
       setGlobalError(err.message || "Error desconocido");
+    } finally {
+      setLoadingAccept(null);
     }
   }
 
   async function handleReject(id: number) {
+    if (loadingAccept || loadingReject) return; // evita doble click
     try {
+      setLoadingReject(id);
       await rejectFollow(id);
       setGlobalError("");
       loadRequests();
     } catch (err: any) {
       setGlobalError(err.message || "Error desconocido");
+    } finally {
+      setLoadingReject(null);
     }
   }
 
@@ -76,11 +87,20 @@ export default function FollowRequestsModal({ onClose }: FollowRequestsModalProp
             </div>
 
             <div className="request-actions">
-              <button className="btn-accept" onClick={() => handleAccept(u.id)}>
-                Aceptar
+              <button
+                className="btn-accept"
+                onClick={() => handleAccept(u.id)}
+                disabled={loadingAccept === u.id || loadingReject === u.id}
+              >
+                {loadingAccept === u.id ? "Aceptando..." : "Aceptar"}
               </button>
-              <button className="btn-reject" onClick={() => handleReject(u.id)}>
-                Rechazar
+
+              <button
+                className="btn-reject"
+                onClick={() => handleReject(u.id)}
+                disabled={loadingAccept === u.id || loadingReject === u.id}
+              >
+                {loadingReject === u.id ? "Rechazando..." : "Rechazar"}
               </button>
             </div>
           </div>

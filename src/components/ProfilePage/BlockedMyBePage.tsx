@@ -12,6 +12,8 @@ export default function BlockedByMePage({ userId, username, photo }: BlockedByMe
   const [loading, setLoading] = useState(false);
 
   async function handleUnblock() {
+    if (loading) return; // evita doble click instantáneo
+
     try {
       setLoading(true);
       await unblockUser(userId);

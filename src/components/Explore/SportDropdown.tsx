@@ -36,6 +36,7 @@ export default function SportDropdown({ selectedSport, onChange }: SportDropdown
           className="sport-select"
           value={selectedSport}
           onChange={(e) => onChange(e.target.value)}
+          disabled={loading}   //DESACTIVADO MIENTRAS CARGA
         >
           <option value="">Todos los deportes</option>
           {sports.map((sport) => (
