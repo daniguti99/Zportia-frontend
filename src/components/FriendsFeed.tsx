@@ -58,7 +58,7 @@ export default function FriendsFeed() {
     }
   }
 
-  // ⭐ LOADER PREMIUM ZPORTIA AQUÍ
+
   if (loading)
     return (
       <div className="friendsfeed-loading-premium">

@@ -23,27 +23,28 @@ export async function loginRequest(email: string, password: string) {
   return response.json();
 }
 
-
 export async function registerRequest(data: RegisterForm) {
-  try {
-    const response = await fetch(`${URL_BASE}/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
+  const response = await fetch(`${URL_BASE}/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(errorText);
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    if (errorData?.message) {
+      throw new Error(errorData.message);
     }
 
-    return await response.text();
-  } catch (error) {
-    throw error;
+    throw new Error("Error desconocido en el registro");
   }
+
+  return await response.text();
 }
+
 
 
 export async function getCurrentUser() {

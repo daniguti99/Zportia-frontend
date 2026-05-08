@@ -99,9 +99,19 @@ export default function Explore() {
   return (
     <div className="explore-wrapper">
 
-      <aside className="explore-sidebar">
-        <SearchInput />
-      </aside>
+      <div className="explore-filters-mobile">
+        <aside className="explore-sidebar">
+          <SearchInput />
+        </aside>
+
+        <aside className="explore-sidebar-right">
+          <SportDropdown
+            selectedSport={selectedSport}
+            onChange={setSelectedSport}
+          />
+        </aside>
+      </div>
+
 
       <div className="explore-container">
         <h1 className="explore-title">Explorar</h1>
@@ -137,12 +147,7 @@ export default function Explore() {
         )}
       </div>
 
-      <aside className="explore-sidebar-right">
-        <SportDropdown
-          selectedSport={selectedSport}
-          onChange={setSelectedSport}
-        />
-      </aside>
+
 
     </div>
   );

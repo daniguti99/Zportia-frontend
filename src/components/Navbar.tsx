@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import "../css/navbar/navbar.css";
-import logo from "../assets/logoZportia.png";
+import logo from "../assets/favicon.png";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -25,11 +25,15 @@ export default function Navbar() {
               <NavLink to="/admin/users" className="nav-item users">Usuarios</NavLink>
               <NavLink to="/admin/posts" className="nav-item posts">Posts</NavLink>
             </>
-          ) : (
+          ) : user ? (
             <>
               <NavLink to="/home" className="nav-item home">Home</NavLink>
               <NavLink to="/explore" className="nav-item explore">Explora</NavLink>
-              <NavLink to={`/profile/${user?.id}`} className="nav-item profile-icon">Mi perfil</NavLink>
+              <NavLink to={`/profile/${user.id}`} className="nav-item profile-icon">Mi perfil</NavLink>
+            </>
+          ) : (
+            <>
+              {/* Si NO hay usuario, no mostramos nada del menú izquierdo */}
             </>
           )}
 
@@ -44,10 +48,10 @@ export default function Navbar() {
           />
         </div>
 
-        {/* RIGHT PROFILE */}
+        {/* RIGHT PROFILE (solo si hay usuario) */}
         <div className="nav-right">
 
-          {/* BADGE DE NIVEL (solo usuarios normales) */}
+          {/* BADGE DE NIVEL (solo usuarios normales autenticados) */}
           {user && user.role !== "ADMIN" && (
             <div
               className={`user-level-badge-container ${flipLevel ? "flipped" : ""}`}
@@ -62,37 +66,33 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* PERFIL */}
-          <div className="profile" onClick={() => setShowDropdown(!showDropdown)}>
-            <div className="profile-hover">
-              {user?.photo ? (
-                <img src={user.photo} className="profile-avatar" />
-              ) : (
-                <div className="profile-avatar placeholder"></div>
-              )}
-
-              <span className="profile-name">
-                {user ? (
-                  <>
-                    {user.firstName}
-                    <br />
-                    {user.lastName}
-                  </>
+          {/* PERFIL (solo si hay usuario) */}
+          {user && (
+            <div className="profile" onClick={() => setShowDropdown(!showDropdown)}>
+              <div className="profile-hover">
+                {user.photo ? (
+                  <img src={user.photo} className="profile-avatar" />
                 ) : (
-                  "Invitado"
+                  <div className="profile-avatar placeholder"></div>
                 )}
-              </span>
-            </div>
 
-            {/* DROPDOWN MENU */}
-            {user && showDropdown && (
-              <div className="profile-dropdown">
-                <button className="dropdown-item logout" onClick={logout}>
-                  Cerrar sesión
-                </button>
+                <span className="profile-name">
+                  {user.firstName}
+                  <br />
+                  {user.lastName}
+                </span>
               </div>
-            )}
-          </div>
+
+              {/* DROPDOWN MENU */}
+              {showDropdown && (
+                <div className="profile-dropdown">
+                  <button className="dropdown-item logout" onClick={logout}>
+                    Cerrar sesión
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
 
         </div>
       </nav>

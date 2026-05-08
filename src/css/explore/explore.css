@@ -716,3 +716,38 @@ body::before {
     transform: translateY(0);
   }
 }
+
+/* ============================
+   MOBILE: FILTROS ARRIBA JUNTOS
+   ============================ */
+@media (max-width: 768px) {
+
+  /* El wrapper principal ya está en columna, pero reforzamos */
+  .explore-wrapper {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+  }
+
+  /* Ambos sidebars pasan a ser elementos normales */
+  .explore-sidebar,
+  .explore-sidebar-right {
+    position: static !important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Contenedor que agrupa ambos filtros */
+  .explore-filters-mobile {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+}
+
+
