@@ -24,6 +24,7 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
   const [liked, setLiked] = useState(post.likedByCurrentUser);
   const [likesCount, setLikesCount] = useState(post.reactionsCount);
   const [errorLike, setErrorLike] = useState<string | null>(null);
+  const [loadingLike, setLoadingLike] = useState(false); // ⭐
 
   // COMENTARIOS
   const [showComments, setShowComments] = useState(false);
@@ -35,14 +36,17 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
   // AÑADIR COMENTARIO
   const [showAddComment, setShowAddComment] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [sendingComment, setSendingComment] = useState(false);
+  const [sendingComment, setSendingComment] = useState(false); // ⭐
   const [errorNewComment, setErrorNewComment] = useState<string | null>(null);
 
   // LISTA DE LIKES
   const [showLikes, setShowLikes] = useState(false);
   const [likes, setLikes] = useState<LikeUser[]>([]);
-  const [loadingLikes, setLoadingLikes] = useState(false);
+  const [loadingLikes, setLoadingLikes] = useState(false); // ⭐
   const [errorLikes, setErrorLikes] = useState<string | null>(null);
+
+  const [loadingDeletePost, setLoadingDeletePost] = useState(false); // ⭐
+  const [loadingDeleteComment, setLoadingDeleteComment] = useState<number | null>(null); // ⭐
 
   const postCardRef = useRef<HTMLDivElement>(null);
 
@@ -59,12 +63,10 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     };
   }, [showComments, showLikes]);
 
-  console.log("post.userId:", post.userId);
-  console.log("currentUserId:", currentUserId);
-
-
   // TOGGLE LIKE
   async function handleToggleLike() {
+    if (loadingLike) return; // ⭐ evita doble click
+    setLoadingLike(true);
     setErrorLike(null);
 
     try {
@@ -78,17 +80,20 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
       setErrorLike(msg);
       Swal.fire({
         title: "Error",
-        text: errorLike!,
+        text: msg,
         icon: "error",
         background: "#111",
         color: "#fff",
         confirmButtonColor: "#ff006e",
       });
+    } finally {
+      setLoadingLike(false);
     }
   }
 
   // ABRIR COMENTARIOS
   async function openComments() {
+    if (loadingComments) return; // ⭐
     setShowComments(true);
     setLoadingComments(true);
     setErrorComments(null);
@@ -103,9 +108,9 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     }
   }
 
-
   // ENVIAR NUEVO COMENTARIO
   async function handleAddComment() {
+    if (sendingComment) return; // ⭐
     setSendingComment(true);
     setErrorNewComment(null);
 
@@ -125,9 +130,11 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     }
   }
 
-
   // ELIMINAR COMENTARIO
   async function handleDeleteComment(commentId: number) {
+    if (loadingDeleteComment) return; // ⭐ evita doble click
+    setLoadingDeleteComment(commentId);
+
     const result = await Swal.fire({
       title: "¿Eliminar comentario?",
       text: "Esta acción no se puede deshacer",
@@ -141,7 +148,10 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
       color: "#fff",
     });
 
-    if (!result.isConfirmed) return;
+    if (!result.isConfirmed) {
+      setLoadingDeleteComment(null);
+      return;
+    }
 
     try {
       await deleteComment(commentId);
@@ -158,12 +168,14 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
         color: "#fff",
         confirmButtonColor: "#ff006e",
       });
+    } finally {
+      setLoadingDeleteComment(null);
     }
   }
 
-
   // ABRIR LISTA DE LIKES
   async function openLikes() {
+    if (loadingLikes) return; // ⭐
     setShowLikes(true);
     setLoadingLikes(true);
     setErrorLikes(null);
@@ -183,6 +195,8 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
   }
 
   async function handleDeletePost() {
+    if (loadingDeletePost) return; // ⭐ evita doble click
+
     const result = await Swal.fire({
       title: "¿Eliminar publicación?",
       text: "Esta acción no se puede deshacer",
@@ -199,6 +213,8 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     if (!result.isConfirmed) return;
 
     try {
+      setLoadingDeletePost(true);
+
       await deletePost(post.id);
 
       await Swal.fire({
@@ -210,7 +226,6 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
         confirmButtonColor: "#0099ff",
       });
 
-      // Si estás en un modal → ciérralo
       if (typeof window !== "undefined" && window.location.pathname.includes("profile")) {
         window.location.reload();
       }
@@ -224,6 +239,8 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
         color: "#fff",
         confirmButtonColor: "#ff006e",
       });
+    } finally {
+      setLoadingDeletePost(false);
     }
   }
 
@@ -266,12 +283,12 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
-                handleDeletePost();
+                if (!loadingDeletePost) handleDeletePost(); // ⭐
               }}
+              style={{ opacity: loadingDeletePost ? 0.5 : 1 }} // ⭐ feedback visual
             >
               🗑️
             </span>
-
           </div>
         )}
 
@@ -303,26 +320,36 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
           )}
         </div>
 
-
         <div className="post-footer">
 
           {/*❤️*/}
-          <span className={liked ? "liked" : ""} onClick={handleToggleLike}>
+          <span
+            className={liked ? "liked" : ""}
+            onClick={() => !loadingLike && handleToggleLike()} // ⭐
+            style={{ opacity: loadingLike ? 0.5 : 1 }} // ⭐ feedback
+          >
             ❤️ {likesCount}
           </span>
 
           {/*👀*/}
-          <span onClick={openLikes} className="likes-list-button">
+          <span
+            onClick={() => !loadingLikes && openLikes()} // ⭐
+            className="likes-list-button"
+            style={{ opacity: loadingLikes ? 0.5 : 1 }}
+          >
             👀
           </span>
 
           {/*💬*/}
-          <span onClick={openComments} className="comments-button">
+          <span
+            onClick={() => !loadingComments && openComments()} // ⭐
+            className="comments-button"
+            style={{ opacity: loadingComments ? 0.5 : 1 }}
+          >
             💬 {commentsCount}
           </span>
         </div>
       </div>
-
 
       {/* POPUP DE COMENTARIOS */}
       {showComments && createPortal(
@@ -353,7 +380,8 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
                       {c.userId === currentUserId && (
                         <span
                           className="delete-comment-btn"
-                          onClick={() => handleDeleteComment(c.id)}
+                          onClick={() => loadingDeleteComment === null && handleDeleteComment(c.id)} // ⭐
+                          style={{ opacity: loadingDeleteComment === c.id ? 0.5 : 1 }}
                         >
                           🗑️
                         </span>
@@ -399,7 +427,6 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
         </div>,
         document.body
       )}
-
 
       {/* POPUP DE LIKES */}
       {showLikes && createPortal(

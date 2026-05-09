@@ -26,6 +26,7 @@ export default function EditProfile() {
   const navigate = useNavigate();
 
   const [mode, setMode] = useState<"profile" | "photo" | "password">("profile");
+  const [loading, setLoading] = useState(false); // ⭐ loading
 
   useEffect(() => {
     const m = searchParams.get("mode");
@@ -34,13 +35,12 @@ export default function EditProfile() {
     }
   }, [searchParams]);
 
-  // Resolver dinámico
   const schema =
     mode === "profile"
       ? editProfileSchema
       : mode === "photo"
-      ? photoSchema
-      : passwordSchema;
+        ? photoSchema
+        : passwordSchema;
 
   const {
     register,
@@ -53,16 +53,15 @@ export default function EditProfile() {
     defaultValues:
       mode === "profile"
         ? {
-            username: user?.username,
-            firstName: user?.firstName,
-            lastName: user?.lastName,
-            isPrivate: user?.isPrivate
-          }
+          username: user?.username,
+          firstName: user?.firstName,
+          lastName: user?.lastName,
+          isPrivate: user?.isPrivate
+        }
         : {}
   });
 
-
-  async function handleProfileUpdate(data: { username: string; firstName: string; lastName: string; isPrivate: boolean }) {
+  async function handleProfileUpdate(data: any) {
     await updateProfile({
       username: data.username,
       firstName: data.firstName,
@@ -71,7 +70,7 @@ export default function EditProfile() {
     });
   }
 
-  async function handlePhotoUpdate(data: { photo: FileList }) {
+  async function handlePhotoUpdate(data: any) {
     const formData = new FormData();
 
     if (data.photo instanceof FileList && data.photo.length > 0) {
@@ -83,7 +82,7 @@ export default function EditProfile() {
     await updateProfilePhoto(formData);
   }
 
-  async function handlePasswordUpdate(data: { currentPassword: string; newPassword: string; repeatPassword: string }) {
+  async function handlePasswordUpdate(data: any) {
     await updatePassword({
       currentPassword: data.currentPassword,
       newPassword: data.newPassword,
@@ -91,9 +90,12 @@ export default function EditProfile() {
     });
   }
 
-
   const onSubmit: SubmitHandler<any> = async (data) => {
+    if (loading) return;
+
     try {
+      setLoading(true);
+
       if (mode === "profile") await handleProfileUpdate(data);
       if (mode === "photo") await handlePhotoUpdate(data);
       if (mode === "password") await handlePasswordUpdate(data);
@@ -109,7 +111,6 @@ export default function EditProfile() {
       });
 
       reset();
-
       navigate(`/profile/${user?.id}`);
 
     } catch (err: any) {
@@ -121,15 +122,15 @@ export default function EditProfile() {
         color: "#fff",
         confirmButtonColor: "#ff006e",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
-
   function handleCancel() {
+    if (loading) return;
     navigate(`/profile/${user?.id}`);
   }
-
-
 
   return (
     <div className="login-page">
@@ -152,25 +153,25 @@ export default function EditProfile() {
                 <>
                   <div className="form-group">
                     <label>Nombre de usuario</label>
-                    <input type="text" {...register("username")} />
+                    <input type="text" {...register("username")} disabled={loading} />
                     {errors.username && <span className="error">{String(errors.username.message)}</span>}
                   </div>
 
                   <div className="form-group">
                     <label>Nombre</label>
-                    <input type="text" {...register("firstName")} />
+                    <input type="text" {...register("firstName")} disabled={loading} />
                     {errors.firstName && <span className="error">{String(errors.firstName.message)}</span>}
                   </div>
 
                   <div className="form-group">
                     <label>Apellidos</label>
-                    <input type="text" {...register("lastName")} />
+                    <input type="text" {...register("lastName")} disabled={loading} />
                     {errors.lastName && <span className="error">{String(errors.lastName.message)}</span>}
                   </div>
 
                   <div className="form-group checkbox-group">
                     <label>Perfil privado</label>
-                    <input type="checkbox" {...register("isPrivate")} />
+                    <input type="checkbox" {...register("isPrivate")} disabled={loading} />
                   </div>
                 </>
               )}
@@ -179,7 +180,7 @@ export default function EditProfile() {
               {mode === "photo" && (
                 <div className="form-group">
                   <label>Foto de perfil</label>
-                  <input type="file" accept="image/*" {...register("photo")} />
+                  <input type="file" accept="image/*" {...register("photo")} disabled={loading} />
                   {errors.photo && <span className="error">{String(errors.photo.message)}</span>}
                 </div>
               )}
@@ -189,19 +190,19 @@ export default function EditProfile() {
                 <>
                   <div className="form-group">
                     <label>Contraseña actual</label>
-                    <input type="password" {...register("currentPassword")} />
+                    <input type="password" {...register("currentPassword")} disabled={loading} />
                     {errors.currentPassword && <span className="error">{String(errors.currentPassword.message)}</span>}
                   </div>
 
                   <div className="form-group">
                     <label>Nueva contraseña</label>
-                    <input type="password" {...register("newPassword")} />
+                    <input type="password" {...register("newPassword")} disabled={loading} />
                     {errors.newPassword && <span className="error">{String(errors.newPassword.message)}</span>}
                   </div>
 
                   <div className="form-group">
                     <label>Repetir nueva contraseña</label>
-                    <input type="password" {...register("repeatPassword")} />
+                    <input type="password" {...register("repeatPassword")} disabled={loading} />
                     {errors.repeatPassword && <span className="error">{String(errors.repeatPassword.message)}</span>}
                   </div>
                 </>
@@ -209,15 +210,24 @@ export default function EditProfile() {
 
               {/* BOTONES */}
               <div style={{ display: "flex", gap: "12px", marginTop: "10px" }}>
-                <button type="submit" className="btn-login">Guardar cambios</button>
+                <button
+                  type="submit"
+                  className="btn-login"
+                  disabled={loading}
+                  style={{ opacity: loading ? 0.6 : 1 }}
+                >
+                  {loading ? "Guardando..." : "Guardar cambios"}
+                </button>
 
                 <button
                   type="button"
                   onClick={handleCancel}
                   className="btn-login"
+                  disabled={loading}
                   style={{
                     background: "#444",
-                    border: "1px solid #666"
+                    border: "1px solid #666",
+                    opacity: loading ? 0.6 : 1
                   }}
                 >
                   Cancelar
