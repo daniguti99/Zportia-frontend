@@ -80,7 +80,6 @@ export default function Navbar() {
 
                 <span className="profile-name">
                   {user.username}
-                  
                 </span>
               </div>
 
