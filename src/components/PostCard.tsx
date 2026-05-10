@@ -26,6 +26,8 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
   const [errorLike, setErrorLike] = useState<string | null>(null);
   const [loadingLike, setLoadingLike] = useState(false);
 
+  console.log(errorLike);
+
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState<CommentResponse[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
