@@ -1,4 +1,4 @@
-import type { AdminCommentResponse, SportResponse, UserDetailsAdminDTO } from "../interfaces/interfaces";
+import type { SportResponse, UserDetailsAdminDTO } from "../interfaces/interfaces";
 
 const URL_BASE = "https://api-25-26-daniguti99.onrender.com/api/admin";
 
