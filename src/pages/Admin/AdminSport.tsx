@@ -1,6 +1,6 @@
 import AdminCreateSport from "../../components/Admin/AdminCreateSport";
 import AdminSearchSport from "../../components/Admin/AdminSearchSport";
-import "../../css/admin/AdminSport.css";
+import "../../css/admin/adminSport.css";
 
 
 export default function AdminSport() {
