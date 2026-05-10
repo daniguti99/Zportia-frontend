@@ -249,3 +249,53 @@
   background: rgba(126, 0, 0, 0.1);
 }
 
+.request-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ICONO ACEPTAR */
+.neon-accept {
+  cursor: pointer;
+  font-size: 22px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s ease;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #00ff9d;
+  background: rgba(0, 255, 157, 0.12);
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.25);
+}
+
+.neon-accept:hover {
+  background: rgba(0, 255, 157, 0.25);
+  box-shadow: 0 0 18px rgba(0, 255, 157, 0.6);
+  transform: scale(1.15);
+}
+
+/* ICONO RECHAZAR */
+.neon-reject {
+  cursor: pointer;
+  font-size: 22px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s ease;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ff006e;
+  background: rgba(255, 0, 110, 0.12);
+  box-shadow: 0 0 10px rgba(255, 0, 110, 0.25);
+}
+
+.neon-reject:hover {
+  background: rgba(255, 0, 110, 0.25);
+  box-shadow: 0 0 18px rgba(255, 0, 110, 0.6);
+  transform: scale(1.15);
+}

@@ -134,13 +134,15 @@
 .profile-name {
   position: absolute;
   opacity: 0;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 5px;
+  transform: scale(0.5);
+  transform-origin: center;
   color: var(--nav-text);
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   white-space: nowrap;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
 
 .profile-hover:hover .profile-avatar {
   opacity: 0;

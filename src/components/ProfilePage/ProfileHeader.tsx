@@ -55,7 +55,7 @@ export default function ProfileHeader({
   }, [isOwnProfile]);
 
   async function openFollowers() {
-    if (loading) return; // ⭐ evita doble click
+    if (loading) return;
 
     try {
       setLoading(true);
@@ -84,7 +84,7 @@ export default function ProfileHeader({
   }
 
   async function openFollowing() {
-    if (loading) return; // ⭐ evita doble click
+    if (loading) return;
 
     try {
       setLoading(true);

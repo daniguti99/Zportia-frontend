@@ -9,13 +9,13 @@ export default function AdminHome() {
         <h1 className="admin-home-title">Panel de Administración</h1>
         <p className="admin-home-subtitle">
           Bienvenido al centro de control de Zportia.  
-          Desde aquí puedes gestionar usuarios, publicaciones y mantener la plataforma en perfecto estado.
+          Desde aquí puedes gestionar usuarios, publicaciones, comentarios y deportes.
         </p>
       </div>
 
       <div className="admin-home-grid">
 
-        <Link to="/admin" className="admin-home-card">
+        <Link to="/dashboard" className="admin-home-card">
           <h2>Dashboard</h2>
           <p>Resumen general del sistema y estadísticas clave.</p>
         </Link>
@@ -28,6 +28,16 @@ export default function AdminHome() {
         <Link to="/admin/posts" className="admin-home-card">
           <h2>Gestión de Publicaciones</h2>
           <p>Revisar, moderar o eliminar contenido inapropiado.</p>
+        </Link>
+
+        <Link to="/admin/comments" className="admin-home-card">
+          <h2>Gestión de Comentarios</h2>
+          <p>Buscar, revisar o eliminar comentarios.</p>
+        </Link>
+
+        <Link to="/admin/sports" className="admin-home-card">
+          <h2>Gestión de Deportes</h2>
+          <p>Crear, buscar o eliminar deportes.</p>
         </Link>
 
       </div>

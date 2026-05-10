@@ -21,9 +21,13 @@ export default function Navbar() {
 
           {user?.role === "ADMIN" ? (
             <>
-              <NavLink to="/dashboard" className="nav-item dashboard">Dashboard</NavLink>
+              <NavLink to="/admin/dashboard" className="nav-item dashboard">Dashboard</NavLink>
               <NavLink to="/admin/users" className="nav-item users">Usuarios</NavLink>
               <NavLink to="/admin/posts" className="nav-item posts">Posts</NavLink>
+              <NavLink to="/admin/comments" className="nav-item comments">Comentarios</NavLink>
+
+              {/* ⭐ NUEVO BOTÓN */}
+              <NavLink to="/admin/sports" className="nav-item sports">Deportes</NavLink>
             </>
           ) : user ? (
             <>
@@ -33,7 +37,7 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              {/* Si NO hay usuario, no mostramos nada del menú izquierdo */}
+              {/* Si NO hay usuario, no mostramos nada */}
             </>
           )}
 
@@ -48,10 +52,9 @@ export default function Navbar() {
           />
         </div>
 
-        {/* RIGHT PROFILE (solo si hay usuario) */}
+        {/* RIGHT PROFILE */}
         <div className="nav-right">
 
-          {/* BADGE DE NIVEL (solo usuarios normales autenticados) */}
           {user && user.role !== "ADMIN" && (
             <div
               className={`user-level-badge-container ${flipLevel ? "flipped" : ""}`}
@@ -66,7 +69,6 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* PERFIL (solo si hay usuario) */}
           {user && (
             <div className="profile" onClick={() => setShowDropdown(!showDropdown)}>
               <div className="profile-hover">
@@ -77,13 +79,11 @@ export default function Navbar() {
                 )}
 
                 <span className="profile-name">
-                  {user.firstName}
-                  <br />
-                  {user.lastName}
+                  {user.username}
+                  
                 </span>
               </div>
 
-              {/* DROPDOWN MENU */}
               {showDropdown && (
                 <div className="profile-dropdown">
                   <button className="dropdown-item logout" onClick={logout}>

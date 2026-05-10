@@ -46,7 +46,7 @@ export default function Login() {
       const checkRoleAndNavigate = setInterval(() => {
         if (zportia?.user) {
           clearInterval(checkRoleAndNavigate);
-          if (zportia.user.role === "ADMIN") navigate("/dashboard");
+          if (zportia.user.role === "ADMIN") navigate("/admin/dashboard");
           else navigate("/home");
         }
       }, 50);

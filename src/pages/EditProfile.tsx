@@ -20,13 +20,20 @@ import {
   updateProfilePhoto
 } from "../services/ProfileService";
 
+import type {
+  ProfileForm,
+  PhotoForm,
+  PasswordForm,
+  EditProfileForm
+} from "../interfaces/interfaces";
+
 export default function EditProfile() {
   const { user, refreshUser } = useAuth();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const [mode, setMode] = useState<"profile" | "photo" | "password">("profile");
-  const [loading, setLoading] = useState(false); // ⭐ loading
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const m = searchParams.get("mode");
@@ -39,29 +46,29 @@ export default function EditProfile() {
     mode === "profile"
       ? editProfileSchema
       : mode === "photo"
-        ? photoSchema
-        : passwordSchema;
+      ? photoSchema
+      : passwordSchema;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset
-  } = useForm<any>({
+  } = useForm<EditProfileForm>({
     resolver: zodResolver(schema),
     mode: "onChange",
     defaultValues:
       mode === "profile"
         ? {
-          username: user?.username,
-          firstName: user?.firstName,
-          lastName: user?.lastName,
-          isPrivate: user?.isPrivate
-        }
+            username: user?.username ?? "",
+            firstName: user?.firstName ?? "",
+            lastName: user?.lastName ?? "",
+            isPrivate: user?.isPrivate ?? false
+          }
         : {}
   });
 
-  async function handleProfileUpdate(data: any) {
+  async function handleProfileUpdate(data: ProfileForm) {
     await updateProfile({
       username: data.username,
       firstName: data.firstName,
@@ -70,7 +77,7 @@ export default function EditProfile() {
     });
   }
 
-  async function handlePhotoUpdate(data: any) {
+  async function handlePhotoUpdate(data: PhotoForm) {
     const formData = new FormData();
 
     if (data.photo instanceof FileList && data.photo.length > 0) {
@@ -82,7 +89,7 @@ export default function EditProfile() {
     await updateProfilePhoto(formData);
   }
 
-  async function handlePasswordUpdate(data: any) {
+  async function handlePasswordUpdate(data: PasswordForm) {
     await updatePassword({
       currentPassword: data.currentPassword,
       newPassword: data.newPassword,
@@ -90,7 +97,7 @@ export default function EditProfile() {
     });
   }
 
-  const onSubmit: SubmitHandler<any> = async (data) => {
+  const onSubmit: SubmitHandler<EditProfileForm> = async (data) => {
     if (loading) return;
 
     try {
@@ -113,10 +120,13 @@ export default function EditProfile() {
       reset();
       navigate(`/profile/${user?.id}`);
 
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Error desconocido";
+
       Swal.fire({
         title: "Error",
-        text: err.message,
+        text: message,
         icon: "error",
         background: "#111",
         color: "#fff",
@@ -154,19 +164,19 @@ export default function EditProfile() {
                   <div className="form-group">
                     <label>Nombre de usuario</label>
                     <input type="text" {...register("username")} disabled={loading} />
-                    {errors.username && <span className="error">{String(errors.username.message)}</span>}
+                    {errors.username && <span className="error">{errors.username.message}</span>}
                   </div>
 
                   <div className="form-group">
                     <label>Nombre</label>
                     <input type="text" {...register("firstName")} disabled={loading} />
-                    {errors.firstName && <span className="error">{String(errors.firstName.message)}</span>}
+                    {errors.firstName && <span className="error">{errors.firstName.message}</span>}
                   </div>
 
                   <div className="form-group">
                     <label>Apellidos</label>
                     <input type="text" {...register("lastName")} disabled={loading} />
-                    {errors.lastName && <span className="error">{String(errors.lastName.message)}</span>}
+                    {errors.lastName && <span className="error">{errors.lastName.message}</span>}
                   </div>
 
                   <div className="form-group checkbox-group">
@@ -181,7 +191,7 @@ export default function EditProfile() {
                 <div className="form-group">
                   <label>Foto de perfil</label>
                   <input type="file" accept="image/*" {...register("photo")} disabled={loading} />
-                  {errors.photo && <span className="error">{String(errors.photo.message)}</span>}
+                  {errors.photo && <span className="error">{errors.photo.message}</span>}
                 </div>
               )}
 
@@ -191,19 +201,19 @@ export default function EditProfile() {
                   <div className="form-group">
                     <label>Contraseña actual</label>
                     <input type="password" {...register("currentPassword")} disabled={loading} />
-                    {errors.currentPassword && <span className="error">{String(errors.currentPassword.message)}</span>}
+                    {errors.currentPassword && <span className="error">{errors.currentPassword.message}</span>}
                   </div>
 
                   <div className="form-group">
                     <label>Nueva contraseña</label>
                     <input type="password" {...register("newPassword")} disabled={loading} />
-                    {errors.newPassword && <span className="error">{String(errors.newPassword.message)}</span>}
+                    {errors.newPassword && <span className="error">{errors.newPassword.message}</span>}
                   </div>
 
                   <div className="form-group">
                     <label>Repetir nueva contraseña</label>
                     <input type="password" {...register("repeatPassword")} disabled={loading} />
-                    {errors.repeatPassword && <span className="error">{String(errors.repeatPassword.message)}</span>}
+                    {errors.repeatPassword && <span className="error">{errors.repeatPassword.message}</span>}
                   </div>
                 </>
               )}

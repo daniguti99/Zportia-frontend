@@ -13,6 +13,16 @@ export default function ProfilePostsGrid({ posts, loading, onPostClick, showCrea
     return <p className="no-posts">Cargando publicaciones...</p>;
   }
 
+function getVideoThumbnail(url: string) {
+  if (!url.includes("/video/")) return url;
+
+  return url
+    .replace("/upload/", "/upload/so_1/")
+    .replace(/\.(mp4|webm|mov)$/i, ".jpg");
+}
+
+
+
   return (
     <>
       {/* BOTÓN SOLO SI ES TU PERFIL */}
@@ -27,12 +37,27 @@ export default function ProfilePostsGrid({ posts, loading, onPostClick, showCrea
       ) : (
         <div className="posts-grid">
           {posts.map((post) => (
-            <div 
-              key={post.id} 
+            <div
+              key={post.id}
               className="post-item"
               onClick={() => onPostClick?.(post.id)}
             >
-              <img src={post.photo} alt="post" />
+              {post.photo.includes("/video/") ? (
+                <div className="profile-video-thumb">
+                  <img
+                    src={getVideoThumbnail(post.photo)}
+                    alt="video thumbnail"
+                    className="post-thumb"
+                  />
+                  <span className="play-icon">▶</span>
+                </div>
+              ) : (
+                <img
+                  src={post.photo}
+                  alt="post"
+                  className="post-thumb"
+                />
+              )}
             </div>
           ))}
         </div>

@@ -12,8 +12,8 @@ export default function FollowRequestsModal({ onClose }: FollowRequestsModalProp
   const [loading, setLoading] = useState(true);
   const [globalError, setGlobalError] = useState("");
 
-  const [loadingAccept, setLoadingAccept] = useState<number | null>(null); // ⭐
-  const [loadingReject, setLoadingReject] = useState<number | null>(null); // ⭐
+  const [loadingAccept, setLoadingAccept] = useState<number | null>(null);
+  const [loadingReject, setLoadingReject] = useState<number | null>(null);
 
   async function loadRequests() {
     try {
@@ -30,7 +30,7 @@ export default function FollowRequestsModal({ onClose }: FollowRequestsModalProp
   }, []);
 
   async function handleAccept(id: number) {
-    if (loadingAccept || loadingReject) return; // evita doble click
+    if (loadingAccept || loadingReject) return;
     try {
       setLoadingAccept(id);
       await acceptFollow(id);
@@ -44,7 +44,7 @@ export default function FollowRequestsModal({ onClose }: FollowRequestsModalProp
   }
 
   async function handleReject(id: number) {
-    if (loadingAccept || loadingReject) return; // evita doble click
+    if (loadingAccept || loadingReject) return;
     try {
       setLoadingReject(id);
       await rejectFollow(id);
@@ -87,21 +87,23 @@ export default function FollowRequestsModal({ onClose }: FollowRequestsModalProp
             </div>
 
             <div className="request-actions">
-              <button
-                className="btn-accept"
-                onClick={() => handleAccept(u.id)}
-                disabled={loadingAccept === u.id || loadingReject === u.id}
-              >
-                {loadingAccept === u.id ? "Aceptando..." : "Aceptar"}
-              </button>
 
-              <button
-                className="btn-reject"
-                onClick={() => handleReject(u.id)}
-                disabled={loadingAccept === u.id || loadingReject === u.id}
+              <span
+                className="neon-accept"
+                onClick={() => handleAccept(u.id)}
+                style={{ opacity: loadingAccept === u.id ? 0.5 : 1 }}
               >
-                {loadingReject === u.id ? "Rechazando..." : "Rechazar"}
-              </button>
+                {loadingAccept === u.id ? "..." : "✔"}
+              </span>
+
+              <span
+                className="neon-reject"
+                onClick={() => handleReject(u.id)}
+                style={{ opacity: loadingReject === u.id ? 0.5 : 1 }}
+              >
+                {loadingReject === u.id ? "..." : "✖"}
+              </span>
+
             </div>
           </div>
         ))}

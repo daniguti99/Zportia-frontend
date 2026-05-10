@@ -1,6 +1,8 @@
+import type { AdminCommentResponse, SportResponse, UserDetailsAdminDTO } from "../interfaces/interfaces";
+
 const URL_BASE = "https://api-25-26-daniguti99.onrender.com/api/admin";
 
-export async function getUserDetailsAdmin(query: string) {
+export async function getUserDetailsAdmin(query: string): Promise<UserDetailsAdminDTO> {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
@@ -24,7 +26,7 @@ export async function getUserDetailsAdmin(query: string) {
   return await response.json(); // devuelve UserDetailsAdminDTO
 }
 
-export async function adminAction(endpoint: string) {
+export async function adminAction(endpoint: string): Promise<void> {
   const token = localStorage.getItem("token");
 
   const response = await fetch(`${URL_BASE}/users/${endpoint}`, {
@@ -70,7 +72,7 @@ export async function getPostByIdAdmin(id: number) {
 }
 
 // Eliminar post
-export async function deletePostAdmin(id: number) {
+export async function deletePostAdmin(id: number): Promise<void> {
   const token = localStorage.getItem("token");
 
   const response = await fetch(`${URL_BASE}/posts/${id}`, {
@@ -87,3 +89,125 @@ export async function deletePostAdmin(id: number) {
 
   return await response.json();
 }
+
+
+export async function getCommentByIdAdmin(id: number) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/comments/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    if (errorData?.message) {
+      throw new Error(errorData.message);
+    }
+
+    throw new Error("Error al obtener el comentario");
+  }
+
+  return await response.json();
+}
+
+
+export async function deleteCommentAdmin(id: number) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/comments/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    if (errorData?.message) {
+      throw new Error(errorData.message);
+    }
+
+    throw new Error("Error al eliminar el comentario");
+  }
+
+  return await response.json();
+}
+
+
+export async function createSportAdmin(name: string) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/sports/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    if (errorData?.message) {
+      throw new Error(errorData.message);
+    }
+
+    throw new Error("Error al crear el deporte");
+  }
+
+  return await response.json(); // SportResponse
+}
+
+export async function deleteSportAdmin(id: number) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/sports/${id}/delete`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    if (errorData?.message) {
+      throw new Error(errorData.message);
+    }
+
+    throw new Error("Error al eliminar el deporte");
+  }
+
+  return await response.json();
+}
+
+export async function getSportByIdAdmin(id: number): Promise<SportResponse> {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/sports/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    if (errorData?.message) {
+      throw new Error(errorData.message);
+    }
+
+    throw new Error("Error al obtener el deporte");
+  }
+
+  return await response.json();
+}
+
+

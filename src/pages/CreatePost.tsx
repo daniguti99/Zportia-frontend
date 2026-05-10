@@ -25,7 +25,7 @@ export default function CreatePost() {
     async function loadSports() {
       try {
         const data = await getAllSports();
-        setSports(data.sports.map((s: any) => s.name));
+        setSports(data.sports.map((s: { name: string }) => s.name));
       } catch (err) {
         console.error("Error cargando deportes:", err);
       }

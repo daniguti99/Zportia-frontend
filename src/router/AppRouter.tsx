@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NavBar from "../components/Navbar";
@@ -12,13 +12,14 @@ import AdminHome from "../pages/Admin/AdminHome";
 import AdminUsersPage from "../pages/Admin/AdminUsersPage";
 import EditProfile from "../pages/EditProfile";
 import AdminPostsPage from "../pages/Admin/AdminPosts";
+import AdminCommentsPage from "../pages/Admin/AdminCommentsPage";
+import AdminSportsPage from "../pages/Admin/AdminSport";
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* NAVBAR ENVOLVIENDO TODAS LAS RUTAS */}
         <Route path="/" element={<NavBar />}>
 
           {/* HOME público */}
@@ -29,7 +30,7 @@ export default function AppRouter() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
 
-          {/* PROTEGIDAS (USER + ADMIN) */}
+          {/* PROTEGIDAS */}
           <Route
             path="explore"
             element={
@@ -76,8 +77,14 @@ export default function AppRouter() {
           />
 
           {/* 🔥 RUTAS ADMIN */}
+
           <Route
-            path="dashboard"
+            path="admin"
+            element={<Navigate to="/admin/dashboard" replace />}
+          />
+
+          <Route
+            path="admin/dashboard"
             element={
               <AdminRoute>
                 <AdminHome />
@@ -99,6 +106,25 @@ export default function AppRouter() {
             element={
               <AdminRoute>
                 <AdminPostsPage />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="admin/comments"
+            element={
+              <AdminRoute>
+                <AdminCommentsPage />
+              </AdminRoute>
+            }
+          />
+
+
+          <Route
+            path="admin/sports"
+            element={
+              <AdminRoute>
+                <AdminSportsPage />
               </AdminRoute>
             }
           />

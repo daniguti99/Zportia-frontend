@@ -62,3 +62,16 @@
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Chrome, Edge, Safari */
+.search-input::-webkit-inner-spin-button,
+.search-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.search-input[type="number"] {
+  -moz-appearance: textfield;
+}
+

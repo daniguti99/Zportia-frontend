@@ -111,3 +111,35 @@ export interface AdminPostResponse {
   userPhoto: string | null;
   sport: string;
 }
+
+export interface ProfileForm {
+  username: string;
+  firstName: string;
+  lastName: string;
+  isPrivate: boolean;
+}
+
+export interface PhotoForm {
+  photo: FileList;
+}
+
+export interface PasswordForm {
+  currentPassword: string;
+  newPassword: string;
+  repeatPassword: string;
+}
+
+export type EditProfileForm = ProfileForm & PhotoForm & PasswordForm;
+
+
+export interface AdminCommentResponse {
+  id: number;
+  text: string;
+  date: string;
+
+  userId: number;
+  username: string;
+  userPhoto: string;
+
+  postId: number;
+}

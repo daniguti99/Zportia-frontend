@@ -39,3 +39,28 @@ export async function updateUserSports(userId: number, sports: number[]) {
 
   return await response.json();
 }
+
+export async function sendReport(data: {
+  targetId: number;
+  type: "POST" | "COMMENT";
+  message: string;
+}) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${URL_BASE}/report`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+    if (errorData?.message) throw new Error(errorData.message);
+    throw new Error("Error al enviar el reporte");
+  }
+
+  return await response.json();
+}

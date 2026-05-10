@@ -13,6 +13,7 @@ import {
 import { ZportiaContext } from "../context/ZportiaContext";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { openReportModal } from "./OpenReportModal";
 
 export default function PostCard({ post, currentUser }: { post: PostResponse; currentUser: User | null }) {
 
@@ -20,37 +21,32 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
   const currentUserId = currentUser?.id || user?.id;
   const navigate = useNavigate();
 
-  // LIKE
   const [liked, setLiked] = useState(post.likedByCurrentUser);
   const [likesCount, setLikesCount] = useState(post.reactionsCount);
   const [errorLike, setErrorLike] = useState<string | null>(null);
-  const [loadingLike, setLoadingLike] = useState(false); // ⭐
+  const [loadingLike, setLoadingLike] = useState(false);
 
-  // COMENTARIOS
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState<CommentResponse[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
   const [errorComments, setErrorComments] = useState<string | null>(null);
   const [commentsCount, setCommentsCount] = useState(post.commentsCount);
 
-  // AÑADIR COMENTARIO
   const [showAddComment, setShowAddComment] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [sendingComment, setSendingComment] = useState(false); // ⭐
+  const [sendingComment, setSendingComment] = useState(false);
   const [errorNewComment, setErrorNewComment] = useState<string | null>(null);
 
-  // LISTA DE LIKES
   const [showLikes, setShowLikes] = useState(false);
   const [likes, setLikes] = useState<LikeUser[]>([]);
-  const [loadingLikes, setLoadingLikes] = useState(false); // ⭐
+  const [loadingLikes, setLoadingLikes] = useState(false);
   const [errorLikes, setErrorLikes] = useState<string | null>(null);
 
-  const [loadingDeletePost, setLoadingDeletePost] = useState(false); // ⭐
-  const [loadingDeleteComment, setLoadingDeleteComment] = useState<number | null>(null); // ⭐
+  const [loadingDeletePost, setLoadingDeletePost] = useState(false);
+  const [loadingDeleteComment, setLoadingDeleteComment] = useState<number | null>(null);
 
   const postCardRef = useRef<HTMLDivElement>(null);
 
-  // Bloquear scroll cuando el popup está abierto
   useEffect(() => {
     if (showComments || showLikes) {
       document.body.style.overflow = 'hidden';
@@ -63,18 +59,15 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     };
   }, [showComments, showLikes]);
 
-  // TOGGLE LIKE
   async function handleToggleLike() {
-    if (loadingLike) return; // ⭐ evita doble click
+    if (loadingLike) return;
     setLoadingLike(true);
     setErrorLike(null);
 
     try {
       const updatedPost = await toggleLike(post.id);
-
       setLiked(updatedPost.likedByCurrentUser);
       setLikesCount(updatedPost.reactionsCount);
-
     } catch (err: any) {
       const msg = err.message || "Error al dar like";
       setErrorLike(msg);
@@ -91,9 +84,8 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     }
   }
 
-  // ABRIR COMENTARIOS
   async function openComments() {
-    if (loadingComments) return; // ⭐
+    if (loadingComments) return;
     setShowComments(true);
     setLoadingComments(true);
     setErrorComments(null);
@@ -108,21 +100,17 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     }
   }
 
-  // ENVIAR NUEVO COMENTARIO
   async function handleAddComment() {
-    if (sendingComment) return; // ⭐
+    if (sendingComment) return;
     setSendingComment(true);
     setErrorNewComment(null);
 
     try {
       const created = await createComment(post.id, newComment);
-
       setComments((prev) => [...prev, created]);
       setCommentsCount((prev) => prev + 1);
-
       setNewComment("");
       setShowAddComment(false);
-
     } catch (err: any) {
       setErrorNewComment(err.message || "Error al enviar comentario");
     } finally {
@@ -130,9 +118,8 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     }
   }
 
-  // ELIMINAR COMENTARIO
   async function handleDeleteComment(commentId: number) {
-    if (loadingDeleteComment) return; // ⭐ evita doble click
+    if (loadingDeleteComment) return;
     setLoadingDeleteComment(commentId);
 
     const result = await Swal.fire({
@@ -155,10 +142,8 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
 
     try {
       await deleteComment(commentId);
-
       setComments(prev => prev.filter(c => c.id !== commentId));
       setCommentsCount(prev => prev - 1);
-
     } catch (err: any) {
       Swal.fire({
         title: "Error",
@@ -173,9 +158,8 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     }
   }
 
-  // ABRIR LISTA DE LIKES
   async function openLikes() {
-    if (loadingLikes) return; // ⭐
+    if (loadingLikes) return;
     setShowLikes(true);
     setLoadingLikes(true);
     setErrorLikes(null);
@@ -195,7 +179,7 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
   }
 
   async function handleDeletePost() {
-    if (loadingDeletePost) return; // ⭐ evita doble click
+    if (loadingDeletePost) return;
 
     const result = await Swal.fire({
       title: "¿Eliminar publicación?",
@@ -214,7 +198,6 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
 
     try {
       setLoadingDeletePost(true);
-
       await deletePost(post.id);
 
       await Swal.fire({
@@ -261,11 +244,8 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
     <>
       <div className="post-card" ref={postCardRef}>
 
-        {/* ACCIONES DEL POST PROPIO */}
         {post.userId === currentUserId && (
           <div className="post-actions">
-
-            {/* EDITAR */}
             <span
               className="edit-post-btn"
               onClick={(e) => {
@@ -277,22 +257,35 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
               ✏️
             </span>
 
-            {/* PAPELERA */}
             <span
               className="delete-post-btn"
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
-                if (!loadingDeletePost) handleDeletePost(); // ⭐
+                if (!loadingDeletePost) handleDeletePost();
               }}
-              style={{ opacity: loadingDeletePost ? 0.5 : 1 }} // ⭐ feedback visual
+              style={{ opacity: loadingDeletePost ? 0.5 : 1 }}
             >
               🗑️
             </span>
           </div>
         )}
 
-        {/* HEADER */}
+        {post.userId !== currentUserId && (
+          <div className="post-actions">
+            <span
+              className="report-post-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                openReportModal(post.id, "POST");
+              }}
+            >
+              ⚠️
+            </span>
+          </div>
+        )}
+
         <div className="post-header">
           <img src={post.userPhoto} alt={post.username} className="post-avatar" />
 
@@ -307,8 +300,26 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
         <p className="post-content">{post.content}</p>
 
         {post.media && (
-          <img src={post.media} alt="post" className="post-media" />
+          post.media.includes("/video/")
+            ? (
+              <video
+                className="post-media"
+                src={post.media}
+                controls
+                autoPlay
+                muted
+                playsInline
+              />
+            )
+            : (
+              <img
+                className="post-media"
+                src={post.media}
+                alt="post"
+              />
+            )
         )}
+
 
         <div className="post-meta-row">
           {post.location && (
@@ -321,28 +332,24 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
         </div>
 
         <div className="post-footer">
-
-          {/*❤️*/}
           <span
             className={liked ? "liked" : ""}
-            onClick={() => !loadingLike && handleToggleLike()} // ⭐
-            style={{ opacity: loadingLike ? 0.5 : 1 }} // ⭐ feedback
+            onClick={() => !loadingLike && handleToggleLike()}
+            style={{ opacity: loadingLike ? 0.5 : 1 }}
           >
             ❤️ {likesCount}
           </span>
 
-          {/*👀*/}
           <span
-            onClick={() => !loadingLikes && openLikes()} // ⭐
+            onClick={() => !loadingLikes && openLikes()}
             className="likes-list-button"
             style={{ opacity: loadingLikes ? 0.5 : 1 }}
           >
             👀
           </span>
 
-          {/*💬*/}
           <span
-            onClick={() => !loadingComments && openComments()} // ⭐
+            onClick={() => !loadingComments && openComments()}
             className="comments-button"
             style={{ opacity: loadingComments ? 0.5 : 1 }}
           >
@@ -351,7 +358,6 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
         </div>
       </div>
 
-      {/* POPUP DE COMENTARIOS */}
       {showComments && createPortal(
         <div className="comments-popup">
           <div className="comments-box">
@@ -376,14 +382,22 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
                         <p className="comment-content">{c.text}</p>
                       </div>
 
-                      {/* SOLO SI ES TUYO */}
                       {c.userId === currentUserId && (
                         <span
                           className="delete-comment-btn"
-                          onClick={() => loadingDeleteComment === null && handleDeleteComment(c.id)} // ⭐
+                          onClick={() => loadingDeleteComment === null && handleDeleteComment(c.id)}
                           style={{ opacity: loadingDeleteComment === c.id ? 0.5 : 1 }}
                         >
                           🗑️
+                        </span>
+                      )}
+
+                      {c.userId !== currentUserId && (
+                        <span
+                          className="report-comment-btn"
+                          onClick={() => openReportModal(c.id, "COMMENT")}
+                        >
+                          ⚠️
                         </span>
                       )}
                     </div>
@@ -392,7 +406,6 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
                   <p>No hay comentarios aún</p>
                 )}
 
-                {/* BOTÓN AÑADIR COMENTARIO */}
                 {!showAddComment && (
                   <button
                     className="add-comment-btn"
@@ -402,7 +415,6 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
                   </button>
                 )}
 
-                {/* FORMULARIO DE NUEVO COMENTARIO */}
                 {showAddComment && (
                   <div className="add-comment-form">
                     <textarea
@@ -428,7 +440,6 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
         document.body
       )}
 
-      {/* POPUP DE LIKES */}
       {showLikes && createPortal(
         <div className="likes-popup">
           <div className="likes-box">
