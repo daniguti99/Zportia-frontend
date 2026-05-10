@@ -1,7 +1,7 @@
 import AdminCreateSport from "../../components/Admin/AdminCreateSport";
 import AdminSearchSport from "../../components/Admin/AdminSearchSport";
 import "../../css/admin/adminSport.css";
-
+import "../../css/admin/userSearch.css"; // 🔥 necesario para el estilo del search
 
 export default function AdminSport() {
   return (
@@ -10,10 +10,14 @@ export default function AdminSport() {
       <h1 className="admin-title">Gestión de Deportes</h1>
 
       {/* Crear deporte */}
-      <AdminCreateSport />
+      <div className="admin-center-box">
+        <AdminCreateSport />
+      </div>
 
-      {/* Buscar y eliminar deporte por ID */}
-      <AdminSearchSport />
+      {/* Buscar y eliminar deporte */}
+      <div className="admin-center-box">
+        <AdminSearchSport />
+      </div>
 
     </div>
   );

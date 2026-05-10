@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { createSportAdmin } from "../../services/AdminService";
+import "../../css/admin/userSearch.css";
 
 export default function AdminCreateSport() {
   const [name, setName] = useState("");
@@ -33,19 +34,17 @@ export default function AdminCreateSport() {
   }
 
   return (
-    <div className="admin-center-box">
-      <h2 className="admin-title">Crear nuevo deporte</h2>
-
+    <div className="search-input-wrapper" style={{ marginTop: "40px" }}>
       <form className="admin-form" onSubmit={handleSubmit}>
         <input
           type="text"
-          className="admin-input"
+          className="search-input"
           placeholder="Nombre del deporte..."
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
-        <button className="admin-btn primary" type="submit">
+        <button className="admin-btn primary" type="submit" style={{ width: "100%" }}>
           Crear deporte
         </button>
       </form>

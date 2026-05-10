@@ -6,40 +6,36 @@ import "../../css/admin/userSearch.css";
 
 export default function AdminSearchSport() {
   const [query, setQuery] = useState("");
-  const [sport, setSport] = useState<SportResponse | null>(null);
+  const [result, setResult] = useState<SportResponse | null>(null);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
     if (query.trim().length === 0) {
-      setSport(null);
+      setResult(null);
+      setShowDropdown(false);
       return;
     }
 
     const delay = setTimeout(async () => {
       try {
-        const result = await getSportByIdAdmin(Number(query));
-        setSport(result);
+        const sport = await getSportByIdAdmin(Number(query));
+        setResult(sport);
+        setShowDropdown(true);
       } catch (err: any) {
-        setSport(null);
-
-        Swal.fire({
-          title: "Error",
-          text: err.message,
-          icon: "error",
-          background: "#111",
-          color: "#fff",
-        });
+        setResult(null);
+        setShowDropdown(false);
       }
-    }, 500);
+    }, 300);
 
     return () => clearTimeout(delay);
   }, [query]);
 
   async function handleDelete() {
-    if (!sport) return;
+    if (!result) return;
 
     const ok = await Swal.fire({
       title: "¿Eliminar deporte?",
-      text: `Se eliminará: ${sport.name}`,
+      text: `Se eliminará: ${result.name}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Sí",
@@ -51,7 +47,7 @@ export default function AdminSearchSport() {
     if (!ok.isConfirmed) return;
 
     try {
-      await deleteSportAdmin(sport.id);
+      await deleteSportAdmin(result.id);
 
       Swal.fire({
         title: "Deporte eliminado",
@@ -60,8 +56,9 @@ export default function AdminSearchSport() {
         color: "#fff",
       });
 
-      setSport(null);
+      setResult(null);
       setQuery("");
+      setShowDropdown(false);
 
     } catch (err: any) {
       Swal.fire({
@@ -75,23 +72,36 @@ export default function AdminSearchSport() {
   }
 
   return (
-    <div className="admin-center-box">
-      <h2 className="admin-title">Buscar deporte por ID</h2>
-
+    <div className="search-input-wrapper">
       <input
         type="number"
-        className="admin-input"
-        placeholder="Introduce ID del deporte..."
+        className="search-input"
+        placeholder="Buscar deporte por ID..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onFocus={() => result && setShowDropdown(true)}
       />
 
-      {sport && (
-        <div className="admin-item">
-          <span>{sport.name}</span>
+      {showDropdown && result && (
+        <div className="search-dropdown">
+          <div
+            className="search-item"
+            onClick={() => setShowDropdown(false)}
+          >
+            <div className="search-avatar placeholder"></div>
 
-          <button className="admin-btn danger" onClick={handleDelete}>
-            Eliminar
+            <div className="search-info">
+              <p className="search-username">#{result.id}</p>
+              <p className="search-name">{result.name}</p>
+            </div>
+          </div>
+
+          <button
+            className="admin-btn danger"
+            style={{ width: "90%", margin: "10px auto" }}
+            onClick={handleDelete}
+          >
+            Eliminar deporte
           </button>
         </div>
       )}
