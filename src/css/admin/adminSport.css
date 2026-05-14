@@ -38,7 +38,7 @@
   flex-direction: column;
   gap: 15px;
   width: 100%;
-  align-items: center; /* 🔥 centra el botón */
+  align-items: center;
 }
 
 /* INPUTS */
@@ -75,7 +75,7 @@
   background: #ff0077;
   color: #fff;
   height: 40px;
-  width: 150px; /* 🔥 centrado y tamaño uniforme */
+  width: 150px;
 }
 
 .admin-btn.primary:hover {

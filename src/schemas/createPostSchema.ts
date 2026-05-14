@@ -46,7 +46,7 @@ export const editPostSchema = z.object({
     .min(1, "Debes seleccionar un deporte")
     .max(50, "El deporte no puede superar los 50 caracteres"),
 
-  file: z.any().optional(), // 👈 ya no obligatorio
+  file: z.any().optional(),
 });
 
 export type EditPostForm = z.infer<typeof editPostSchema>;

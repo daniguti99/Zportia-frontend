@@ -1,6 +1,3 @@
-/* ============================
-   PALETTE DARK - INSTAGRAM STYLE
-   ============================ */
 :root {
   --bg-primary: #000000;
   --bg-secondary: #0a0a0a;
@@ -13,9 +10,6 @@
   --accent-tertiary: #7c3aed;
 }
 
-/* ============================
-   FONDO GLOBAL - DARK MODE
-   ============================ */
 html {
   background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #1a1a1a 100%);
   min-height: 100vh;
@@ -48,10 +42,6 @@ body::before {
   }
 }
 
-/* ============================================================
-   CONTENEDOR PRINCIPAL DEL PERFIL - INSTAGRAM LAYOUT
-   ============================================================ */
-
 .profile-container {
   width: 100%;
   max-width: 935px;
@@ -73,10 +63,6 @@ body::before {
     transform: translateY(0);
   }
 }
-
-/* ============================================================
-   RESTRUCTURAR HEADER - LAYOUT INSTAGRAM CENTRADO
-   ============================================================ */
 
 .profile-header-container {
   display: flex;
@@ -282,10 +268,6 @@ body::before {
   font-weight: 400;
 }
 
-/* ============================================================
-   BOTONES DE ACCIÓN - CENTRADOS
-   ============================================================ */
-
 .profile-actions {
   display: flex;
   justify-content: center;
@@ -341,10 +323,6 @@ body::before {
   transform: translateY(-2px);
   box-shadow: 0 12px 32px rgba(0, 153, 255, 0.5);
 }
-
-/* ============================================================
-   POSTS GRID - INSTAGRAM STYLE
-   ============================================================ */
 
 .posts-grid {
   display: grid;
@@ -421,10 +399,6 @@ body::before {
   }
 }
 
-/* ============================================================
-   ESTADO BLOQUEADO
-   ============================================================ */
-
 .profile-container.locked {
   opacity: 1;
 }
@@ -461,10 +435,6 @@ body::before {
   font-weight: 600;
   font-size: 18px;
 }
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
 
 @media (max-width: 1024px) {
   .profile-header-container {
@@ -581,10 +551,6 @@ body::before {
   }
 }
 
-/* ============================================================
-   ESTADO BLOQUEADO
-   ============================================================ */
-
 .profile-container.locked {
   opacity: 0.9;
 }
@@ -621,10 +587,6 @@ body::before {
   margin-bottom: 8px;
 }
 
-/* ============================================================
-   ACCIONES (SEGUIR / SIGUIENDO / SOLICITAR)
-   ============================================================ */
-
 .profile-actions {
   display: flex;
   justify-content: center;
@@ -643,14 +605,9 @@ body::before {
   }
 }
 
-/* Botones ya definidos en ProfileButtons.css, pero ajustamos spacing */
 .profile-actions button {
   min-width: 160px;
 }
-
-/* ============================================================
-   GRID DE POSTS (override para coherencia visual)
-   ============================================================ */
 
 .posts-grid {
   display: grid;
@@ -737,10 +694,6 @@ body::before {
   backdrop-filter: blur(8px);
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-
 @media (max-width: 768px) {
   .profile-container {
     padding: 0 12px;
@@ -822,11 +775,6 @@ body::before {
   z-index: 5;
   position: relative;
 }
-
-
-/* ============================
-   LOADER PREMIUM ZPORTIA (PROFILE)
-   ============================ */
 
 .profile-loading-premium {
   display: flex;

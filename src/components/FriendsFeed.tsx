@@ -36,7 +36,7 @@ export default function FriendsFeed() {
   }
 
   async function loadMore() {
-    if (loadingMore) return; // evita doble click instantáneo
+    if (loadingMore) return;
     setLoadingMore(true);
 
     try {

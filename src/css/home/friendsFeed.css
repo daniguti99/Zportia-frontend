@@ -1,6 +1,4 @@
-/* ============================
-   CONTENEDOR BASE DEL FEED - DARK MODE
-   ============================ */
+
 .feed-base-container {
   max-width: 900px;
   margin: 80px auto 0 auto;
@@ -17,9 +15,6 @@
   animation: feedFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ============================
-   TÍTULO - DARK MODE
-   ============================ */
 .friends-feed-title {
   font-size: 2.4rem;
   font-weight: 900;
@@ -45,9 +40,6 @@
   }
 }
 
-/* ============================
-   LISTA DE POSTS - DARK MODE
-   ============================ */
 .friends-feed-list {
   display: flex;
   flex-direction: column;
@@ -69,9 +61,6 @@
   }
 }
 
-/* ============================
-   ESTADOS - DARK MODE
-   ============================ */
 .friends-feed-loading,
 .friends-feed-error,
 .friends-feed-empty {
@@ -99,9 +88,6 @@
   opacity: 0.9;
 }
 
-/* ============================
-   ANIMACIONES - DARK MODE
-   ============================ */
 @keyframes feedFadeIn {
   from {
     opacity: 0;
@@ -118,10 +104,6 @@
   50% { opacity: 1; }
   100% { opacity: 0.6; }
 }
-
-/* ============================
-   LOADER PREMIUM ZPORTIA (FRIENDSFEED)
-   ============================ */
 
 .friendsfeed-loading-premium {
   display: flex;

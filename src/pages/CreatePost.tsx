@@ -106,7 +106,7 @@ export default function CreatePost() {
         customClass: { popup: "zportia-alert" }
       });
     } finally {
-      setLoading(false); // ⭐ desbloquea botón
+      setLoading(false);
     }
   };
 
@@ -149,7 +149,7 @@ export default function CreatePost() {
               {...register("content")}
               maxLength={500}
               placeholder="Escribe algo..."
-              disabled={loading} // ⭐ bloquea inputs
+              disabled={loading}
             />
             {errors.content && <span className="error">{errors.content.message}</span>}
           </div>
@@ -161,7 +161,7 @@ export default function CreatePost() {
               type="text"
               {...register("location")}
               placeholder="Ej: Madrid, España"
-              disabled={loading} // ⭐
+              disabled={loading}
             />
             {errors.location && <span className="error">{errors.location.message}</span>}
           </div>
@@ -178,7 +178,7 @@ export default function CreatePost() {
                   <select
                     className="sport-select"
                     {...register("sport")}
-                    disabled={loading} // ⭐
+                    disabled={loading}
                   >
                     <option value="">Selecciona un deporte</option>
                     {sports.map((sport) => (
@@ -203,7 +203,7 @@ export default function CreatePost() {
               type="file"
               accept="image/*,video/mp4"
               {...register("file")}
-              disabled={isEditing || loading} // ⭐ bloquea mientras carga
+              disabled={isEditing || loading}
             />
 
             {isEditing && editingPost?.media && (

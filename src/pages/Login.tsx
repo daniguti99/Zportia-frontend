@@ -26,7 +26,7 @@ export default function Login() {
   });
 
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
-    if (loading) return; // evita doble click
+    if (loading) return;
     setLoading(true);
 
     try {

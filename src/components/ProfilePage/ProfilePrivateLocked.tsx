@@ -46,7 +46,7 @@ export default function ProfilePrivateLocked({ user, isOwnProfile }: ProfilePriv
         <p>Envía una solicitud para ver sus publicaciones</p>
       </div>
 
-      {/* 🔥 Solo mostrar si NO es mi perfil */}
+      {/* Solo mostrar si NO es mi perfil */}
       {!isOwnProfile && (
         <div className="profile-actions">
           <button

@@ -1,6 +1,3 @@
-/* ============================
-   PALETTE DARK
-   ============================ */
 :root {
   --bg-primary: #000000;
   --bg-secondary: #0a0a0a;
@@ -12,7 +9,6 @@
   --accent-tertiary: #7c3aed;
 }
 
-/* GRID DE POSTS - DARK MODE */
 .posts-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -33,7 +29,6 @@
   }
 }
 
-/* ITEM DEL POST - DARK MODE */
 .post-item {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -82,7 +77,6 @@
   transform: translateY(-2px);
 }
 
-/* MENSAJE - DARK MODE */
 .no-posts {
   text-align: center;
   padding: 60px 20px;

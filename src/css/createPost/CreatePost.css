@@ -1,4 +1,4 @@
-/* === CONTENEDOR GENERAL === */
+/* CONTENEDOR GENERAL */
 .create-post-page {
   min-height: 100vh;
   display: flex;
@@ -9,7 +9,7 @@
   background: #0d0d0d;
 }
 
-/* === FORMULARIO === */
+/* FORMULARIO */
 .create-post-container {
   width: 90%;
   max-width: 750px;
@@ -20,7 +20,7 @@
   backdrop-filter: blur(6px);
 }
 
-/* === TÍTULO === */
+/* TÍTULO */
 .create-post-title {
   text-align: center;
   color: white;
@@ -29,21 +29,21 @@
   font-weight: 600;
 }
 
-/* === FORM GROUP === */
+/* FORM GROUP */
 .create-post-form .form-group {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
 
-/* === LABELS === */
+/* LABELS */
 .create-post-form label {
   color: #ccc;
   margin-bottom: 8px;
   font-size: 1.1rem;
 }
 
-/* === INPUTS Y TEXTAREA === */
+/* INPUTS Y TEXTAREA */
 .create-post-form input,
 .create-post-form textarea {
   background: #111;
@@ -61,13 +61,13 @@
   box-shadow: 0 0 10px rgba(255, 0, 110, 0.4);
 }
 
-/* === TEXTAREA MÁS ALTO === */
+
 .create-post-form textarea {
   min-height: 140px;
   resize: vertical;
 }
 
-/* === PREVIEW DE IMAGEN === */
+/*PREVIEW DE IMAGEN */
 .preview-image {
   width: 100%;
   border-radius: 14px;
@@ -75,7 +75,7 @@
   box-shadow: 0 0 20px rgba(0, 153, 255, 0.25);
 }
 
-/* === ERRORES === */
+/* ERRORES*/
 .error {
   color: #ff6b6b;
   font-size: 14px;

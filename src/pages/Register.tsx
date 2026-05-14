@@ -22,7 +22,7 @@ export default function Register() {
   const [selectedSports, setSelectedSports] = useState<number[]>([]);
   const [isSportsModalOpen, setIsSportsModalOpen] = useState(false);
 
-  const [loading, setLoading] = useState(false); // ⭐ loading añadido
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getAllSports().then((res) => setSports(res.sports));
@@ -47,7 +47,7 @@ export default function Register() {
   }
 
   async function onSubmit(data: RegisterForm) {
-    if (loading) return; // evita doble click
+    if (loading) return;
     setLoading(true);
     setBackendError("");
 

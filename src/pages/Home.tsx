@@ -49,7 +49,7 @@ export default function LandingPage() {
   }
 
 
-  // Si NO está autenticado → mostrar la landing pública
+  // Si NO está autenticado, mostrar la landing pública
   return (
     <div className="landing-container">
       <div className="landing-background"></div>

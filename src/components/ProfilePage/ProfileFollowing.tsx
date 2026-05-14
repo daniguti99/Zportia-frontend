@@ -28,7 +28,6 @@ export default function ProfileFollowing({
 
       <ProfileHeader user={user} isOwnProfile={isOwnProfile} />
 
-      {/* 🔥 BLOQUE DE BOTONES SOLO SI ES MI PERFIL */}
       {isOwnProfile && (
         <div className="profile-actions">
           <Link to="/edit-profile?mode=profile" className="profile-action-btn">

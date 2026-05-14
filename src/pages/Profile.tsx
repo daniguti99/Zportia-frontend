@@ -36,9 +36,7 @@ export default function ProfilePage() {
   const [selectedPost, setSelectedPost] = useState<PostResponse | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  // ============================
   // CARGAR PERFIL
-  // ============================
   useEffect(() => {
     async function loadProfile() {
       setLoading(true);
@@ -72,9 +70,7 @@ export default function ProfilePage() {
     loadProfile();
   }, [id, currentUser?.id]);
 
-  // ============================
   // CARGAR POSTS
-  // ============================
   useEffect(() => {
     async function loadPosts() {
       if (!id || isNaN(Number(id))) return;
@@ -94,9 +90,8 @@ export default function ProfilePage() {
     loadPosts();
   }, [id]);
 
-  // ============================
+
   // CARGAR POST SELECCIONADO
-  // ============================
   useEffect(() => {
     async function loadPost() {
       if (!selectedPostId) return;
@@ -131,18 +126,15 @@ export default function ProfilePage() {
     );
   }
 
-  // ============================
+
   // LÓGICA SOCIAL
-  // ============================
   const isOwnProfile = currentUser && profile.id === currentUser.id;
   const blockedMe = profile.blockedMe;
   const blockedByMe = profile.blockedByMe;
   const isPrivate = profile.isPrivate;
   const followedByMe = profile.followedByMe;
 
-  // ============================
   // A) MI PERFIL
-  // ============================
   if (isOwnProfile) {
     return (
       <>
@@ -170,9 +162,7 @@ export default function ProfilePage() {
     );
   }
 
-  // ============================
   // B) ÉL ME BLOQUEÓ
-  // ============================
   if (blockedMe) {
     return (
       <BlockedByUserPage
@@ -182,9 +172,8 @@ export default function ProfilePage() {
     );
   }
 
-  // ============================
+
   // C) YO LO BLOQUEÉ → permitir desbloquear
-  // ============================
   if (blockedByMe) {
     return (
       <BlockedByMePage
@@ -195,9 +184,8 @@ export default function ProfilePage() {
     );
   }
 
-  // ============================
+
   // D) PRIVADO Y NO LO SIGO
-  // ============================
   if (isPrivate && !followedByMe) {
     return (
       <>
@@ -224,9 +212,7 @@ export default function ProfilePage() {
     );
   }
 
-  // ============================
   // E) PERFIL NORMAL (público o seguido)
-  // ============================
   return (
     <>
       <ProfileFollowing

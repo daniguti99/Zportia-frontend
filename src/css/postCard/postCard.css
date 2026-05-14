@@ -1,6 +1,3 @@
-/* ============================
-   POST CARD - DARK PREMIUM GLASSMORPHISM
-   ============================ */
 :root {
   --bg-primary: #000000;
   --bg-secondary: #0a0a0a;
@@ -45,9 +42,6 @@
   border-color: rgba(255, 0, 110, 0.3);
 }
 
-/* ============================
-   HEADER - DARK
-   ============================ */
 .post-header {
   display: flex;
   align-items: center;
@@ -95,9 +89,6 @@
   color: #c0c0c0;
 }
 
-/* ============================
-   CONTENIDO - DARK
-   ============================ */
 .post-content {
   font-size: 1rem;
   color: #c0c0c0;
@@ -112,9 +103,6 @@
   color: #ffffff;
 }
 
-/* ============================
-   MEDIA (ZOOM SUAVE)
-   ============================ */
 .post-media {
   width: 100%;
   border-radius: 16px;
@@ -129,9 +117,6 @@
   box-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
 }
 
-/* ============================
-   UBICACIÓN - DARK
-   ============================ */
 .post-location {
   font-size: 0.85rem;
   color: #a0a0a0;
@@ -143,9 +128,6 @@
   color: #c0c0c0;
 }
 
-/* ============================
-   FOOTER PREMIUM INTERACTIVO - DARK
-   ============================ */
 .post-footer {
   display: flex;
   justify-content: space-around;
@@ -166,7 +148,6 @@
   background: rgba(255, 255, 255, 0.02);
 }
 
-/* Hover tipo app moderna */
 .post-footer span:hover {
   background: rgba(255, 0, 110, 0.15);
   border-color: rgba(255, 0, 110, 0.3);
@@ -175,7 +156,6 @@
   box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
 }
 
-/* LIKE ANIMADO PREMIUM */
 .liked {
   color: #ff006e;
   animation: likePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -187,9 +167,6 @@
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* ============================
-   POPUP OVERLAY - DARK PREMIUM
-   ============================ */
 .comments-popup,
 .likes-popup {
   position: fixed;
@@ -210,9 +187,6 @@
   animation: darkFadeIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ============================
-   CAJA DEL POPUP - GLASSMORPHISM
-   ============================ */
 .comments-box,
 .likes-box {
   background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.9));
@@ -254,9 +228,6 @@
   box-shadow: 0 0 30px rgba(255, 0, 110, 0.8);
 }
 
-/* ============================
-   BOTÓN DE CERRAR - PREMIUM
-   ============================ */
 .close-btn {
   position: absolute;
   top: 14px;
@@ -284,9 +255,6 @@
   box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
 }
 
-/* ============================
-   TÍTULO - GRADIENT PREMIUM
-   ============================ */
 .comments-box h3,
 .likes-box h3 {
   margin-bottom: 24px;
@@ -307,9 +275,6 @@
   100% { background-position: 0% 50%; }
 }
 
-/* ============================
-   ITEMS - DARK MODE PREMIUM
-   ============================ */
 .comment-item,
 .like-item {
   display: flex;
@@ -396,9 +361,6 @@
   }
 }
 
-/* ============================
-   AÑADIR COMENTARIO - PREMIUM
-   ============================ */
 .add-comment-btn {
   margin-top: 18px;
   padding: 12px 24px;
@@ -644,10 +606,6 @@
   z-index: 9999 !important;
 }
 
-/* ============================
-   RESPONSIVE - TABLET
-   ============================ */
-
 @media (max-width: 1024px) {
 
   .post-card {
@@ -711,10 +669,6 @@
     height: 44px;
   }
 }
-
-/* ============================
-   RESPONSIVE - MOBILE
-   ============================ */
 
 @media (max-width: 768px) {
 
@@ -869,10 +823,6 @@
   }
 }
 
-/* ============================
-   RESPONSIVE - SMALL MOBILE
-   ============================ */
-
 @media (max-width: 480px) {
 
   .post-card {
@@ -940,10 +890,6 @@
   }
 }
 
-/* ============================
-   ANIMACIÓN MOBILE POPUP
-   ============================ */
-
 @keyframes darkSlideMobile {
   from {
     transform: translateY(100%);
@@ -982,19 +928,19 @@
 
 .post-media {
   width: 100%;
-  max-height: 550px; /* Ajusta a tu gusto */
+  max-height: 550px;
   object-fit: cover;
   border-radius: 16px;
   margin-bottom: 18px;
   border: 1px solid rgba(255, 0, 110, 0.2);
   display: block;
-  background: #000; /* Fondo negro elegante */
+  background: #000;
 }
 
 /* Contenedor para vídeos */
 .video-wrapper {
   width: 100%;
-  max-height: 550px; /* Ajusta a tu gusto */
+  max-height: 550px;
   overflow: hidden;
   border-radius: 16px;
   border: 1px solid rgba(255, 0, 110, 0.2);
@@ -1008,7 +954,7 @@
 .video-wrapper video {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Evita que se vea gigante */
+  object-fit: cover;
   border-radius: 16px;
 }
 

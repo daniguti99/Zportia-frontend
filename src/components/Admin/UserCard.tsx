@@ -18,10 +18,8 @@ interface UserCardProps {
 
 export default function UserCard({ user, onUpdate }: UserCardProps) {
 
-  // ============================
-  //   MÉTODOS INDIVIDUALES
-  // ============================
 
+  //   MÉTODOS INDIVIDUALES
   async function handleDelete() {
     const ok = await Swal.fire({
       title: "¿Eliminar usuario?",
@@ -122,9 +120,7 @@ export default function UserCard({ user, onUpdate }: UserCardProps) {
     onUpdate(updated);
   }
 
-  // ============================
   //   ESTADOS
-  // ============================
 
   const isActive = user.status === "ACTIVO";
   const isBlocked = user.status === "BLOQUEADO";

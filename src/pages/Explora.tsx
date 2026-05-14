@@ -75,7 +75,6 @@ export default function Explore() {
     }
   }
 
-  // 🔥 Filtrar por deporte
   useEffect(() => {
     if (!selectedSport) {
       setFilteredPosts(posts);

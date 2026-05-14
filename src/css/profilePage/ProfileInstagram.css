@@ -1,7 +1,3 @@
-/* ============================
-   INSTAGRAM PROFILE - DARK MODE
-   ============================ */
-
 :root {
   --bg-primary: #000000;
   --bg-secondary: #0a0a0a;
@@ -14,9 +10,6 @@
   --accent-tertiary: #7c3aed;
 }
 
-/* ============================
-   FONDO GLOBAL
-   ============================ */
 html {
   background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #1a1a1a 100%);
   min-height: 100vh;
@@ -27,9 +20,6 @@ body {
   color: var(--text-primary);
 }
 
-/* ============================
-   CONTENEDOR PRINCIPAL DEL PERFIL
-   ============================ */
 .profile-container {
   width: 100%;
   max-width: 935px;
@@ -52,9 +42,6 @@ body {
   }
 }
 
-/* ============================
-   SECCIÓN SUPERIOR (HEADER INSTAGRAM)
-   ============================ */
 .profile-header-section {
   display: flex;
   align-items: flex-start;
@@ -64,7 +51,6 @@ body {
   margin-bottom: 40px;
 }
 
-/* AVATAR GRANDE */
 .profile-avatar-wrapper {
   flex-shrink: 0;
 }
@@ -321,9 +307,6 @@ body {
   margin: 4px 0;
 }
 
-/* ============================
-   POSTS GRID - INSTAGRAM STYLE
-   ============================ */
 .posts-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -425,10 +408,6 @@ body {
   font-weight: 600;
   font-size: 18px;
 }
-
-/* ============================
-   RESPONSIVE
-   ============================ */
 
 @media (max-width: 1024px) {
   .profile-header-section {

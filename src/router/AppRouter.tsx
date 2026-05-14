@@ -76,7 +76,7 @@ export default function AppRouter() {
             }
           />
 
-          {/* 🔥 RUTAS ADMIN */}
+          {/* RUTAS ADMIN */}
 
           <Route
             path="admin"

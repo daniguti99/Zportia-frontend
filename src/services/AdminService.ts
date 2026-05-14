@@ -23,7 +23,7 @@ export async function getUserDetailsAdmin(query: string): Promise<UserDetailsAdm
     throw new Error("No se pudieron obtener los detalles del usuario");
   }
 
-  return await response.json(); // devuelve UserDetailsAdminDTO
+  return await response.json();
 }
 
 export async function adminAction(endpoint: string): Promise<void> {
@@ -161,7 +161,7 @@ export async function createSportAdmin(name: string) {
     throw new Error("Error al crear el deporte");
   }
 
-  return await response.json(); // SportResponse
+  return await response.json();
 }
 
 export async function deleteSportAdmin(id: number) {

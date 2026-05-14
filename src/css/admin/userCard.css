@@ -1,6 +1,4 @@
-/* ============================
-   CONTENEDOR GENERAL
-   ============================ */
+/*CONTENEDOR GENERAL*/
 .admin-page-container {
   display: flex;
   justify-content: center;
@@ -9,9 +7,7 @@
   width: 100%;
 }
 
-/* ============================
-   TARJETA ADMIN - CONTENEDOR
-   ============================ */
+/*TARJETA ADMIN - CONTENEDOR*/
 .admin-user-card {
   margin: 0 auto;
   background: #111;
@@ -26,9 +22,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
-/* ============================
-   HEADER (MÁS GRANDE)
-   ============================ */
+/* HEADER (MÁS GRANDE)*/
 .admin-user-header {
   display: flex;
   align-items: center;
@@ -65,9 +59,7 @@
   color: #888;
 }
 
-/* ============================
-   STATUS + ROLE + LEVEL + PRIVACY
-   ============================ */
+/* STATUS + ROLE + LEVEL + PRIVACY*/
 .admin-user-status-section {
   display: flex;
   flex-wrap: wrap;
@@ -87,9 +79,7 @@
   color: #fff;
 }
 
-/* ============================
-   EXTRA INFO (MÁS GRANDE)
-   ============================ */
+/*EXTRA INFO (MÁS GRANDE)*/
 .admin-user-extra {
   padding: 14px 16px;
   background: rgba(255, 255, 255, 0.05);
@@ -99,9 +89,7 @@
   color: #ddd;
 }
 
-/* ============================
-   BOTONES DE ACCIÓN
-   ============================ */
+/* BOTONES DE ACCIÓN*/
 .admin-user-actions {
   display: flex;
   justify-content: center;
@@ -135,9 +123,7 @@
   filter: brightness(1.1);
 }
 
-/* ============================
-   CONTENEDOR DE INPUT + TARJETA
-   ============================ */
+/*CONTENEDOR DE INPUT + TARJETA*/
 .admin-users-wrapper {
   width: 100%;
   min-height: 100vh;
