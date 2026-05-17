@@ -13,7 +13,7 @@ import {
 import { ZportiaContext } from "../context/ZportiaContext";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import { openReportModal } from "./OpenReportModal";
+//import { openReportModal } from "./OpenReportModal";
 
 export default function PostCard({ post, currentUser }: { post: PostResponse; currentUser: User | null }) {
 
