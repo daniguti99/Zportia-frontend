@@ -273,7 +273,7 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
           </div>
         )}
 
-        {post.userId !== currentUserId && (
+        {/*{post.userId !== currentUserId && (
           <div className="post-actions">
             <span
               className="report-post-btn"
@@ -286,7 +286,7 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
               ⚠️
             </span>
           </div>
-        )}
+        )} */}
 
         <div className="post-header">
           <img src={post.userPhoto} alt={post.username} className="post-avatar" />
@@ -394,14 +394,14 @@ export default function PostCard({ post, currentUser }: { post: PostResponse; cu
                         </span>
                       )}
 
-                      {c.userId !== currentUserId && (
+                      {/*{c.userId !== currentUserId && (
                         <span
                           className="report-comment-btn"
                           onClick={() => openReportModal(c.id, "COMMENT")}
                         >
                           ⚠️
                         </span>
-                      )}
+                      )} */}
                     </div>
                   ))
                 ) : (
